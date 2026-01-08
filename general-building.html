@@ -5,22 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>General Building | Bryant Construction Group</title>
-  <meta name="description"
-        content="General building services in Bournemouth, Poole & Christchurch. Reliable workmanship, clear pricing, and fast response." />
+  <meta name="description" content="General building services across Bournemouth, Poole & Christchurch. Reliable workmanship, clear pricing, fast response." />
+  <meta name="theme-color" content="#0B2A4A" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
 
     <div class="brand">
-      <a href="/" class="brand-link">
-        <img src="assets/logo.png"
-             alt="Bryant Construction Group"
-             class="logo" />
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
       </a>
     </div>
 
@@ -36,64 +33,87 @@
 
 <main>
 
-<section class="section">
-  <div class="container">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1>General Building</h1>
+        <p class="lead">
+          Reliable general building work carried out properly —
+          serving <strong>Bournemouth, Poole & Christchurch</strong>.
+        </p>
 
-    <div class="section-head">
-      <h1>General Building</h1>
-      <p>
-        Professional general building services across
-        <strong>Bournemouth, Poole & Christchurch</strong>.
-      </p>
+        <ul class="trust">
+          <li>✅ Clear quotes</li>
+          <li>✅ Quality workmanship</li>
+          <li>✅ Local & reliable</li>
+        </ul>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="tel:01202013928">
+            Call 01202 013928
+          </a>
+          <a class="btn btn-ghost" href="index.html">
+            Back to Home
+          </a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="grid">
+  <!-- CONTENT -->
+  <section class="section">
+    <div class="container">
 
-      <div class="tile">
-        <h3>Small Builds & Alterations</h3>
-        <p>Extensions, internal changes, and structural improvements.</p>
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p>Practical building solutions, finished properly.</p>
       </div>
 
-      <div class="tile">
-        <h3>Brickwork & Blockwork</h3>
-        <p>Repairs, walls, structural work, and clean finishes.</p>
+      <div class="grid">
+        <div class="tile">
+          <h3>Structural & Small Builds</h3>
+          <p>Walls, openings, alterations, and small structural works.</p>
+        </div>
+
+        <div class="tile">
+          <h3>Home Improvements</h3>
+          <p>Upgrades and improvements that add value and function.</p>
+        </div>
+
+        <div class="tile">
+          <h3>Repairs & Alterations</h3>
+          <p>Fixes, changes, and corrections done properly first time.</p>
+        </div>
       </div>
 
-      <div class="tile">
-        <h3>Property Improvements</h3>
-        <p>Upgrades that add value and improve day-to-day living.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt">
+    <div class="container split">
+
+      <div>
+        <h2>Get a free quote</h2>
+        <p>
+          Tell us what you need and we’ll give you clear, honest advice
+          and a straightforward quote.
+        </p>
+      </div>
+
+      <div class="callout">
+        <h3>Call now</h3>
+        <p class="big">
+          <a href="tel:01202013928">01202 013928</a>
+        </p>
+        <p class="small">
+          Or head back and use the quote form.
+        </p>
       </div>
 
     </div>
-
-  </div>
-</section>
-
-<section class="section section-alt">
-  <div class="container split">
-
-    <div>
-      <h2>Why choose us?</h2>
-      <ul class="trust">
-        <li>✅ Clear quotes</li>
-        <li>✅ Reliable workmanship</li>
-        <li>✅ Local & trusted</li>
-      </ul>
-    </div>
-
-    <div class="callout">
-      <h3>Get a free quote</h3>
-      <p class="big">
-        <a href="tel:01202013928">01202 013928</a>
-      </p>
-      <a class="btn btn-primary btn-full"
-         href="index.html#quote">
-        Request a Quote
-      </a>
-    </div>
-
-  </div>
-</section>
+  </section>
 
 </main>
 
@@ -103,11 +123,20 @@
       <strong>Bryant Construction Group</strong><br />
       Bournemouth • Poole • Christchurch
     </div>
+
     <div class="footer-links">
       <a href="tel:01202013928">01202 013928</a>
     </div>
   </div>
+
+  <div class="container footer-bottom">
+    <small>© <span id="year"></span> Bryant Construction Group</small>
+  </div>
 </footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
