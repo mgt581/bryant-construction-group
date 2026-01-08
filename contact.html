@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get a Quote | Bryant Construction Group</title>
+
+  <meta name="description" content="Request a quick quote from Bryant Construction Group. Upload photos and get a fast response." />
+  <meta name="theme-color" content="#0B2A4A" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
+      </a>
+    </div>
+    <div class="header-cta">
+      <a class="btn btn-primary" href="tel:01202013928">Call 01202 013928</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container" style="max-width:700px">
+
+      <div class="section-head">
+        <h1>Get a Quick Quote</h1>
+        <p>Send us the details and photos of your job — we’ll get back to you fast.</p>
+      </div>
+
+      <div class="card">
+
+        <form
+          action="https://formspree.io/f/xykzrqly"
+          method="POST"
+          enctype="multipart/form-data"
+          class="form"
+        >
+
+          <label>
+            Your Name
+            <input type="text" name="name" placeholder="Full name" required>
+          </label>
+
+          <label>
+            Phone Number
+            <input type="tel" name="phone" placeholder="e.g. 07700 900123" required>
+          </label>
+
+          <label>
+            Email Address
+            <input type="email" name="email" placeholder="you@email.com" required>
+          </label>
+
+          <label>
+            Job Description
+            <textarea name="message" rows="5" placeholder="Tell us what you need doing…" required></textarea>
+          </label>
+
+          <label>
+            Upload Photos (up to 3)
+            <input type="file" name="attachments" accept="image/*" multiple>
+          </label>
+
+          <!-- Optional hidden field so you know where it came from -->
+          <input type="hidden" name="source" value="Website Quote Form">
+
+          <button type="submit" class="btn btn-primary btn-full">
+            Send Quote Request
+          </button>
+
+          <p class="form-note">
+            We’ll only use your details to respond to your enquiry.
+          </p>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>Bryant Construction Group</strong><br>
+      Bournemouth • Poole • Christchurch
+    </div>
+    <div class="footer-links">
+      <a href="tel:01202013928">01202 013928</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
