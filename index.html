@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bryant Construction Group | Bournemouth, Poole & Christchurch</title>
+  <meta name="description" content="Bryant Construction Group provides reliable building, repairs, and property maintenance across Bournemouth, Poole & Christchurch. Call for a free quote." />
+  <meta name="theme-color" content="#0B2A4A" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Bryant Construction Group" />
+  <meta property="og:description" content="Building, Repairs & Property Maintenance | Bournemouth, Poole & Christchurch" />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <!-- Replace src with your logo file later if you add it -->
+        <div class="brand-mark" aria-hidden="true">BCG</div>
+        <div class="brand-text">
+          <div class="brand-name">Bryant Construction Group</div>
+          <div class="brand-tag">Construction • Repairs • Maintenance</div>
+        </div>
+      </div>
+
+      <div class="header-cta">
+        <!-- TODO: Replace with your real phone + landline once ready -->
+        <a class="btn btn-ghost" href="#quote">Get a Quote</a>
+        <a class="btn btn-primary" href="tel:+441202000000">Call 01202 000000</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>Reliable building work done properly.</h1>
+          <p class="lead">
+            Multi-trade jobs, small repairs, and property maintenance across
+            <strong>Bournemouth, Poole & Christchurch</strong>.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="tel:+441202000000">Call 01202 000000</a>
+            <a class="btn btn-ghost" href="#services">View Services</a>
+          </div>
+
+          <ul class="trust">
+            <li>✅ Fast response</li>
+            <li>✅ Clear quotes</li>
+            <li>✅ Quality workmanship</li>
+          </ul>
+        </div>
+
+        <div class="hero-card">
+          <div class="card">
+            <h2 class="card-title">Free quote in minutes</h2>
+            <p class="card-sub">Send a quick request — we’ll get back to you ASAP.</p>
+
+            <form id="quoteForm" class="form" novalidate>
+              <label>
+                Name
+                <input name="name" type="text" placeholder="Your name" required />
+              </label>
+
+              <label>
+                Phone
+                <input name="phone" type="tel" placeholder="Your number" required />
+              </label>
+
+              <label>
+                Service
+                <select name="service" required>
+                  <option value="">Select a service</option>
+                  <option>General Building</option>
+                  <option>Repairs & Maintenance</option>
+                  <option>Kitchen & Bathroom</option>
+                  <option>Carpentry & Joinery</option>
+                  <option>Painting & Decorating</option>
+                  <option>Plastering</option>
+                  <option>Flooring</option>
+                  <option>Other</option>
+                </select>
+              </label>
+
+              <label>
+                Message
+                <textarea name="message" rows="4" placeholder="Tell us what you need…" required></textarea>
+              </label>
+
+              <!-- This is a "mailto" fallback for a free static site. You can upgrade later to a form service. -->
+              <button class="btn btn-primary btn-full" type="submit">Request Quote</button>
+
+              <p class="form-note">
+                By submitting, you agree we can contact you about your enquiry.
+              </p>
+            </form>
+
+            <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Services</h2>
+          <p>Focused, reliable work — no drama, no disappearing acts.</p>
+        </div>
+
+        <div class="grid">
+          <div class="tile">
+            <h3>General Building</h3>
+            <p>Small builds, improvements, and practical solutions that last.</p>
+          </div>
+          <div class="tile">
+            <h3>Repairs & Maintenance</h3>
+            <p>Doors, skirting, patch repairs, snagging, and property upkeep.</p>
+          </div>
+          <div class="tile">
+            <h3>Kitchens & Bathrooms</h3>
+            <p>Fit-outs, upgrades, and tidy finishing touches.</p>
+          </div>
+          <div class="tile">
+            <h3>Carpentry & Joinery</h3>
+            <p>Fitting, framing, bespoke bits, and clean installs.</p>
+          </div>
+          <div class="tile">
+            <h3>Decorating</h3>
+            <p>Prep done properly. Neat lines. Proper coverage.</p>
+          </div>
+          <div class="tile">
+            <h3>Plastering & Finishing</h3>
+            <p>Skimming, repairs, and smooth finishes ready for paint.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="split">
+          <div>
+            <h2>Local coverage</h2>
+            <p>
+              We cover Bournemouth, Poole, Christchurch and surrounding areas.
+              If you’re nearby, ask — chances are we can help.
+            </p>
+            <p class="small">
+              Tip: Once your Google Business Profile is live, this page + your GBP will start working together.
+            </p>
+          </div>
+          <div class="callout">
+            <h3>Call now</h3>
+            <p class="big"><a href="tel:+441202000000">01202 000000</a></p>
+            <p class="small">Or use the quote form — we’ll reply quickly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quote" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Get a quote</h2>
+          <p>Fast response. Clear pricing. Proper workmanship.</p>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="tel:+441202000000">Call 01202 000000</a>
+          <a class="btn btn-ghost" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Bryant Construction Group</strong><br />
+        Bournemouth • Poole • Christchurch
+      </div>
+      <div class="footer-links">
+        <a href="mailto:alex@bryantgroupholdings.co.uk">alex@bryantgroupholdings.co.uk</a>
+        <span class="dot">•</span>
+        <a href="tel:+441202000000">01202 000000</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <small>© <span id="year"></span> Bryant Group Holdings. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
