@@ -20,23 +20,49 @@
 
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="container header-inner">
 
     <!-- LOGO -->
     <div class="brand">
-      <a href="/" class="brand-link">
-        <img
-          src="assets/logo.png"
-          alt="Bryant Construction Group"
-          class="logo"
-        />
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
       </a>
     </div>
 
-    <!-- CTA -->
+    <!-- NAV -->
+    <nav class="main-nav">
+
+      <a href="index.html">Home</a>
+
+      <div class="dropdown">
+        <a href="services.html" class="dropbtn-link">
+          Our Services
+        </a>
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">
+          ▼
+        </button>
+
+        <div class="dropdown-content">
+          <a href="repairs-maintenance.html">Repairs & Maintenance</a>
+          <a href="carpentry-joinery.html">Carpentry & Joinery</a>
+          <a href="decorating.html">Decorating</a>
+          <a href="plastering-finishing.html">Plastering & Finishing</a>
+          <a href="quality-workmanship.html">Quality Workmanship</a>
+        </div>
+      </div>
+
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+
+    </nav>
+
+    <!-- HEADER CTA -->
     <div class="header-cta">
-      <a class="btn btn-ghost" href="#quote">Get a Quote</a>
+      <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
       <a class="btn btn-primary" href="tel:+441202013928">
         Call 01202 013928
       </a>
@@ -47,12 +73,12 @@
 
 <main>
 
-  <!-- HERO -->
+  <!-- ================= HERO ================= -->
   <section class="hero">
     <div class="container hero-grid">
 
       <div class="hero-copy">
-        <h1>Reliable building work done properly.</h1> 
+        <h1>Reliable building work done properly.</h1>
 
         <p class="lead">
           Multi-trade jobs, small repairs, and property maintenance across
@@ -60,29 +86,42 @@
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="tel:+441202013928">
-            Call 01202 013928
-          </a>
-          <a class="btn btn-ghost" href="#services">
-            View Services
+          <a class="btn btn-primary" href="contact.html">Get Quote Now</a>
+          <a class="btn btn-secondary" href="contact.html">Clear Quotes</a>
+          <a class="btn btn-whatsapp"
+             href="https://wa.me/447843969254"
+             target="_blank" rel="noopener">
+            Fast Response
           </a>
         </div>
 
         <ul class="trust">
-          <li>✅ Fast response</li>
-          <li>✅ Clear quotes</li>
-          <li>✅ Quality workmanship</li>
+          <li>
+            <a class="btn btn-link"
+               href="https://wa.me/447843969254"
+               target="_blank" rel="noopener">
+              ✅ Fast response
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-link" href="contact.html">
+              ✅ Clear quotes
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-link" href="quality-workmanship.html">
+              ✅ Quality workmanship
+            </a>
+          </li>
         </ul>
       </div>
 
-      <!-- HERO FORM -->
+      <!-- ================= HERO FORM ================= -->
       <div class="hero-card">
         <div class="card">
 
           <h2 class="card-title">Free quote in minutes</h2>
-          <p class="card-sub">
-            Send a quick request — we’ll get back to you ASAP.
-          </p>
+          <p class="card-sub">Send a quick request — we’ll get back to you ASAP.</p>
 
           <form id="quoteForm" class="form" novalidate>
 
@@ -132,7 +171,7 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- ================= SERVICES ================= -->
   <section id="services" class="section">
     <div class="container">
 
@@ -141,42 +180,54 @@
         <p>Focused, reliable work — no drama, no disappearing acts.</p>
       </div>
 
-     <div class="grid">
-  <div class="tile">
-    <h3>General Building</h3>
-    <p>Small builds, improvements, and practical solutions that last.</p>
+      <div class="grid">
 
-    <a href="general-building.html"
-       class="btn btn-primary btn-full">
-      Click here for General Building
-    </a>
-  </div>
-</div>        <div class="tile">
+        <div class="tile">
+          <h3>General Building</h3>
+          <p>Small builds, improvements, and practical solutions that last.</p>
+          <a href="general-building.html" class="btn btn-primary btn-full">
+            View General Building
+          </a>
+        </div>
+
+        <div class="tile">
           <h3>Repairs & Maintenance</h3>
           <p>Doors, skirting, patch repairs, snagging, and property upkeep.</p>
+          <a href="repairs-maintenance.html" class="btn btn-primary btn-full">
+            View Repairs & Maintenance
+          </a>
         </div>
-        <div class="tile">
-          <h3>Kitchens & Bathrooms</h3>
-          <p>Fit-outs, upgrades, and tidy finishing touches.</p>
-        </div>
+
         <div class="tile">
           <h3>Carpentry & Joinery</h3>
           <p>Fitting, framing, bespoke bits, and clean installs.</p>
+          <a href="carpentry-joinery.html" class="btn btn-primary btn-full">
+            View Carpentry & Joinery
+          </a>
         </div>
+
         <div class="tile">
           <h3>Decorating</h3>
           <p>Prep done properly. Neat lines. Proper coverage.</p>
+          <a href="decorating.html" class="btn btn-primary btn-full">
+            View Decorating
+          </a>
         </div>
+
         <div class="tile">
           <h3>Plastering & Finishing</h3>
           <p>Skimming, repairs, and smooth finishes ready for paint.</p>
+          <a href="plastering-finishing.html" class="btn btn-primary btn-full">
+            View Plastering & Finishing
+          </a>
         </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- LOCAL -->
+  <!-- ================= LOCAL ================= -->
   <section class="section section-alt">
     <div class="container split">
 
@@ -198,32 +249,28 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section id="quote" class="section">
-    <div class="container section-head">
-      <h2>Get a quote</h2>
-      <p>Fast response. Clear pricing. Proper workmanship.</p>
-
-      <div class="cta-row">
-        <a class="btn btn-primary" href="tel:+441202013928">
-          Call 01202 013928
-        </a>
-      </div>
-    </div>
-  </section>
-
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <div class="container footer-inner">
+
     <div>
       <strong>Bryant Construction Group</strong><br />
       Bournemouth • Poole • Christchurch
     </div>
 
+    <div class="footer-socials">
+      <a href="https://facebook.com/YOURPAGE" target="_blank">Facebook</a>
+      <a href="https://instagram.com/YOURPROFILE" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@YOURPROFILE" target="_blank">TikTok</a>
+    </div>
+
     <div>
+      <a href="mailto:info@yourdomain.co.uk">info@yourdomain.co.uk</a><br />
       <a href="tel:+441202013928">01202 013928</a>
     </div>
+
   </div>
 
   <div class="container footer-bottom">
