@@ -3,100 +3,214 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Get a Quote | Bryant Construction Group</title>
 
-  <meta name="description" content="Request a quick quote from Bryant Construction Group. Upload photos and get a fast response." />
+  <title>Contact Us | Bryant Construction Group</title>
+
+  <meta name="description" content="Contact Bryant Construction Group for building, repairs and property maintenance across Bournemouth, Poole & Christchurch." />
   <meta name="theme-color" content="#0B2A4A" />
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact Us | Bryant Construction Group" />
+  <meta property="og:description" content="Get in touch for quotes, enquiries and advice." />
+  <meta property="og:type" content="website" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="container header-inner">
+
+    <!-- LOGO -->
     <div class="brand">
-      <a href="index.html">
+      <a href="index.html" class="brand-link">
         <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
       </a>
     </div>
+
+    <!-- NAV -->
+    <nav class="main-nav">
+
+      <a href="index.html">Home</a>
+
+      <div class="dropdown">
+        <a href="services.html" class="dropbtn-link">
+          Our Services
+        </a>
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">
+          ▼
+        </button>
+
+        <div class="dropdown-content">
+          <a href="repairs-maintenance.html">Repairs & Maintenance</a>
+          <a href="carpentry-joinery.html">Carpentry & Joinery</a>
+          <a href="decorating.html">Decorating</a>
+          <a href="plastering-finishing.html">Plastering & Finishing</a>
+          <a href="quality-workmanship.html">Quality Workmanship</a>
+        </div>
+      </div>
+
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+
+    </nav>
+
+    <!-- HEADER CTA -->
     <div class="header-cta">
-      <a class="btn btn-primary" href="tel:01202013928">Call 01202 013928</a>
+      <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
+      <a class="btn btn-primary" href="tel:+441202013928">
+        Call 01202 013928
+      </a>
     </div>
+
   </div>
 </header>
 
 <main>
-  <section class="section">
-    <div class="container" style="max-width:700px">
 
-      <div class="section-head">
-        <h1>Get a Quick Quote</h1>
-        <p>Send us the details and photos of your job — we’ll get back to you fast.</p>
+  <!-- ================= PAGE HERO ================= -->
+  <section class="section">
+    <div class="container section-head">
+      <h1>Contact Us</h1>
+      <p>
+        Get in touch for quotes, enquiries, or advice.
+        We aim to respond quickly and clearly.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT CONTENT ================= -->
+  <section class="section">
+    <div class="container split">
+
+      <!-- CONTACT DETAILS -->
+      <div>
+        <h2>Contact details</h2>
+
+        <p>
+          <strong>Phone:</strong><br />
+          <a href="tel:+441202013928">01202 013928</a>
+        </p>
+
+        <p>
+          <strong>Email:</strong><br />
+          <a href="mailto:info@yourdomain.co.uk">info@yourdomain.co.uk</a>
+        </p>
+
+        <p>
+          <strong>WhatsApp:</strong><br />
+          <a href="https://wa.me/447843969254" target="_blank" rel="noopener">
+            07843 969254
+          </a>
+        </p>
+
+        <p>
+          <strong>Service area:</strong><br />
+          Bournemouth, Poole, Christchurch & surrounding areas
+        </p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="tel:+441202013928">
+            Call Now
+          </a>
+          <a class="btn btn-whatsapp"
+             href="https://wa.me/447843969254"
+             target="_blank" rel="noopener">
+            Message on WhatsApp
+          </a>
+        </div>
       </div>
 
-      <div class="card">
+      <!-- CONTACT FORM -->
+      <div>
+        <h2>Send an enquiry</h2>
 
-        <form
-          action="https://formspree.io/f/xykzrqly"
-          method="POST"
-          enctype="multipart/form-data"
-          class="form"
-        >
+        <form class="form" method="post" action="#" novalidate>
 
           <label>
-            Your Name
-            <input type="text" name="name" placeholder="Full name" required>
+            Name
+            <input type="text" name="name" placeholder="Your name" required />
           </label>
 
           <label>
-            Phone Number
-            <input type="tel" name="phone" placeholder="e.g. 07700 900123" required>
+            Phone
+            <input type="tel" name="phone" placeholder="Your phone number" required />
           </label>
 
           <label>
-            Email Address
-            <input type="email" name="email" placeholder="you@email.com" required>
+            Email
+            <input type="email" name="email" placeholder="Your email address" />
           </label>
 
           <label>
-            Job Description
-            <textarea name="message" rows="5" placeholder="Tell us what you need doing…" required></textarea>
+            Service
+            <select name="service">
+              <option value="">Select a service</option>
+              <option>General Building</option>
+              <option>Repairs & Maintenance</option>
+              <option>Carpentry & Joinery</option>
+              <option>Decorating</option>
+              <option>Plastering & Finishing</option>
+              <option>Other</option>
+            </select>
           </label>
 
           <label>
-            Upload Photos (up to 3)
-            <input type="file" name="attachments" accept="image/*" multiple>
+            Message
+            <textarea name="message" rows="5" placeholder="Tell us about your enquiry…" required></textarea>
           </label>
 
-          <!-- Optional hidden field so you know where it came from -->
-          <input type="hidden" name="source" value="Website Quote Form">
-
-          <button type="submit" class="btn btn-primary btn-full">
-            Send Quote Request
+          <button class="btn btn-primary btn-full" type="submit">
+            Send Enquiry
           </button>
 
           <p class="form-note">
-            We’ll only use your details to respond to your enquiry.
+            By submitting this form, you agree that we may contact you regarding your enquiry.
           </p>
 
         </form>
-
       </div>
+
     </div>
   </section>
+
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <div class="container footer-inner">
+
     <div>
-      <strong>Bryant Construction Group</strong><br>
+      <strong>Bryant Construction Group</strong><br />
       Bournemouth • Poole • Christchurch
     </div>
-    <div class="footer-links">
-      <a href="tel:01202013928">01202 013928</a>
+
+    <div class="footer-socials">
+      <a href="https://facebook.com/YOURPAGE" target="_blank">Facebook</a>
+      <a href="https://instagram.com/YOURPROFILE" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@YOURPROFILE" target="_blank">TikTok</a>
     </div>
+
+    <div>
+      <a href="mailto:info@yourdomain.co.uk">info@yourdomain.co.uk</a><br />
+      <a href="tel:+441202013928">01202 013928</a>
+    </div>
+
+  </div>
+
+  <div class="container footer-bottom">
+    <small>© <span id="year"></span> Bryant Construction Group</small>
   </div>
 </footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
