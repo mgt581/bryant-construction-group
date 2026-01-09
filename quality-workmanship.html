@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Quality Workmanship | Bryant Construction Group</title>
+
+  <meta name="description" content="View examples of our quality workmanship across building, repairs and property maintenance in Bournemouth, Poole & Christchurch." />
+  <meta name="theme-color" content="#0B2A4A" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Quality Workmanship | Bryant Construction Group" />
+  <meta property="og:description" content="A look at the standard of work we deliver across all projects." />
+  <meta property="og:type" content="website" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="container header-inner">
+
+    <!-- LOGO -->
+    <div class="brand">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
+      </a>
+    </div>
+
+    <!-- NAV -->
+    <nav class="main-nav">
+
+      <a href="index.html">Home</a>
+
+      <div class="dropdown">
+        <a href="services.html" class="dropbtn-link">
+          Our Services
+        </a>
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">
+          ▼
+        </button>
+
+        <div class="dropdown-content">
+          <a href="repairs-maintenance.html">Repairs & Maintenance</a>
+          <a href="carpentry-joinery.html">Carpentry & Joinery</a>
+          <a href="decorating.html">Decorating</a>
+          <a href="plastering-finishing.html">Plastering & Finishing</a>
+          <a href="quality-workmanship.html">Quality Workmanship</a>
+        </div>
+      </div>
+
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+
+    </nav>
+
+    <!-- HEADER CTA -->
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
+      <a class="btn btn-primary" href="tel:+441202013928">
+        Call 01202 013928
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="section">
+    <div class="container section-head">
+      <h1>Quality Workmanship</h1>
+      <p>
+        A selection of work completed across building, repairs, and
+        property maintenance. Solid work, clean finishes, and attention
+        to detail.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= INTRO ================= -->
+  <section class="section">
+    <div class="container split">
+
+      <div>
+        <h2>Our standard</h2>
+        <p>
+          Quality workmanship isn’t about flashy promises — it’s about
+          doing things properly, finishing cleanly, and leaving work
+          that lasts.
+        </p>
+
+        <ul>
+          <li>Careful preparation and planning</li>
+          <li>Accurate fitting and alignment</li>
+          <li>Clean finishes and tidy handover</li>
+          <li>Consistent standards across all jobs</li>
+          <li>Respect for your home or property</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>What you’ll see here</h2>
+        <p>
+          This gallery shows real work completed across different types
+          of projects. Photos will be added and updated regularly as
+          new jobs are completed.
+        </p>
+
+        <p>
+          From repairs and maintenance to finishing work, every job
+          shown here reflects the same level of care and attention.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-head">
+        <h2>Project gallery</h2>
+        <p>Examples of completed work. More images will be added over time.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- 
+          HOW TO ADD PHOTOS:
+          1. Upload images to /images/work/
+          2. Duplicate one of the blocks below
+          3. Change the src and alt text
+        -->
+
+        <img src="images/work/work-1.jpg" alt="Completed building work">
+        <img src="images/work/work-2.jpg" alt="Finished carpentry work">
+        <img src="images/work/work-3.jpg" alt="Plastering and finishing work">
+        <img src="images/work/work-4.jpg" alt="Decorating and final finishes">
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section">
+    <div class="container section-head">
+      <h2>Looking for work done properly?</h2>
+      <p>Get in touch to discuss your project or request a quote.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="contact.html">
+          Request a Quote
+        </a>
+        <a class="btn btn-whatsapp"
+           href="https://wa.me/447843969254"
+           target="_blank" rel="noopener">
+          Message on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+
+    <div>
+      <strong>Bryant Construction Group</strong><br />
+      Bournemouth • Poole • Christchurch
+    </div>
+
+    <div class="footer-socials">
+      <a href="https://facebook.com/YOURPAGE" target="_blank">Facebook</a>
+      <a href="https://instagram.com/YOURPROFILE" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@YOURPROFILE" target="_blank">TikTok</a>
+    </div>
+
+    <div>
+      <a href="mailto:info@yourdomain.co.uk">info@yourdomain.co.uk</a><br />
+      <a href="tel:+441202013928">01202 013928</a>
+    </div>
+
+  </div>
+
+  <div class="container footer-bottom">
+    <small>© <span id="year"></span> Bryant Construction Group</small>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
