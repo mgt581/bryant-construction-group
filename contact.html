@@ -6,13 +6,8 @@
 
   <title>Contact Us | Bryant Construction Group</title>
 
-  <meta name="description" content="Contact Bryant Construction Group for building, repairs and property maintenance across Bournemouth, Poole & Christchurch." />
+  <meta name="description" content="Contact Bryant Construction Group for building work, repairs and maintenance across Bournemouth, Poole & Christchurch." />
   <meta name="theme-color" content="#0B2A4A" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Contact Us | Bryant Construction Group" />
-  <meta property="og:description" content="Get in touch for quotes, enquiries and advice." />
-  <meta property="og:type" content="website" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
@@ -24,28 +19,18 @@
 <header class="site-header">
   <div class="container header-inner">
 
-    <!-- LOGO -->
     <div class="brand">
       <a href="index.html" class="brand-link">
         <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
       </a>
     </div>
 
-    <!-- NAV -->
     <nav class="main-nav">
-
       <a href="index.html">Home</a>
 
       <div class="dropdown">
-        <a href="services.html" class="dropbtn-link">
-          Our Services
-        </a>
-        <button class="dropbtn"
-                aria-haspopup="true"
-                aria-expanded="false">
-          ▼
-        </button>
-
+        <a href="services.html" class="dropbtn-link">Our Services</a>
+        <button class="dropbtn" aria-haspopup="true" aria-expanded="false">▼</button>
         <div class="dropdown-content">
           <a href="repairs-maintenance.html">Repairs & Maintenance</a>
           <a href="carpentry-joinery.html">Carpentry & Joinery</a>
@@ -55,17 +40,13 @@
         </div>
       </div>
 
-      <a href="contact.html">Contact Us</a>
+      <a href="contact.html" class="active">Contact Us</a>
       <a href="privacy.html">Privacy Policy</a>
-
     </nav>
 
-    <!-- HEADER CTA -->
     <div class="header-cta">
       <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
-      <a class="btn btn-primary" href="tel:+441202013928">
-        Call 01202 013928
-      </a>
+      <a class="btn btn-primary" href="tel:+441202013928">Call 01202 013928</a>
     </div>
 
   </div>
@@ -73,83 +54,59 @@
 
 <main>
 
-  <!-- ================= PAGE HERO ================= -->
-  <section class="section">
-    <div class="container section-head">
-      <h1>Contact Us</h1>
-      <p>
-        Get in touch for quotes, enquiries, or advice.
-        We aim to respond quickly and clearly.
-      </p>
-    </div>
-  </section>
+<!-- ================= CONTACT ================= -->
+<section class="section">
+  <div class="container">
 
-  <!-- ================= CONTACT CONTENT ================= -->
-  <section class="section">
-    <div class="container split">
+    <div class="section-head">
+      <h1>Contact Us</h1>
+      <p>Get in touch today for a quick response and clear pricing.</p>
+    </div>
+
+    <div class="split">
 
       <!-- CONTACT DETAILS -->
       <div>
-        <h2>Contact details</h2>
+        <h2>Speak to us</h2>
 
-        <p>
-          <strong>Phone:</strong><br />
+        <p><strong>Phone:</strong><br />
           <a href="tel:+441202013928">01202 013928</a>
         </p>
 
-        <p>
-          <strong>Email:</strong><br />
-          <a href="mailto:info@yourdomain.co.uk">info@yourdomain.co.uk</a>
-        </p>
-
-        <p>
-          <strong>WhatsApp:</strong><br />
-          <a href="https://wa.me/447843969254" target="_blank" rel="noopener">
-            07843 969254
+        <p><strong>Email:</strong><br />
+          <a href="mailto:alex@bryantgroupholdings.co.uk">
+            alex@bryantgroupholdings.co.uk
           </a>
         </p>
 
-        <p>
-          <strong>Service area:</strong><br />
-          Bournemouth, Poole, Christchurch & surrounding areas
-        </p>
-
-        <div class="cta-row">
-          <a class="btn btn-primary" href="tel:+441202013928">
-            Call Now
-          </a>
-          <a class="btn btn-whatsapp"
-             href="https://wa.me/447843969254"
-             target="_blank" rel="noopener">
-            Message on WhatsApp
-          </a>
-        </div>
+        <p><strong>WhatsApp:</strong></p>
+        <a class="btn btn-whatsapp"
+           href="https://wa.me/447843969254"
+           target="_blank" rel="noopener">
+          Message on WhatsApp
+        </a>
       </div>
 
       <!-- CONTACT FORM -->
-      <div>
-        <h2>Send an enquiry</h2>
+      <div class="card">
+        <h2>Request a quote</h2>
+        <p>Send us a few details and we’ll get back to you ASAP.</p>
 
-        <form class="form" method="post" action="#" novalidate>
+        <form id="quoteForm" class="form" novalidate>
 
           <label>
             Name
-            <input type="text" name="name" placeholder="Your name" required />
+            <input type="text" name="name" required />
           </label>
 
           <label>
             Phone
-            <input type="tel" name="phone" placeholder="Your phone number" required />
-          </label>
-
-          <label>
-            Email
-            <input type="email" name="email" placeholder="Your email address" />
+            <input type="tel" name="phone" required />
           </label>
 
           <label>
             Service
-            <select name="service">
+            <select name="service" required>
               <option value="">Select a service</option>
               <option>General Building</option>
               <option>Repairs & Maintenance</option>
@@ -162,25 +119,28 @@
 
           <label>
             Message
-            <textarea name="message" rows="5" placeholder="Tell us about your enquiry…" required></textarea>
+            <textarea name="message" rows="4" required></textarea>
           </label>
 
           <button class="btn btn-primary btn-full" type="submit">
-            Send Enquiry
+            Request Quote
           </button>
 
           <p class="form-note">
-            By submitting this form, you agree that we may contact you regarding your enquiry.
+            By submitting, you agree we can contact you about your enquiry.
           </p>
 
         </form>
       </div>
 
     </div>
-  </section>
+
+  </div>
+</section>
 
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <div class="container footer-inner">
 
@@ -197,26 +157,12 @@
     </div>
 
     <div class="footer-socials">
-      <a href="https://facebook.com/YOURPAGE"
-         target="_blank"
-         aria-label="Facebook"
-         class="social-btn">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9
-          1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.7-1.6 1.5V12h2.7l-.4 3h-2.3v7A10 10 0 0 0 22 12z"/>
-        </svg>
+      <a href="#" aria-label="Facebook" class="social-btn">
+        <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.7-1.6 1.5V12h2.7l-.4 3h-2.3v7A10 10 0 0 0 22 12z"/></svg>
       </a>
 
-      <a href="https://tiktok.com/@YOURPROFILE"
-         target="_blank"
-         aria-label="TikTok"
-         class="social-btn">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12.7 2h3.2c.3 1.6 1.3 3 3.1 3.4v3.2c-1.5.1-3-.4-4.3-1.3v6.1c0
-          3.1-2.5 5.6-5.6 5.6S3.5 17 3.5 13.9c0-3.1 2.5-5.6 5.6-5.6.4 0
-          .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.4 0-2.5 1.1-2.5 2.5s1.1
-          2.5 2.5 2.5 2.5-1.1 2.5-2.5V2z"/>
-        </svg>
+      <a href="#" aria-label="TikTok" class="social-btn">
+        <svg viewBox="0 0 24 24"><path d="M12.7 2h3.2c.3 1.6 1.3 3 3.1 3.4v3.2c-1.5.1-3-.4-4.3-1.3v6.1c0 3.1-2.5 5.6-5.6 5.6S3.5 17 3.5 13.9c0-3.1 2.5-5.6 5.6-5.6.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5V2z"/></svg>
       </a>
     </div>
 
@@ -226,15 +172,13 @@
     <small>© <span id="year"></span> Bryant Construction Group</small>
   </div>
 </footer>
-  </div>
 
-  <div class="container footer-bottom">
-    <small>© <span id="year"></span> Bryant Construction Group</small>
-  </div>
-</footer>
-
+<!-- SAFE YEAR SCRIPT -->
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 </script>
 
 </body>
