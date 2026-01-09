@@ -393,26 +393,43 @@ a:hover{ opacity: .92; }
   color:#e5e7eb;
   font-weight: 700;
   line-height: 1.8;
+  text-decoration: none;
 }
 
 .footer-socials{
   display:flex;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 12px;
 }
 
+/* SOCIAL ICON BUTTONS */
 .footer-socials a{
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   border-radius: 999px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.12);
-  font-size: 18px;
+  background: #0B2A4A;
+  border: none;
+  transition: background-color .2s ease, transform .2s ease;
 }
+
 .footer-socials a:hover{
-  background: rgba(255,255,255,.14);
+  background: #123b63;
+  transform: translateY(-2px);
+}
+
+/* SVG ICON FIX (THIS SOLVES BLANK ICONS) */
+.footer-socials svg{
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.footer-socials svg path,
+.footer-socials svg circle{
+  fill: #ffffff;
 }
 
 .footer-bottom{
@@ -423,7 +440,7 @@ a:hover{ opacity: .92; }
 }
 
 /* =========================
-   Mobile fixes (THIS is what your screenshot needs)
+   Mobile fixes
    ========================= */
 
 @media (max-width: 900px){
@@ -436,7 +453,6 @@ a:hover{ opacity: .92; }
   .header-cta{ width: 100%; margin-left: 0; }
   .header-cta .btn{ flex: 1; }
 
-  /* Make dropdown usable on phones */
   .dropdown-content{
     position: absolute;
     left: 0;
