@@ -24,15 +24,18 @@
   // ===============================
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
-  const toEmail = "alex@bryantgroupholdings.co.uk";
+  const primaryEmail = "alexbryant3234@gmail.com";
+  const copyEmail = "alexbryant98@yahoo.com";
+  const formEndpoint = `https://formsubmit.co/ajax/${primaryEmail}`;
 
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const data = new FormData(form);
       const name = (data.get("name") || "").toString().trim();
       const phone = (data.get("phone") || "").toString().trim();
+      const email = (data.get("email") || "").toString().trim();
       const service = (data.get("service") || "").toString().trim();
       const message = (data.get("message") || "").toString().trim();
 
@@ -43,24 +46,69 @@
         return;
       }
 
-      const subject = encodeURIComponent(`Quote request: ${service}`);
-      const body = encodeURIComponent(
+      const subjectText = `Bryant Construction Group quote request: ${service}`;
+      const emailBody =
 `Name: ${name}
 Phone: ${phone}
+Email: ${email || "Not provided"}
 Service: ${service}
 
 Message:
 ${message}
 
 ---
-Sent from bryantconstructiongroup.co.uk`
-      );
+Sent from bryantconstructiongroup.co.uk`;
 
       if (statusEl) {
-        statusEl.textContent = "Opening your email app...";
+        statusEl.textContent = "Sending your quote request...";
       }
 
-      window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+      const submitButton = form.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
+
+      const payload = new FormData();
+      payload.append("name", name);
+      payload.append("phone", phone);
+      payload.append("email", email);
+      payload.append("service", service);
+      payload.append("message", message);
+      payload.append("_subject", subjectText);
+      payload.append("_cc", copyEmail);
+      payload.append("_template", "table");
+      payload.append("_captcha", "false");
+
+      try {
+        const response = await fetch(formEndpoint, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: payload
+        });
+
+        if (!response.ok) {
+          throw new Error("quote-submit-failed");
+        }
+
+        form.reset();
+        if (statusEl) {
+          statusEl.textContent = "Thanks. Your quote request has been sent.";
+        }
+      } catch (error) {
+        const recipients = `${primaryEmail},${copyEmail}`;
+        const subject = encodeURIComponent(subjectText);
+        const body = encodeURIComponent(emailBody);
+
+        if (statusEl) {
+          statusEl.textContent = "We could not send it automatically. Opening a backup email instead.";
+        }
+
+        window.location.href = `mailto:${recipients}?subject=${subject}&body=${body}`;
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+      }
     });
   }
 
