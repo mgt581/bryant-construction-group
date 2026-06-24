@@ -85,9 +85,10 @@ Sent from bryantconstructiongroup.co.uk`;
           headers: { Accept: "application/json" },
           body: payload
         });
+        const result = await response.json().catch(() => null);
 
-        if (!response.ok) {
-          throw new Error("quote-submit-failed");
+        if (!response.ok || !result || result.success === false || result.success === "false") {
+          throw new Error(result?.message || "quote-submit-failed");
         }
 
         form.reset();
