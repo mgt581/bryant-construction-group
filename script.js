@@ -24,9 +24,9 @@
   // ===============================
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
-  const primaryEmail = "alexbryant3234@gmail.com";
-  const copyEmail = "alexbryant98@yahoo.com";
-  const formEndpoint = `https://formsubmit.co/ajax/${primaryEmail}`;
+  const contactEmail = "contact@bryantconstructiongroup.co.uk";
+  const backupEmails = ["alexbryant3234@gmail.com", "alexbryant98@yahoo.com"];
+  const formEndpoint = `https://formsubmit.co/ajax/${contactEmail}`;
 
   if (form) {
     form.addEventListener("submit", async (e) => {
@@ -75,7 +75,7 @@ Sent from bryantconstructiongroup.co.uk`;
       payload.append("service", service);
       payload.append("message", message);
       payload.append("_subject", subjectText);
-      payload.append("_cc", copyEmail);
+      payload.append("_cc", backupEmails.join(","));
       payload.append("_template", "table");
       payload.append("_captcha", "false");
 
@@ -96,7 +96,7 @@ Sent from bryantconstructiongroup.co.uk`;
           statusEl.textContent = "Thanks. Your quote request has been sent.";
         }
       } catch (error) {
-        const recipients = `${primaryEmail},${copyEmail}`;
+        const recipients = [contactEmail, ...backupEmails].join(",");
         const subject = encodeURIComponent(subjectText);
         const body = encodeURIComponent(emailBody);
 
