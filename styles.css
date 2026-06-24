@@ -374,6 +374,119 @@ a:hover{ opacity: .92; }
 }
 
 /* =========================
+   Reviews
+   ========================= */
+
+.reviews-section{
+  background: var(--brand);
+  color: #fff;
+  padding: 72px 0 82px;
+}
+
+.reviews-head{
+  max-width: 760px;
+  margin: 0 auto 42px;
+  text-align:center;
+}
+
+.section-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height: 34px;
+  padding: 7px 20px;
+  border-radius: 999px;
+  background: #d4af37;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.reviews-head h2{
+  margin: 18px 0 10px;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.reviews-head p{
+  margin: 0;
+  color: rgba(255,255,255,.86);
+  font-size: 18px;
+}
+
+.reviews-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.review-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height: 310px;
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 14px;
+  background: rgba(255,255,255,.07);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, .14);
+}
+
+.review-stars{
+  color: #d4af37;
+  font-size: 23px;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.review-quote{
+  margin: 26px 0 28px;
+  color: rgba(255,255,255,.92);
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.review-author{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  margin-top:auto;
+}
+
+.review-avatar{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: #d4af37;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.review-author strong,
+.review-author span{
+  display:block;
+}
+
+.review-author strong{
+  font-size: 18px;
+}
+
+.review-author span{
+  margin-top: 2px;
+  color: rgba(255,255,255,.68);
+  font-weight: 600;
+}
+
+/* =========================
    Split layouts
    ========================= */
 
@@ -646,6 +759,7 @@ a:hover{ opacity: .92; }
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns: 1fr; }
   .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reviews-grid{ grid-template-columns: 1fr; }
   .split{ grid-template-columns: 1fr; }
 
   .header-inner{ gap: 10px; }
@@ -664,6 +778,19 @@ a:hover{ opacity: .92; }
   .grid{ grid-template-columns: 1fr; }
   .main-nav a{ padding: 8px 8px; }
   .hero-actions .btn{ width: 100%; }
+
+  .reviews-section{
+    padding: 54px 0 62px;
+  }
+
+  .review-card{
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .review-quote{
+    font-size: 17px;
+  }
 
   .lead-chat{
     right: 12px;
