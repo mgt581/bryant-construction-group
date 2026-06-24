@@ -25,7 +25,7 @@
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
   const contactEmail = "contact@bryantconstructiongroup.co.uk";
-  const backupEmails = ["alexbryant3234@gmail.com", "alexbryant98@yahoo.com"];
+  const backupEmails = ["alexbryant3234@gmail.com", "alexbryant96@yahoo.com"];
   const formEndpoint = `https://formsubmit.co/ajax/${contactEmail}`;
 
   if (form) {
