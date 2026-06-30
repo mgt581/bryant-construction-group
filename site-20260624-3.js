@@ -24,6 +24,7 @@
   // ===============================
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
+  const contactEmail = "contact@bryantconstructiongroup.co.uk";
   const leadEmail = "allleadshere@yahoo.com";
   const formEndpoint = `https://formsubmit.co/ajax/${leadEmail}`;
 
@@ -74,6 +75,7 @@ Sent from bryantconstructiongroup.co.uk`;
       payload.append("service", service);
       payload.append("message", message);
       payload.append("_subject", subjectText);
+      payload.append("_replyto", contactEmail);
       payload.append("_template", "table");
       payload.append("_captcha", "false");
 
