@@ -25,7 +25,7 @@
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
   const contactEmail = "info@bryantconstruct.com";
-  const leadEmail = "allleadshere@yahoo.com";
+  const leadEmail = "ajbryantsleads@gmail.com";
   const formEndpoint = `https://formsubmit.co/ajax/${leadEmail}`;
 
   if (form) {
