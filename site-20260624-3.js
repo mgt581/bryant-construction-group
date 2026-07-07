@@ -20,6 +20,66 @@
   }
 
   // ===============================
+  // Dropdown support for touch devices
+  // ===============================
+  const dropdowns = Array.from(document.querySelectorAll(".dropdown"));
+
+  if (dropdowns.length) {
+    const closeDropdown = (dropdown) => {
+      dropdown.classList.remove("open");
+      const btn = dropdown.querySelector(".dropbtn");
+      if (btn) {
+        btn.setAttribute("aria-expanded", "false");
+      }
+    };
+
+    const openDropdown = (dropdown) => {
+      dropdowns.forEach((item) => {
+        if (item !== dropdown) {
+          closeDropdown(item);
+        }
+      });
+      dropdown.classList.add("open");
+      const btn = dropdown.querySelector(".dropbtn");
+      if (btn) {
+        btn.setAttribute("aria-expanded", "true");
+      }
+    };
+
+    dropdowns.forEach((dropdown) => {
+      const btn = dropdown.querySelector(".dropbtn");
+      if (!btn) {
+        return;
+      }
+
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (dropdown.classList.contains("open")) {
+          closeDropdown(dropdown);
+        } else {
+          openDropdown(dropdown);
+        }
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      dropdowns.forEach((dropdown) => {
+        if (!dropdown.contains(event.target)) {
+          closeDropdown(dropdown);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        dropdowns.forEach(closeDropdown);
+      }
+    });
+  }
+
+  // ===============================
   // Quote form handler
   // ===============================
   const form = document.getElementById("quoteForm");
