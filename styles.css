@@ -249,7 +249,7 @@ a:hover{ opacity: .92; }
 }
 
 .hero{
-  padding: 34px 0 22px;
+  padding: 34px 0 clamp(44px, 5vw, 68px);
 }
 
 .hero-grid{
@@ -276,7 +276,7 @@ a:hover{ opacity: .92; }
   display:flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin: 10px 0 8px;
+  margin: clamp(18px, 2.5vw, 28px) 0 clamp(28px, 3.8vw, 46px);
 }
 
 /* Card / Form */
