@@ -600,7 +600,10 @@
       'assets/constructiongallery/PHOTO-2020-09-07-19-11-35.jpg'
     ];
 
-    const gallerySlides = slideSources.map((src, index) => ({
+    const gallerySlides = slideSources
+      .slice()
+      .sort((left, right) => left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' }))
+      .map((src, index) => ({
       src,
       alt: `Gallery image ${index + 1}`
     }));
