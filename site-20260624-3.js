@@ -14,8 +14,53 @@
   const nav = document.getElementById("mobileNav");
 
   if (toggle && nav) {
+    const isMobileViewport = () => window.matchMedia("(max-width: 768px)").matches;
+
+    const syncNavState = (isOpen) => {
+      nav.classList.toggle("open", isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    };
+
+    const closeNav = () => {
+      if (nav.classList.contains("open")) {
+        syncNavState(false);
+      }
+    };
+
     toggle.addEventListener("click", () => {
-      nav.classList.toggle("open");
+      const shouldOpen = !nav.classList.contains("open");
+      syncNavState(shouldOpen);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!isMobileViewport()) {
+        return;
+      }
+
+      if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+        closeNav();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeNav();
+      }
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (isMobileViewport()) {
+          closeNav();
+        }
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (!isMobileViewport()) {
+        syncNavState(false);
+      }
     });
   }
 
