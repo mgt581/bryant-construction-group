@@ -522,7 +522,8 @@
       button.type = 'button';
       button.className = 'projects-thumb';
       button.setAttribute('aria-label', `Show project ${slideIndex + 1}`);
-      button.innerHTML = `<img src="${slide.src}" alt="${slide.title}" loading="lazy" decoding="async" width="240" height="320" />`;
+      const thumbSrc = slide.src.replace(/\.webp$/i, '-320.webp');
+      button.innerHTML = `<img src="${thumbSrc}" alt="${slide.title}" loading="lazy" decoding="async" width="240" height="320" />`;
       button.addEventListener('click', () => goTo(slideIndex));
       thumbsEl.appendChild(button);
     });
