@@ -447,6 +447,15 @@
         <h1>Recent construction, repairs and finishing work</h1>
         <p>Browse a selection of Bryant Construction Group work across building, maintenance, carpentry and decorating. Use the controls, keyboard arrows or thumbnails to move through the slideshow.</p>
       </div>
+
+      <aside class="gallery-summary" aria-labelledby="uploadChecklistTitle">
+        <h2 id="uploadChecklistTitle">Upload Checklist (Temporary)</h2>
+        <ul>
+          <li><strong>Image size:</strong> aim for at least 2000px on the longest side.</li>
+          <li><strong>File size:</strong> keep each image around 300KB to 900KB after compression.</li>
+          <li><strong>File naming:</strong> use a clear format like project-name-01.jpg, project-name-02.jpg.</li>
+        </ul>
+      </aside>
     </div>
   </section>
 
@@ -502,46 +511,8 @@
 <script>
   (() => {
     const slides = [
-      { src: 'assets/constructiongallery/IMG_3547.jpeg', alt: 'Construction project image 1' },
-      { src: 'assets/constructiongallery/IMG_6030.jpeg', alt: 'Construction project image 2' },
-      { src: 'assets/constructiongallery/IMG_6031.jpeg', alt: 'Construction project image 3' },
-      { src: 'assets/constructiongallery/IMG_1DD63878-66DF-4CC4-BEFE-A5B949D996B6.jpeg', alt: 'Construction project image 4' },
-      { src: 'assets/constructiongallery/IMG_2EC24B42-C437-40B1-BAC5-E5AB7B0FFC77.jpeg', alt: 'Construction project image 5' },
-      { src: 'assets/constructiongallery/IMG_6033.jpeg', alt: 'Construction project image 1' },
-      { src: 'assets/constructiongallery/IMG_3548.jpeg', alt: 'Construction project image 6' },
-      { src: 'assets/constructiongallery/IMG_3549.jpeg', alt: 'Construction project image 7' },
-      { src: 'assets/constructiongallery/IMG_3E1B41BB-DD18-4D62-A507-FE19FD3936BB.jpeg', alt: 'Construction project image 8' },
-      { src: 'assets/constructiongallery/IMG_5511.jpeg', alt: 'Construction project image 9' },
-      { src: 'assets/constructiongallery/IMG_5513.jpeg', alt: 'Construction project image 10' },
-      { src: 'assets/constructiongallery/IMG_5516.jpeg', alt: 'Construction project image 11' },
-      { src: 'assets/constructiongallery/IMG_6032.jpeg', alt: 'Construction project image 12' },
-      { src: 'assets/constructiongallery/IMG_6034.jpeg', alt: 'Construction project image 13' },
-      { src: 'assets/constructiongallery/IMG_6035.jpeg', alt: 'Construction project image 14' },
-      { src: 'assets/constructiongallery/IMG_6036.jpeg', alt: 'Construction project image 15' },
-      { src: 'assets/constructiongallery/IMG_6037.jpeg', alt: 'Construction project image 16' },
-      { src: 'assets/constructiongallery/IMG_6038.jpeg', alt: 'Construction project image 17' },
-      { src: 'assets/constructiongallery/IMG_6039.jpeg', alt: 'Construction project image 18' },
-      { src: 'assets/constructiongallery/IMG_6040.jpeg', alt: 'Construction project image 19' },
-      { src: 'assets/constructiongallery/IMG_6048.jpeg', alt: 'Construction project image 20' },
-      { src: 'assets/constructiongallery/IMG_6049.JPG', alt: 'Construction project image 21' },
-      { src: 'assets/constructiongallery/IMG_6552.jpeg', alt: 'Construction project image 22' },
-      { src: 'assets/constructiongallery/IMG_6562.jpeg', alt: 'Construction project image 23' },
-      { src: 'assets/constructiongallery/IMG_6568.jpeg', alt: 'Construction project image 24' },
-      { src: 'assets/constructiongallery/IMG_6579.jpeg', alt: 'Construction project image 25' },
-      { src: 'assets/constructiongallery/IMG_7062.jpeg', alt: 'Construction project image 26' },
-      { src: 'assets/constructiongallery/IMG_7082.jpeg', alt: 'Construction project image 27' },
-      { src: 'assets/constructiongallery/IMG_7083.jpeg', alt: 'Construction project image 28' },
-      { src: 'assets/constructiongallery/IMG_7086.jpeg', alt: 'Construction project image 29' },
-      { src: 'assets/constructiongallery/IMG_7091.jpeg', alt: 'Construction project image 30' },
-      { src: 'assets/constructiongallery/IMG_7D2F836D-511F-457B-B720-D5F856C15B96.jpeg', alt: 'Construction project image 31' },
-      { src: 'assets/constructiongallery/IMG_890195BB-C72E-4E5F-B43E-3343886F04C7.jpeg', alt: 'Construction project image 32' },
-      { src: 'assets/constructiongallery/IMG_99E16CED-7E55-4717-B17F-E0C637060A4F.jpeg', alt: 'Construction project image 33' },
-      { src: 'assets/constructiongallery/IMG_9E30000D-E6BA-4DF7-B4B9-4DEAA57D2890.jpeg', alt: 'Construction project image 34' },
-      { src: 'assets/constructiongallery/IMG_B2028C26-43AD-462B-922C-0A9CC2AD0589.jpeg', alt: 'Construction project image 35' },
-      { src: 'assets/constructiongallery/IMG_D659064A-CF3E-4F62-A051-F1F6E0E43270.jpeg', alt: 'Construction project image 36' },
-      { src: 'assets/constructiongallery/IMG_E3A3EC5A-AAA9-4842-812F-2E625D6EDCF6.jpeg', alt: 'Construction project image 37' },
-      { src: 'assets/constructiongallery/0FDC2019-12B0-4E6A-9EC0-3C25AC28B4CD.PNG', alt: 'Construction project image 38' },
-      { src: 'assets/constructiongallery/DA6CF8ED-6D54-49E3-82FB-9B5815B8C50C.png', alt: 'Construction project image 39' }
+      // Add new high-quality gallery images here.
+      // Example: { src: 'assets/constructiongallery/new-image-01.jpg', alt: 'Kitchen renovation' }
     ];
 
     const gallerySlides = slides.map((slide, index) => ({
@@ -558,6 +529,18 @@
     const nextBtn = document.getElementById('nextSlide');
 
     if (!imageEl || !captionEl || !metaEl || !counterEl || !thumbsEl || !prevBtn || !nextBtn) {
+      return;
+    }
+
+    if (gallerySlides.length === 0) {
+      imageEl.removeAttribute('src');
+      imageEl.alt = 'No gallery images available yet';
+      captionEl.textContent = 'New gallery images coming soon';
+      metaEl.textContent = '0 of 0';
+      counterEl.textContent = 'Slide 0/0';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      thumbsEl.innerHTML = '';
       return;
     }
 

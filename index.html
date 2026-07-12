@@ -306,6 +306,24 @@
     </div>
   </section>
 
+  <!-- ================= OUR GURANTEE ================= -->
+  <section class="gurantee-section" aria-labelledby="guranteeTitle">
+    <div class="container">
+      <div class="gurantee-card">
+        <div class="gurantee-copy">
+          <span class="section-pill">Our Promise</span>
+          <h2 id="guranteeTitle">Our Gurantee</h2>
+          <ul class="gurantee-list">
+            <li>Clear written quotes before work starts, with no hidden extras.</li>
+            <li>Reliable attendance and tidy workmanship throughout the job.</li>
+            <li>Backed by our workmanship gurantee for added peace of mind.</li>
+          </ul>
+        </div>
+        <a class="btn btn-primary cta-primary" href="contact.html#quoteForm">Get a Free Quote</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= SERVICES ================= -->
   <section id="services" class="section">
     <div class="container">
@@ -475,6 +493,42 @@
 </script>
 
   <style>
+    .gurantee-section{
+      padding: 0 0 var(--space-8);
+      background: #fff;
+    }
+
+    .gurantee-card{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: var(--space-3);
+      border: 1px solid var(--soft-2);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 3vw, 32px);
+    }
+
+    .gurantee-copy h2{
+      margin: var(--space-2) 0 var(--space-2);
+      font-size: clamp(30px, 3.2vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .gurantee-list{
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      display:grid;
+      gap: 8px;
+    }
+
+    .gurantee-list li{
+      line-height: 1.55;
+    }
+
     .faq-section{
       padding: var(--space-8) 0;
       background: #fff;
@@ -554,6 +608,11 @@
     }
 
     @media (max-width: 900px){
+      .gurantee-card{
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .faq-shell{
         grid-template-columns: 1fr;
       }
@@ -564,6 +623,14 @@
     }
 
     @media (max-width: 520px){
+      .gurantee-section{
+        padding: 0 0 var(--space-6);
+      }
+
+      .gurantee-card .btn{
+        width: 100%;
+      }
+
       .faq-section{
         padding: var(--space-6) 0;
       }
