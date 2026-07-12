@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Construction Gallery | Bryant Construction Group</title>
+
+  <meta name="description" content="Browse Bryant Construction Group's construction gallery featuring recent building, repairs, carpentry and finishing work." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="keywords" content="construction gallery Bournemouth, building projects Poole, carpentry gallery Christchurch, Bryant Construction Group photos" />
+  <meta name="theme-color" content="#0B2A4A" />
+  <meta name="apple-mobile-web-app-title" content="Bryant" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <link rel="apple-touch-icon" href="assets/logo.png" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="canonical" href="https://bryantconstructiongroup.co.uk/gallery.html" />
+
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:site_name" content="Bryant Construction Group" />
+  <meta property="og:title" content="Construction Gallery | Bryant Construction Group" />
+  <meta property="og:description" content="Browse Bryant Construction Group's recent building and property maintenance work." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bryantconstructiongroup.co.uk/gallery.html" />
+  <meta property="og:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Construction Gallery | Bryant Construction Group" />
+  <meta name="twitter:description" content="Browse Bryant Construction Group's recent building and property maintenance work." />
+  <meta name="twitter:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .gallery-hero{
+      padding: var(--space-6) 0 var(--space-4);
+    }
+
+    .gallery-hero-inner{
+      display:grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      gap: var(--space-4);
+      align-items:start;
+    }
+
+    .gallery-kicker{
+      display:inline-flex;
+      align-items:center;
+      min-height: 32px;
+      padding: 4px 16px;
+      border-radius: 999px;
+      background: rgba(11,42,74,.08);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+
+    .gallery-hero h1{
+      margin: 0 0 var(--space-2);
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+
+    .gallery-hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 50ch;
+    }
+
+    .gallery-summary{
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      border: 1px solid var(--soft-2);
+      border-radius: var(--radius);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-summary h2{
+      margin: 0 0 var(--space-2);
+      font-size: 22px;
+    }
+
+    .gallery-summary ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .gallery-stage{
+      padding: 0 0 var(--space-6);
+    }
+
+    .gallery-frame{
+      position: relative;
+      overflow: hidden;
+      background: #071a33;
+      border: 1px solid var(--soft-2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-image-wrap{
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: #071a33;
+    }
+
+    .gallery-image{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: #071a33;
+      display:block;
+    }
+
+    .gallery-caption-bar{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      background: rgba(255,255,255,.96);
+      border-top: 1px solid var(--soft-2);
+    }
+
+    .gallery-caption-bar strong{
+      display:block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .gallery-caption-bar span{
+      display:block;
+      color: var(--muted);
+    }
+
+    .gallery-controls{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+      align-items:center;
+      flex: 0 0 auto;
+    }
+
+    .gallery-btn{
+      min-width: 48px;
+      min-height: 48px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--soft-2);
+      background: #fff;
+      color: var(--text);
+      font-weight: 800;
+      cursor:pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-counter{
+      font-weight: 800;
+      color: var(--muted);
+      min-width: 84px;
+      text-align:right;
+    }
+
+    .gallery-thumbs{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+      gap: 10px;
+      margin-top: var(--space-3);
+    }
+
+    .gallery-thumb{
+      appearance:none;
+      border: 1px solid var(--soft-2);
+      padding: 0;
+      overflow:hidden;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      cursor:pointer;
+      aspect-ratio: 1 / 1;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .gallery-thumb:hover,
+    .gallery-thumb[aria-current="true"]{
+      transform: translateY(-2px);
+      border-color: rgba(11,42,74,.35);
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .gallery-note{
+      margin-top: var(--space-3);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    @media (max-width: 900px){
+      .gallery-hero-inner{
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-caption-bar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .gallery-controls{
+        width: 100%;
+        justify-content:flex-start;
+      }
+    }
+
+    @media (max-width: 520px){
+      .gallery-hero{
+        padding: var(--space-4) 0 var(--space-3);
+      }
+
+      .gallery-image-wrap{
+        aspect-ratio: 4 / 5;
+      }
+
+      .gallery-caption-bar{
+        padding: var(--space-2);
+      }
+
+      .gallery-thumbs{
+        grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+      }
+
+      .gallery-btn{
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 767px){
+      .header-inner{
+        min-height: 68px;
+        padding: 10px 0;
+        gap: 10px;
+        flex-wrap: nowrap;
+      }
+
+      .logo{
+        width: 44px;
+        height: 44px;
+      }
+
+      .mobile-header-actions{
+        display:flex !important;
+      }
+
+      .nav-toggle{
+        display:inline-flex !important;
+      }
+
+      .header-cta{
+        display:none !important;
+      }
+
+      .main-nav{
+        order: 3;
+        width: 100%;
+        display:flex !important;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 4px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition: max-height .28s ease, opacity .22s ease, transform .22s ease;
+        padding-bottom: 0;
+      }
+
+      .main-nav.open{
+        max-height: 520px;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        margin-top: 6px;
+        padding-bottom: 4px;
+      }
+
+      .main-nav a,
+      .dropbtn-link{
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+      }
+
+      .mobile-menu-quote{
+        display:block;
+      }
+
+      .dropdown{
+        width: 100%;
+        gap: 8px;
+      }
+
+      .dropbtn{
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+      }
+
+      .dropdown-content{
+        position: static;
+        min-width: 0;
+        width: 100%;
+        margin-top: 4px;
+        box-shadow: none;
+        border-color: var(--soft-2);
+      }
+
+      .hero-logo-section{
+        margin-top: 14px;
+      }
+
+      .lead-chat{
+        right: 12px;
+        bottom: 14px;
+        font-size: 14px;
+      }
+
+      .chat-launcher{
+        min-height: 46px;
+        padding: 8px 12px 8px 8px;
+        gap: 8px;
+      }
+
+      .chat-launcher-icon{
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+      }
+    }
+
+    @media (min-width: 768px){
+      .mobile-header-actions{
+        display:none !important;
+      }
+
+      .nav-toggle{
+        display:none !important;
+      }
+
+      .header-cta{
+        display:flex !important;
+        width:auto !important;
+        margin-left:auto !important;
+      }
+
+      .main-nav{
+        display:flex !important;
+        flex-direction:row !important;
+        width:auto !important;
+        max-height:none !important;
+        opacity:1 !important;
+        overflow:visible !important;
+        pointer-events:auto !important;
+        transform:none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <div class="brand">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
+      </a>
+    </div>
+
+    <div class="mobile-header-actions">
+      <a class="btn btn-primary mobile-call-btn" href="tel:+447843969254" aria-label="Call Bryant Construction Group">
+        Call now
+      </a>
+      <button class="nav-toggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav class="main-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+
+      <div class="dropdown">
+        <a href="services.html" class="dropbtn-link">Our Services</a>
+        <button class="dropbtn" aria-haspopup="true" aria-expanded="false">▼</button>
+        <div class="dropdown-content">
+          <a href="general-building.html">General Building</a>
+          <a href="repairs-maintenance.html">Repairs & Maintenance</a>
+          <a href="carpentry-joinery.html">Carpentry & Joinery</a>
+          <a href="decorating.html">Decorating</a>
+          <a href="plastering-finishing.html">Plastering & Finishing</a>
+          <a href="quality-workmanship.html">Quality Workmanship</a>
+        </div>
+      </div>
+
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
+      <a class="btn btn-primary" href="tel:+447843969254">Call 07843 969254</a>
+    </div>
+
+  </div>
+</header>
+
+<main>
+  <section class="gallery-hero">
+    <div class="container gallery-hero-inner">
+      <div>
+        <span class="gallery-kicker">Project Gallery</span>
+        <h1>Recent construction, repairs and finishing work</h1>
+        <p>Browse a selection of Bryant Construction Group work across building, maintenance, carpentry and decorating. Use the controls, keyboard arrows or thumbnails to move through the slideshow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-stage" aria-labelledby="galleryTitle">
+    <div class="container">
+      <div class="gallery-frame">
+        <div class="gallery-image-wrap">
+          <img id="galleryImage" class="gallery-image" src="" alt="" loading="eager" decoding="async" />
+        </div>
+
+        <div class="gallery-caption-bar">
+          <div>
+            <strong id="galleryCaption">Loading gallery</strong>
+            <span id="galleryMeta">0 of 0</span>
+          </div>
+
+          <div class="gallery-controls">
+            <button class="gallery-btn" id="prevSlide" type="button" aria-label="Previous image">Prev</button>
+            <button class="gallery-btn" id="nextSlide" type="button" aria-label="Next image">Next</button>
+            <div class="gallery-counter" id="galleryCounter" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-thumbs" id="galleryThumbs" aria-label="Gallery thumbnails"></div>
+
+      <p class="gallery-note">Tip: on mobile, swipe left or right to change images. On desktop, use the arrow keys, buttons or thumbnails.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+
+    <div>
+      <strong>Bryant Construction Group</strong><br />
+      Bournemouth • Poole • Christchurch
+    </div>
+
+    <div class="footer-contact">
+      <a href="tel:+447843969254">07843 969254</a><br />
+      <a href="mailto:info@bryantconstruct.com">info@bryantconstruct.com</a>
+    </div>
+
+  </div>
+
+  <div class="container footer-bottom">
+    <small>© <span id="year"></span> Bryant Construction Group</small>
+  </div>
+</footer>
+
+<script src="site-20260624-3.js" defer></script>
+<script>
+  (() => {
+    const slides = [
+      { src: 'assets/constructiongallery/IMG_3547.jpeg', alt: 'Construction project image 1' },
+      { src: 'assets/constructiongallery/IMG_6030.jpeg', alt: 'Construction project image 2' },
+      { src: 'assets/constructiongallery/IMG_6031.jpeg', alt: 'Construction project image 3' },
+      { src: 'assets/constructiongallery/IMG_1DD63878-66DF-4CC4-BEFE-A5B949D996B6.jpeg', alt: 'Construction project image 4' },
+      { src: 'assets/constructiongallery/IMG_2EC24B42-C437-40B1-BAC5-E5AB7B0FFC77.jpeg', alt: 'Construction project image 5' },
+      { src: 'assets/constructiongallery/IMG_6033.jpeg', alt: 'Construction project image 1' },
+      { src: 'assets/constructiongallery/IMG_3548.jpeg', alt: 'Construction project image 6' },
+      { src: 'assets/constructiongallery/IMG_3549.jpeg', alt: 'Construction project image 7' },
+      { src: 'assets/constructiongallery/IMG_3E1B41BB-DD18-4D62-A507-FE19FD3936BB.jpeg', alt: 'Construction project image 8' },
+      { src: 'assets/constructiongallery/IMG_5511.jpeg', alt: 'Construction project image 9' },
+      { src: 'assets/constructiongallery/IMG_5513.jpeg', alt: 'Construction project image 10' },
+      { src: 'assets/constructiongallery/IMG_5516.jpeg', alt: 'Construction project image 11' },
+      { src: 'assets/constructiongallery/IMG_6032.jpeg', alt: 'Construction project image 12' },
+      { src: 'assets/constructiongallery/IMG_6034.jpeg', alt: 'Construction project image 13' },
+      { src: 'assets/constructiongallery/IMG_6035.jpeg', alt: 'Construction project image 14' },
+      { src: 'assets/constructiongallery/IMG_6036.jpeg', alt: 'Construction project image 15' },
+      { src: 'assets/constructiongallery/IMG_6037.jpeg', alt: 'Construction project image 16' },
+      { src: 'assets/constructiongallery/IMG_6038.jpeg', alt: 'Construction project image 17' },
+      { src: 'assets/constructiongallery/IMG_6039.jpeg', alt: 'Construction project image 18' },
+      { src: 'assets/constructiongallery/IMG_6040.jpeg', alt: 'Construction project image 19' },
+      { src: 'assets/constructiongallery/IMG_6048.jpeg', alt: 'Construction project image 20' },
+      { src: 'assets/constructiongallery/IMG_6049.JPG', alt: 'Construction project image 21' },
+      { src: 'assets/constructiongallery/IMG_6552.jpeg', alt: 'Construction project image 22' },
+      { src: 'assets/constructiongallery/IMG_6562.jpeg', alt: 'Construction project image 23' },
+      { src: 'assets/constructiongallery/IMG_6568.jpeg', alt: 'Construction project image 24' },
+      { src: 'assets/constructiongallery/IMG_6579.jpeg', alt: 'Construction project image 25' },
+      { src: 'assets/constructiongallery/IMG_7062.jpeg', alt: 'Construction project image 26' },
+      { src: 'assets/constructiongallery/IMG_7082.jpeg', alt: 'Construction project image 27' },
+      { src: 'assets/constructiongallery/IMG_7083.jpeg', alt: 'Construction project image 28' },
+      { src: 'assets/constructiongallery/IMG_7086.jpeg', alt: 'Construction project image 29' },
+      { src: 'assets/constructiongallery/IMG_7091.jpeg', alt: 'Construction project image 30' },
+      { src: 'assets/constructiongallery/IMG_7D2F836D-511F-457B-B720-D5F856C15B96.jpeg', alt: 'Construction project image 31' },
+      { src: 'assets/constructiongallery/IMG_890195BB-C72E-4E5F-B43E-3343886F04C7.jpeg', alt: 'Construction project image 32' },
+      { src: 'assets/constructiongallery/IMG_99E16CED-7E55-4717-B17F-E0C637060A4F.jpeg', alt: 'Construction project image 33' },
+      { src: 'assets/constructiongallery/IMG_9E30000D-E6BA-4DF7-B4B9-4DEAA57D2890.jpeg', alt: 'Construction project image 34' },
+      { src: 'assets/constructiongallery/IMG_B2028C26-43AD-462B-922C-0A9CC2AD0589.jpeg', alt: 'Construction project image 35' },
+      { src: 'assets/constructiongallery/IMG_D659064A-CF3E-4F62-A051-F1F6E0E43270.jpeg', alt: 'Construction project image 36' },
+      { src: 'assets/constructiongallery/IMG_E3A3EC5A-AAA9-4842-812F-2E625D6EDCF6.jpeg', alt: 'Construction project image 37' },
+      { src: 'assets/constructiongallery/0FDC2019-12B0-4E6A-9EC0-3C25AC28B4CD.PNG', alt: 'Construction project image 38' },
+      { src: 'assets/constructiongallery/DA6CF8ED-6D54-49E3-82FB-9B5815B8C50C.png', alt: 'Construction project image 39' }
+    ];
+
+    const gallerySlides = slides.map((slide, index) => ({
+      src: slide.src,
+      alt: `Gallery image ${index + 1}`
+    }));
+
+    const imageEl = document.getElementById('galleryImage');
+    const captionEl = document.getElementById('galleryCaption');
+    const metaEl = document.getElementById('galleryMeta');
+    const counterEl = document.getElementById('galleryCounter');
+    const thumbsEl = document.getElementById('galleryThumbs');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+
+    if (!imageEl || !captionEl || !metaEl || !counterEl || !thumbsEl || !prevBtn || !nextBtn) {
+      return;
+    }
+
+    let index = 0;
+    let touchStartX = 0;
+
+    const labelFor = (slide, position) => `Image ${position + 1} of ${slides.length}`;
+
+    const render = () => {
+      const slide = gallerySlides[index];
+      imageEl.src = slide.src;
+      imageEl.alt = slide.alt;
+      captionEl.textContent = labelFor(slide, index);
+      metaEl.textContent = `${index + 1} of ${gallerySlides.length}`;
+      counterEl.textContent = `Slide ${index + 1}/${gallerySlides.length}`;
+
+      thumbsEl.querySelectorAll('button').forEach((button, buttonIndex) => {
+        button.setAttribute('aria-current', String(buttonIndex === index));
+      });
+    };
+
+    const goTo = (nextIndex) => {
+      index = (nextIndex + gallerySlides.length) % gallerySlides.length;
+      render();
+    };
+
+    gallerySlides.forEach((slide, slideIndex) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'gallery-thumb';
+      button.setAttribute('aria-label', `Show image ${slideIndex + 1}`);
+      button.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy" decoding="async" />`;
+      button.addEventListener('click', () => goTo(slideIndex));
+      thumbsEl.appendChild(button);
+    });
+
+    prevBtn.addEventListener('click', () => goTo(index - 1));
+    nextBtn.addEventListener('click', () => goTo(index + 1));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        goTo(index - 1);
+      }
+      if (event.key === 'ArrowRight') {
+        goTo(index + 1);
+      }
+    });
+
+    const stage = document.querySelector('.gallery-frame');
+    stage?.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0].clientX;
+    }, { passive: true });
+
+    stage?.addEventListener('touchend', (event) => {
+      const touchEndX = event.changedTouches[0].clientX;
+      const delta = touchEndX - touchStartX;
+
+      if (Math.abs(delta) > 40) {
+        goTo(delta < 0 ? index + 1 : index - 1);
+      }
+    }, { passive: true });
+
+    render();
+  })();
+</script>
+
+</body>
+</html>
