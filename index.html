@@ -231,6 +231,35 @@
   <!-- ================= DIVIDER ================= -->
   <hr class="section-divider">
 
+  <!-- ================= PROJECTS ================= -->
+  <section class="projects-section" aria-labelledby="projectsTitle">
+    <div class="container">
+      <div class="section-head section-spaced projects-head">
+        <div>
+          <span class="section-pill">Projects</span>
+          <h2 id="projectsTitle">Our Latest Projects</h2>
+          <p>A quick look at recent work across building, repairs, carpentry and finishing.</p>
+        </div>
+        <a class="btn btn-secondary" href="gallery.html">View Full Gallery</a>
+      </div>
+
+      <div class="projects-slider" data-projects-slider tabindex="0" aria-label="Projects slideshow">
+        <div class="projects-stage">
+          <img class="projects-image" data-project-image src="assets/constructiongallery/IMG_6033.jpeg" alt="Recent Bryant Construction Group project" loading="eager" decoding="async" />
+          <button class="projects-nav projects-nav-prev" type="button" data-project-prev aria-label="Previous project image">‹</button>
+          <button class="projects-nav projects-nav-next" type="button" data-project-next aria-label="Next project image">›</button>
+        </div>
+
+        <div class="projects-caption">
+          <strong data-project-title>Project 1</strong>
+          <span data-project-meta>Building, repairs and property maintenance</span>
+        </div>
+
+        <div class="projects-thumbs" data-project-thumbs aria-label="Project thumbnails"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= SERVICES ================= -->
   <section id="services" class="section">
     <div class="container">
@@ -326,6 +355,78 @@
 </footer>
 
 <script src="site-20260624-3.js" defer></script>
+<script>
+  (() => {
+    const slider = document.querySelector('[data-projects-slider]');
+    if (!slider) return;
+
+    const slides = [
+      { src: 'assets/constructiongallery/IMG_6033.jpeg', title: 'Project 1', meta: 'Building, repairs and property maintenance' },
+      { src: 'assets/constructiongallery/IMG_3548.jpeg', title: 'Project 2', meta: 'Carpentry and joinery' },
+      { src: 'assets/constructiongallery/IMG_5516.jpeg', title: 'Project 3', meta: 'Decorating and finishing' },
+      { src: 'assets/constructiongallery/IMG_6048.jpeg', title: 'Project 4', meta: 'Repair and maintenance work' },
+      { src: 'assets/constructiongallery/IMG_7086.jpeg', title: 'Project 5', meta: 'General building and site work' }
+    ];
+
+    const imageEl = slider.querySelector('[data-project-image]');
+    const titleEl = slider.querySelector('[data-project-title]');
+    const metaEl = slider.querySelector('[data-project-meta]');
+    const thumbsEl = slider.querySelector('[data-project-thumbs]');
+    const prevBtn = slider.querySelector('[data-project-prev]');
+    const nextBtn = slider.querySelector('[data-project-next]');
+
+    let index = 0;
+
+    const update = () => {
+      const slide = slides[index];
+      imageEl.src = slide.src;
+      imageEl.alt = slide.title;
+      titleEl.textContent = slide.title;
+      metaEl.textContent = slide.meta;
+
+      thumbsEl.querySelectorAll('button').forEach((button, buttonIndex) => {
+        button.setAttribute('aria-current', String(buttonIndex === index));
+      });
+    };
+
+    const goTo = (nextIndex) => {
+      index = (nextIndex + slides.length) % slides.length;
+      update();
+    };
+
+    slides.forEach((slide, slideIndex) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'projects-thumb';
+      button.setAttribute('aria-label', `Show project ${slideIndex + 1}`);
+      button.innerHTML = `<img src="${slide.src}" alt="${slide.title}" loading="lazy" decoding="async" />`;
+      button.addEventListener('click', () => goTo(slideIndex));
+      thumbsEl.appendChild(button);
+    });
+
+    prevBtn.addEventListener('click', () => goTo(index - 1));
+    nextBtn.addEventListener('click', () => goTo(index + 1));
+
+    slider.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') goTo(index - 1);
+      if (event.key === 'ArrowRight') goTo(index + 1);
+    });
+
+    let touchStartX = 0;
+    const stage = slider.querySelector('.projects-stage');
+    stage.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0].clientX;
+    }, { passive: true });
+    stage.addEventListener('touchend', (event) => {
+      const delta = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) > 40) {
+        goTo(delta < 0 ? index + 1 : index - 1);
+      }
+    }, { passive: true });
+
+    update();
+  })();
+</script>
 
 </body>
 </html>
