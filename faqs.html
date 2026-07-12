@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FAQs | Bryant Construction Group</title>
+
+  <meta name="description" content="Frequently asked questions about Bryant Construction Group, quotes, coverage, guarantee, workmanship and contact details." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="theme-color" content="#0B2A4A" />
+  <meta name="apple-mobile-web-app-title" content="Bryant" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <link rel="apple-touch-icon" href="assets/logo.png" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="canonical" href="https://bryantconstructiongroup.co.uk/faqs.html" />
+
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:site_name" content="Bryant Construction Group" />
+  <meta property="og:title" content="FAQs | Bryant Construction Group" />
+  <meta property="og:description" content="Frequently asked questions about Bryant Construction Group, quotes, coverage, guarantee and contact details." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bryantconstructiongroup.co.uk/faqs.html" />
+  <meta property="og:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FAQs | Bryant Construction Group" />
+  <meta name="twitter:description" content="Frequently asked questions about Bryant Construction Group, quotes, coverage, guarantee and contact details." />
+  <meta name="twitter:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .faq-page-hero{
+      padding: var(--space-7) 0 var(--space-5);
+      background:
+        radial-gradient(circle at top left, rgba(11,42,74,.08), transparent 38%),
+        linear-gradient(180deg, #ffffff, #f8fafc);
+    }
+
+    .faq-page-shell{
+      display:grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: var(--space-4);
+      align-items:start;
+    }
+
+    .faq-page-kicker{
+      display:inline-flex;
+      align-items:center;
+      min-height: 32px;
+      padding: 4px 16px;
+      border-radius: 999px;
+      background: rgba(11,42,74,.08);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+
+    .faq-page-hero h1{
+      margin: 0 0 var(--space-2);
+      font-size: clamp(34px, 4.5vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 12ch;
+    }
+
+    .faq-page-hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 22px);
+      max-width: 42ch;
+    }
+
+    .faq-page-panel{
+      background: #fff;
+      border: 1px solid var(--soft-2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .faq-page-panel h2{
+      margin: 0 0 var(--space-2);
+      font-size: 24px;
+    }
+
+    .faq-page-panel p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .faq-page-grid{
+      padding: 0 0 var(--space-7);
+    }
+
+    .faq-page-accordion{
+      display:grid;
+      gap: 12px;
+    }
+
+    .faq-page-item{
+      border: 1px solid var(--soft-2);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, #f8fafc);
+      box-shadow: var(--shadow-sm);
+      overflow:hidden;
+    }
+
+    .faq-page-item summary{
+      list-style:none;
+      cursor:pointer;
+      padding: var(--space-3);
+      font-weight: 800;
+      font-size: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: var(--space-2);
+    }
+
+    .faq-page-item summary::-webkit-details-marker{ display:none; }
+
+    .faq-page-item summary::after{
+      content: "+";
+      color: var(--brand);
+      font-size: 24px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .faq-page-item[open] summary::after{ content: "–"; }
+
+    .faq-page-answer{
+      padding: 0 var(--space-3) var(--space-3);
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .faq-page-answer p{ margin: 0; }
+
+    .faq-page-cta{
+      padding: 0 0 var(--space-8);
+    }
+
+    .faq-page-cta-box{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--soft-2);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-page-cta-box h2{
+      margin: 0 0 var(--space-1);
+      font-size: 28px;
+    }
+
+    .faq-page-cta-box p{
+      margin: 0;
+      color: var(--muted);
+      max-width: 56ch;
+    }
+
+    .faq-page-cta-box .btn{
+      min-width: 220px;
+    }
+
+    @media (max-width: 900px){
+      .faq-page-shell,
+      .faq-page-cta-box{
+        grid-template-columns: 1fr;
+      }
+
+      .faq-page-cta-box{
+        display:block;
+      }
+
+      .faq-page-cta-box .btn{
+        margin-top: var(--space-3);
+      }
+    }
+
+    @media (max-width: 520px){
+      .faq-page-hero{
+        padding: var(--space-5) 0 var(--space-4);
+      }
+
+      .faq-page-item summary{
+        padding: var(--space-2);
+        font-size: 17px;
+      }
+
+      .faq-page-answer{
+        padding: 0 var(--space-2) var(--space-2);
+      }
+
+      .faq-page-cta-box{
+        padding: var(--space-3);
+      }
+
+      .faq-page-cta-box .btn{
+        width: 100%;
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+
+    <div class="brand">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
+      </a>
+    </div>
+
+    <div class="mobile-header-actions">
+      <a class="btn btn-primary mobile-call-btn" href="tel:+447843969254" aria-label="Call Bryant Construction Group">
+        Call now
+      </a>
+      <button class="nav-toggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav class="main-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="services.html" class="dropbtn-link">Our Services</a>
+        <button class="dropbtn" aria-haspopup="true" aria-expanded="false">▼</button>
+        <div class="dropdown-content">
+          <a href="general-building.html">General Building</a>
+          <a href="repairs-maintenance.html">Repairs & Maintenance</a>
+          <a href="carpentry-joinery.html">Carpentry & Joinery</a>
+          <a href="decorating.html">Decorating</a>
+          <a href="plastering-finishing.html">Plastering & Finishing</a>
+          <a href="quality-workmanship.html">Quality Workmanship</a>
+        </div>
+      </div>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
+      <a class="btn btn-primary" href="tel:+447843969254">Call 07843 969254</a>
+    </div>
+
+  </div>
+</header>
+
+<main>
+  <section class="faq-page-hero">
+    <div class="container faq-page-shell">
+      <div>
+        <span class="faq-page-kicker">FAQs</span>
+        <h1>Frequently Asked Questions</h1>
+        <p>Everything you need to know about quotes, response times, guarantee cover and how we work.</p>
+      </div>
+
+      <aside class="faq-page-panel">
+        <h2>Need a direct answer?</h2>
+        <p>If your question is not covered here, contact Bryant Construction Group and we’ll point you in the right direction. We keep the process clear, practical and straightforward.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="faq-page-grid">
+    <div class="container">
+      <div class="faq-page-accordion">
+        <details class="faq-page-item">
+          <summary>How do I get a quote?</summary>
+          <div class="faq-page-answer"><p>Send us the job details, your location and any photos you have. We’ll review the request and provide a clear quote.</p></div>
+        </details>
+
+        <details class="faq-page-item">
+          <summary>What areas do you cover?</summary>
+          <div class="faq-page-answer"><p>We cover Bournemouth, Poole, Christchurch and nearby areas for building, repairs, maintenance, carpentry, decorating and plastering work.</p></div>
+        </details>
+
+        <details class="faq-page-item">
+          <summary>Do you offer a workmanship guarantee?</summary>
+          <div class="faq-page-answer"><p>Yes. Eligible completed works are covered by our workmanship guarantee. Installation issues are included under the terms of that cover.</p></div>
+        </details>
+
+        <details class="faq-page-item">
+          <summary>How fast do you respond?</summary>
+          <div class="faq-page-answer"><p>We aim to respond quickly to quote requests and usually within 48 hours for eligible workmanship issues that need review.</p></div>
+        </details>
+
+        <details class="faq-page-item">
+          <summary>What type of jobs do you take on?</summary>
+          <div class="faq-page-answer"><p>We handle general building, repairs and maintenance, carpentry and joinery, decorating and plastering / finishing work.</p></div>
+        </details>
+
+        <details class="faq-page-item">
+          <summary>Are you insured?</summary>
+          <div class="faq-page-answer"><p>Yes. We are fully insured and work to a professional standard on every job.</p></div>
+        </details>
+
+        <details class="faq-page-item">
+          <summary>Does the guarantee cover materials or manufacturer faults?</summary>
+          <div class="faq-page-answer"><p>No. Our workmanship guarantee covers installation issues only and excludes normal wear and tear, misuse, manufacturer faults or third-party work.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-page-cta">
+    <div class="container">
+      <div class="faq-page-cta-box">
+        <div>
+          <h2>Ready to get started?</h2>
+          <p>Send your project details and Bryant Construction Group will get back to you with a clear quote.</p>
+        </div>
+        <a class="btn btn-primary cta-primary" href="contact.html">Get your free quote</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>Bryant Construction Group</strong><br />
+      Bournemouth • Poole • Christchurch
+    </div>
+
+    <div class="footer-contact">
+      <a href="tel:+447843969254">07843 969254</a><br />
+      <a href="mailto:info@bryantconstruct.com">info@bryantconstruct.com</a>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <small>© <span id="year"></span> Bryant Construction Group</small>
+  </div>
+</footer>
+
+<script src="site-20260624-3.js" defer></script>
+</body>
+</html>
