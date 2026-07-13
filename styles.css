@@ -1932,6 +1932,11 @@ textarea:focus-visible{
    ========================= */
 
 @media (max-width: 900px){
+  body.mobile-nav-open .floating-ai-launcher,
+  body.mobile-nav-open .chat-panel{
+    display: none !important;
+  }
+
   body.has-sticky-cta{
     padding-bottom: 164px;
   }

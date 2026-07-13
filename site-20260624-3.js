@@ -18,6 +18,7 @@
 
     const syncNavState = (isOpen) => {
       nav.classList.toggle("open", isOpen);
+      document.body.classList.toggle("mobile-nav-open", isOpen && isMobileViewport());
       toggle.setAttribute("aria-expanded", String(isOpen));
       toggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
     };
