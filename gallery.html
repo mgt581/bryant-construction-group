@@ -201,7 +201,10 @@
     }
 
     .gallery-hero-inner{
-      display:block;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      align-items:start;
     }
 
     .gallery-kicker{
@@ -596,10 +599,13 @@
         </div>
 
         <div class="gallery-caption-bar">
+          <div>
+            <strong id="galleryCaption">Project image</strong>
+            <span id="galleryCounter">Slide 1/30</span>
+          </div>
           <div class="gallery-controls">
             <button class="gallery-btn" id="prevSlide" type="button" aria-label="Previous image">Prev</button>
             <button class="gallery-btn" id="nextSlide" type="button" aria-label="Next image">Next</button>
-            <div class="gallery-counter" id="galleryCounter" aria-live="polite"></div>
           </div>
         </div>
       </div>
@@ -673,18 +679,20 @@
     }));
 
     const imageEl = document.getElementById('galleryImage');
+    const captionEl = document.getElementById('galleryCaption');
     const counterEl = document.getElementById('galleryCounter');
     const thumbsEl = document.getElementById('galleryThumbs');
     const prevBtn = document.getElementById('prevSlide');
     const nextBtn = document.getElementById('nextSlide');
 
-    if (!imageEl || !counterEl || !thumbsEl || !prevBtn || !nextBtn) {
+    if (!imageEl || !captionEl || !counterEl || !thumbsEl || !prevBtn || !nextBtn) {
       return;
     }
 
     if (gallerySlides.length === 0) {
       imageEl.removeAttribute('src');
       imageEl.alt = 'No gallery images available yet';
+      captionEl.textContent = 'New gallery images coming soon';
       counterEl.textContent = 'Slide 0/0';
       prevBtn.disabled = true;
       nextBtn.disabled = true;
@@ -702,6 +710,7 @@
       imageEl.src = slide.src;
       imageEl.alt = slide.alt;
       counterEl.textContent = `Slide ${index + 1}/${gallerySlides.length}`;
+      captionEl.textContent = `Project image ${index + 1}`;
 
       thumbsEl.querySelectorAll('button').forEach((button, buttonIndex) => {
         button.setAttribute('aria-current', String(buttonIndex === index));
