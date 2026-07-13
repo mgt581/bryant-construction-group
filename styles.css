@@ -319,10 +319,6 @@ a{ color: inherit; text-decoration:none; }
   display:block;
 }
 
-@media (max-width: 900px){
-  display:block;
-}
-
 .header-cta{
   margin-left:auto;
   display:flex;
@@ -338,11 +334,8 @@ a{ color: inherit; text-decoration:none; }
 /* =========================
    Hero
    ========================= */
-}
 
-@media (max-width: 767px){
-  .header-inner{ gap: var(--space-2); }
-
+.hero-logo-section{
   background:
     radial-gradient(circle at 12% 14%, rgba(212, 175, 55, 0.12), transparent 38%),
     linear-gradient(180deg, #f8fafc, #ffffff);
@@ -358,7 +351,7 @@ a{ color: inherit; text-decoration:none; }
 
 .hero-logo{
   width: 100%;
-
+  height: auto;
   object-position: center;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(2, 6, 23, 0.08);
@@ -369,9 +362,113 @@ a{ color: inherit; text-decoration:none; }
   padding: 34px 0 clamp(44px, 5vw, 68px);
 }
 
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(20px, 3vw, 40px);
+  align-items:start;
+}
 
-  .hero-logo-section{
-    margin-top: 14px;
+.hero-copy h1{
+  margin: 0;
+  font-size: clamp(32px, 4.6vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.lead{
+  margin: var(--space-3) 0 0;
+  font-size: clamp(18px, 2vw, 24px);
+  color: var(--muted);
+}
+
+.hero-trust{
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display:grid;
+  gap: 10px;
+}
+
+.hero-trust li{
+  display:flex;
+  align-items:flex-start;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.hero-trust li::before{
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), #f4d46a);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
+  margin-top: 0.5em;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px){
+  .main-nav{ display:none; }
+
+  .main-nav.open{
+    display:flex;
+    width: 100%;
+    flex-direction:column;
+    align-items:stretch;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .main-nav.open a,
+  .main-nav.open .dropbtn-link,
+  .main-nav.open .dropbtn{
+    padding: 12px 14px;
+  }
+
+  .main-nav.open .dropdown{
+    width: 100%;
+    flex-wrap: wrap;
+    background: transparent;
+  }
+
+  .main-nav.open .dropdown-content{
+    position: static;
+    display:none;
+    width: 100%;
+    margin-top: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .main-nav.open .dropdown:hover .dropdown-content,
+  .main-nav.open .dropdown:focus-within .dropdown-content,
+  .main-nav.open .dropdown.open .dropdown-content{
+    display:block;
+  }
+
+  .mobile-header-actions{ display:flex; }
+  .nav-toggle{ display:inline-flex; }
+  .header-cta{ display:none; }
+  .mobile-menu-quote{ display:block; }
+
+  .header-inner{ min-height: 72px; }
+  .hero-grid{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px){
+  .hero-copy h1{
+    font-size: clamp(25px, 7.5vw, 34px);
+    line-height: 1.12;
+  }
+
+  .lead{ font-size: 16px; }
+  .hero-trust li{ font-size: 15px; }
+
+  .hero-actions .btn{
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 14px;
   }
 
   .lead-chat{
@@ -391,46 +488,14 @@ a{ color: inherit; text-decoration:none; }
     height: 30px;
     font-size: 12px;
   }
-}
-
-@media (max-width: 520px){
-  .container{ width: min(1180px, calc(100% - 24px)); }
-.hero-grid{
-  .hero-copy h1{
-    font-size: clamp(30px, 10vw, 40px);
-  }
-
-  .lead{ font-size: 18px; }
-
-  .grid{ grid-template-columns: 1fr; }
-  .main-nav a{ padding: 10px 12px; }
-  .hero-actions .btn{ width: 100%; }
-
-  .reviews-section{
-    padding: var(--space-6) 0;
-  }
-
-  .review-card{
-    min-height: 0;
-    padding: var(--space-3);
-  }
-
-  .review-quote{
-    font-size: 17px;
-  }
 
   .chat-panel{
     right: -6px;
     width: calc(100vw - 24px);
   }
 
-  .chat-prompts{
-    flex-wrap: wrap;
-  }
-
-.chat-prompts button{
-    flex: 1 1 30%;
-  }
+  .chat-prompts{ flex-wrap: wrap; }
+  .chat-prompts button{ flex: 1 1 30%; }
 }
 
 /* =========================
@@ -1075,12 +1140,6 @@ h4,
     pointer-events:auto !important;
     transform:none !important;
   }
-}
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), #f4d46a);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
 }
 
 .hero-actions{
@@ -1915,15 +1974,27 @@ textarea:focus-visible{
   .split{ grid-template-columns: 1fr; }
 
   .header-inner{ gap: var(--space-2); }
-  .main-nav{
+
+  .main-nav{ display:none; }
+  .main-nav.open{
+    display:flex;
     width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    padding-bottom: 2px;
+    flex-direction:column;
+    align-items:stretch;
+    gap: 6px;
+    margin-top: 8px;
   }
-  .header-cta{ width: 100%; margin-left: 0; }
-  .header-cta .btn{ flex: 1; }
+
+  .main-nav.open .dropdown-content{
+    position: static;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .mobile-header-actions{ display:flex; }
+  .nav-toggle{ display:inline-flex; }
+  .header-cta{ display:none; }
+  .mobile-menu-quote{ display:block; }
 
   .dropdown-content{
     position: absolute;
@@ -1951,14 +2022,20 @@ textarea:focus-visible{
   }
 
   .hero-copy h1{
-    font-size: clamp(30px, 10vw, 40px);
+    font-size: clamp(25px, 7.5vw, 34px);
+    line-height: 1.12;
   }
 
-  .lead{ font-size: 18px; }
+  .lead{ font-size: 16px; }
 
   .grid{ grid-template-columns: 1fr; }
   .main-nav a{ padding: 10px 12px; }
-  .hero-actions .btn{ width: 100%; }
+  .hero-actions .btn{
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
 
   .reviews-section{
     padding: var(--space-6) 0;
@@ -1977,25 +2054,32 @@ textarea:focus-visible{
     left: 10px;
     right: 10px;
     bottom: max(10px, env(safe-area-inset-bottom));
+    font-size: 14px;
   }
 
   .sticky-cta-bar{
     gap: 8px;
-    padding: 10px;
-    border-radius: 18px;
+    padding: 8px;
+    border-radius: 16px;
   }
 
   .sticky-cta,
   .chat-launcher{
-    min-height: 52px;
-    padding: 12px 14px;
-    font-size: 16px;
+    min-height: 44px;
+    padding: 9px 12px;
+    font-size: 14px;
   }
 
   .floating-ai-launcher{
     right: 10px;
     bottom: calc(100% + 8px);
-    padding: 10px 14px 10px 10px;
+    padding: 8px 12px 8px 8px;
+  }
+
+  .chat-launcher-icon{
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
   }
 
   .chat-panel{
