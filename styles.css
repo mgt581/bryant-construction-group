@@ -920,6 +920,117 @@ h4,
   margin: 0;
 }
 
+.hero-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  min-height: 34px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: rgba(16, 41, 69, 0.06);
+  color: #1a3553;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero-proof{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-proof span{
+  display:inline-flex;
+  align-items:center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid rgba(16, 41, 69, 0.08);
+  color: #304255;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.home-services-head{
+  max-width: 860px;
+}
+
+.home-services-head h2{
+  margin-top: 18px;
+  max-width: 10ch;
+}
+
+.home-service-grid{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.home-service-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height: 250px;
+  padding: 26px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(246,241,233,.9));
+}
+
+.home-service-index{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #173556, #102945);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  box-shadow: 0 10px 22px rgba(16, 41, 69, 0.18);
+}
+
+.home-service-card strong{
+  display:block;
+  margin: 22px 0 10px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.05;
+  color: #10233b;
+}
+
+.home-service-card span:last-child{
+  display:block;
+  color: #526072;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.reviews-trust-row{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.reviews-trust-row span{
+  display:inline-flex;
+  align-items:center;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.84);
+  font-size: 14px;
+  font-weight: 700;
+}
+
 @media (max-width: 900px){
   .service-hero-shell,
   .service-page-cta-shell{
@@ -927,6 +1038,10 @@ h4,
   }
 
   .service-page-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .home-service-grid{
     grid-template-columns: 1fr;
   }
 
