@@ -201,10 +201,7 @@
     }
 
     .gallery-hero-inner{
-      display:grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
-      gap: var(--space-4);
-      align-items:start;
+      display:block;
     }
 
     .gallery-kicker{
@@ -235,25 +232,6 @@
       color: var(--muted);
       font-size: 18px;
       max-width: 50ch;
-    }
-
-    .gallery-summary{
-      background: linear-gradient(180deg, #ffffff, #f8fafc);
-      border: 1px solid var(--soft-2);
-      border-radius: var(--radius);
-      padding: var(--space-4);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .gallery-summary h2{
-      margin: 0 0 var(--space-2);
-      font-size: 22px;
-    }
-
-    .gallery-summary ul{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
     }
 
     .gallery-stage{
@@ -381,10 +359,6 @@
     }
 
     @media (max-width: 900px){
-      .gallery-hero-inner{
-        grid-template-columns: 1fr;
-      }
-
       .gallery-caption-bar{
         flex-direction:column;
         align-items:flex-start;
@@ -611,15 +585,6 @@
         <h1>Recent construction, repairs and finishing work</h1>
         <p>Browse a selection of Bryant Construction Group work across building, maintenance, carpentry and decorating. Use the controls, keyboard arrows or thumbnails to move through the slideshow.</p>
       </div>
-
-      <aside class="gallery-summary" aria-labelledby="uploadChecklistTitle">
-        <h2 id="uploadChecklistTitle">Upload Checklist (Temporary)</h2>
-        <ul>
-          <li><strong>Image size:</strong> aim for at least 2000px on the longest side.</li>
-          <li><strong>File size:</strong> keep each image around 300KB to 900KB after compression.</li>
-          <li><strong>File naming:</strong> use a clear format like project-name-01.jpg, project-name-02.jpg.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
@@ -631,11 +596,6 @@
         </div>
 
         <div class="gallery-caption-bar">
-          <div>
-            <strong id="galleryCaption">Loading gallery</strong>
-            <span id="galleryMeta">0 of 0</span>
-          </div>
-
           <div class="gallery-controls">
             <button class="gallery-btn" id="prevSlide" type="button" aria-label="Previous image">Prev</button>
             <button class="gallery-btn" id="nextSlide" type="button" aria-label="Next image">Next</button>
@@ -713,22 +673,18 @@
     }));
 
     const imageEl = document.getElementById('galleryImage');
-    const captionEl = document.getElementById('galleryCaption');
-    const metaEl = document.getElementById('galleryMeta');
     const counterEl = document.getElementById('galleryCounter');
     const thumbsEl = document.getElementById('galleryThumbs');
     const prevBtn = document.getElementById('prevSlide');
     const nextBtn = document.getElementById('nextSlide');
 
-    if (!imageEl || !captionEl || !metaEl || !counterEl || !thumbsEl || !prevBtn || !nextBtn) {
+    if (!imageEl || !counterEl || !thumbsEl || !prevBtn || !nextBtn) {
       return;
     }
 
     if (gallerySlides.length === 0) {
       imageEl.removeAttribute('src');
       imageEl.alt = 'No gallery images available yet';
-      captionEl.textContent = 'New gallery images coming soon';
-      metaEl.textContent = '0 of 0';
       counterEl.textContent = 'Slide 0/0';
       prevBtn.disabled = true;
       nextBtn.disabled = true;
@@ -741,14 +697,10 @@
     let touchStartX = 0;
     let autoAdvanceTimer = null;
 
-    const labelFor = (slide, position) => `Image ${position + 1} of ${gallerySlides.length}`;
-
     const render = () => {
       const slide = gallerySlides[index];
       imageEl.src = slide.src;
       imageEl.alt = slide.alt;
-      captionEl.textContent = labelFor(slide, index);
-      metaEl.textContent = `${index + 1} of ${gallerySlides.length}`;
       counterEl.textContent = `Slide ${index + 1}/${gallerySlides.length}`;
 
       thumbsEl.querySelectorAll('button').forEach((button, buttonIndex) => {

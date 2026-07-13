@@ -306,11 +306,6 @@
           <button class="projects-nav projects-nav-next" type="button" data-project-next aria-label="Next project image">›</button>
         </div>
 
-        <div class="projects-caption">
-          <strong data-project-title>Project 1</strong>
-          <span data-project-meta>Building, repairs and property maintenance</span>
-        </div>
-
         <div class="projects-thumbs" data-project-thumbs aria-label="Project thumbnails"></div>
       </div>
     </div>
@@ -483,21 +478,19 @@
     if (!slider) return;
 
     const slides = [
-      { src: 'assets/constructiongallery/bryant-project-01.webp', title: 'Project 1', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-02.webp', title: 'Project 2', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-03.webp', title: 'Project 3', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-04.webp', title: 'Project 4', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-05.webp', title: 'Project 5', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-07.webp', title: 'Project 6', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-12.webp', title: 'Project 7', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-17.webp', title: 'Project 8', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-27.webp', title: 'Project 9', meta: 'Recent construction and building work' },
-      { src: 'assets/constructiongallery/bryant-project-28.webp', title: 'Project 10', meta: 'Recent construction and building work' }
+      { src: 'assets/constructiongallery/bryant-project-01.webp', alt: 'Recent Bryant Construction Group project 1' },
+      { src: 'assets/constructiongallery/bryant-project-02.webp', alt: 'Recent Bryant Construction Group project 2' },
+      { src: 'assets/constructiongallery/bryant-project-03.webp', alt: 'Recent Bryant Construction Group project 3' },
+      { src: 'assets/constructiongallery/bryant-project-04.webp', alt: 'Recent Bryant Construction Group project 4' },
+      { src: 'assets/constructiongallery/bryant-project-05.webp', alt: 'Recent Bryant Construction Group project 5' },
+      { src: 'assets/constructiongallery/bryant-project-07.webp', alt: 'Recent Bryant Construction Group project 6' },
+      { src: 'assets/constructiongallery/bryant-project-12.webp', alt: 'Recent Bryant Construction Group project 7' },
+      { src: 'assets/constructiongallery/bryant-project-17.webp', alt: 'Recent Bryant Construction Group project 8' },
+      { src: 'assets/constructiongallery/bryant-project-27.webp', alt: 'Recent Bryant Construction Group project 9' },
+      { src: 'assets/constructiongallery/bryant-project-28.webp', alt: 'Recent Bryant Construction Group project 10' }
     ];
 
     const imageEl = slider.querySelector('[data-project-image]');
-    const titleEl = slider.querySelector('[data-project-title]');
-    const metaEl = slider.querySelector('[data-project-meta]');
     const thumbsEl = slider.querySelector('[data-project-thumbs]');
     const prevBtn = slider.querySelector('[data-project-prev]');
     const nextBtn = slider.querySelector('[data-project-next]');
@@ -509,9 +502,7 @@
     const update = () => {
       const slide = slides[index];
       imageEl.src = slide.src;
-      imageEl.alt = slide.title;
-      titleEl.textContent = slide.title;
-      metaEl.textContent = slide.meta;
+      imageEl.alt = slide.alt;
 
       thumbsEl.querySelectorAll('button').forEach((button, buttonIndex) => {
         button.setAttribute('aria-current', String(buttonIndex === index));
@@ -548,7 +539,7 @@
       button.className = 'projects-thumb';
       button.setAttribute('aria-label', `Show project ${slideIndex + 1}`);
       const thumbSrc = slide.src.replace(/\.webp$/i, '-320.webp');
-      button.innerHTML = `<img src="${thumbSrc}" alt="${slide.title}" loading="lazy" decoding="async" width="240" height="320" />`;
+      button.innerHTML = `<img src="${thumbSrc}" alt="${slide.alt}" loading="lazy" decoding="async" width="240" height="320" />`;
       button.addEventListener('click', () => {
         goTo(slideIndex);
         restartAutoAdvance();

@@ -331,15 +331,24 @@ Sent from bryantconstructiongroup.co.uk`;
       return;
     }
 
+    document.body.classList.add("has-sticky-cta");
+
     const widget = document.createElement("section");
     widget.id = "leadChat";
     widget.className = "lead-chat";
     widget.setAttribute("aria-label", "Bryant Construction Group chat assistant");
 
     widget.innerHTML = `
-      <button class="chat-launcher" type="button" aria-expanded="false" aria-controls="chatPanel">
+      <div class="sticky-cta-bar" aria-label="Quick contact actions">
+        <a class="sticky-cta sticky-cta-whatsapp" href="${whatsappHref}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="sticky-cta sticky-cta-email" href="mailto:info@bryantconstruct.com">Email Us</a>
+        <a class="sticky-cta sticky-cta-call" href="${phoneHref}">Call Now</a>
+        <a class="sticky-cta sticky-cta-quote" href="contact.html#quoteForm">Get Quote</a>
+      </div>
+
+      <button class="floating-ai-launcher chat-launcher" type="button" aria-expanded="false" aria-controls="chatPanel">
         <span class="chat-launcher-icon" aria-hidden="true">AI</span>
-        <span>Ask us</span>
+        <span>AI Help</span>
       </button>
 
       <div class="chat-panel" id="chatPanel" hidden>
