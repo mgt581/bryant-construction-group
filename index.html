@@ -156,6 +156,7 @@
         </div>
       </div>
 
+      <a href="gallery.html">Gallery</a>
       <a href="contact.html">Contact Us</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
@@ -394,6 +395,8 @@
         <a class="tile" href="decorating.html">Decorating</a>
         <a class="tile" href="plastering-finishing.html">Plastering & Finishing</a>
         <a class="tile" href="quality-workmanship.html">Quality Workmanship</a>
+        <a class="tile" href="about.html">About Us</a>
+        <a class="tile" href="areas-we-cover.html">Areas We Cover</a>
       </div>
 
     </div>
@@ -499,7 +502,9 @@
     const prevBtn = slider.querySelector('[data-project-prev]');
     const nextBtn = slider.querySelector('[data-project-next]');
 
+    const AUTO_ADVANCE_MS = 2500;
     let index = 0;
+    let autoAdvanceTimer = null;
 
     const update = () => {
       const slide = slides[index];
@@ -518,6 +523,25 @@
       update();
     };
 
+    const stopAutoAdvance = () => {
+      if (autoAdvanceTimer) {
+        clearInterval(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+    };
+
+    const startAutoAdvance = () => {
+      if (slides.length <= 1) return;
+      stopAutoAdvance();
+      autoAdvanceTimer = setInterval(() => {
+        goTo(index + 1);
+      }, AUTO_ADVANCE_MS);
+    };
+
+    const restartAutoAdvance = () => {
+      startAutoAdvance();
+    };
+
     slides.forEach((slide, slideIndex) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -525,16 +549,31 @@
       button.setAttribute('aria-label', `Show project ${slideIndex + 1}`);
       const thumbSrc = slide.src.replace(/\.webp$/i, '-320.webp');
       button.innerHTML = `<img src="${thumbSrc}" alt="${slide.title}" loading="lazy" decoding="async" width="240" height="320" />`;
-      button.addEventListener('click', () => goTo(slideIndex));
+      button.addEventListener('click', () => {
+        goTo(slideIndex);
+        restartAutoAdvance();
+      });
       thumbsEl.appendChild(button);
     });
 
-    prevBtn.addEventListener('click', () => goTo(index - 1));
-    nextBtn.addEventListener('click', () => goTo(index + 1));
+    prevBtn.addEventListener('click', () => {
+      goTo(index - 1);
+      restartAutoAdvance();
+    });
+    nextBtn.addEventListener('click', () => {
+      goTo(index + 1);
+      restartAutoAdvance();
+    });
 
     slider.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') goTo(index - 1);
-      if (event.key === 'ArrowRight') goTo(index + 1);
+      if (event.key === 'ArrowLeft') {
+        goTo(index - 1);
+        restartAutoAdvance();
+      }
+      if (event.key === 'ArrowRight') {
+        goTo(index + 1);
+        restartAutoAdvance();
+      }
     });
 
     let touchStartX = 0;
@@ -546,10 +585,29 @@
       const delta = event.changedTouches[0].clientX - touchStartX;
       if (Math.abs(delta) > 40) {
         goTo(delta < 0 ? index + 1 : index - 1);
+        restartAutoAdvance();
       }
     }, { passive: true });
 
+    slider.addEventListener('mouseenter', stopAutoAdvance);
+    slider.addEventListener('mouseleave', startAutoAdvance);
+    slider.addEventListener('focusin', stopAutoAdvance);
+    slider.addEventListener('focusout', (event) => {
+      if (!slider.contains(event.relatedTarget)) {
+        startAutoAdvance();
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoAdvance();
+      } else {
+        startAutoAdvance();
+      }
+    });
+
     update();
+    startAutoAdvance();
   })();
 </script>
 

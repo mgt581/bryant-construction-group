@@ -589,6 +589,7 @@
         </div>
       </div>
 
+      <a href="gallery.html">Gallery</a>
       <a href="contact.html">Contact Us</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
@@ -735,8 +736,10 @@
       return;
     }
 
+    const AUTO_ADVANCE_MS = 2500;
     let index = 0;
     let touchStartX = 0;
+    let autoAdvanceTimer = null;
 
     const labelFor = (slide, position) => `Image ${position + 1} of ${gallerySlides.length}`;
 
@@ -758,6 +761,25 @@
       render();
     };
 
+    const stopAutoAdvance = () => {
+      if (autoAdvanceTimer) {
+        clearInterval(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+    };
+
+    const startAutoAdvance = () => {
+      if (gallerySlides.length <= 1) return;
+      stopAutoAdvance();
+      autoAdvanceTimer = setInterval(() => {
+        goTo(index + 1);
+      }, AUTO_ADVANCE_MS);
+    };
+
+    const restartAutoAdvance = () => {
+      startAutoAdvance();
+    };
+
     gallerySlides.forEach((slide, slideIndex) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -765,19 +787,30 @@
       button.setAttribute('aria-label', `Show image ${slideIndex + 1}`);
       const thumbSrc = slide.src.replace(/\.webp$/i, '-320.webp');
       button.innerHTML = `<img src="${thumbSrc}" alt="${slide.alt}" loading="lazy" decoding="async" width="88" height="88" />`;
-      button.addEventListener('click', () => goTo(slideIndex));
+      button.addEventListener('click', () => {
+        goTo(slideIndex);
+        restartAutoAdvance();
+      });
       thumbsEl.appendChild(button);
     });
 
-    prevBtn.addEventListener('click', () => goTo(index - 1));
-    nextBtn.addEventListener('click', () => goTo(index + 1));
+    prevBtn.addEventListener('click', () => {
+      goTo(index - 1);
+      restartAutoAdvance();
+    });
+    nextBtn.addEventListener('click', () => {
+      goTo(index + 1);
+      restartAutoAdvance();
+    });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
         goTo(index - 1);
+        restartAutoAdvance();
       }
       if (event.key === 'ArrowRight') {
         goTo(index + 1);
+        restartAutoAdvance();
       }
     });
 
@@ -792,10 +825,29 @@
 
       if (Math.abs(delta) > 40) {
         goTo(delta < 0 ? index + 1 : index - 1);
+        restartAutoAdvance();
       }
     }, { passive: true });
 
+    stage?.addEventListener('mouseenter', stopAutoAdvance);
+    stage?.addEventListener('mouseleave', startAutoAdvance);
+    stage?.addEventListener('focusin', stopAutoAdvance);
+    stage?.addEventListener('focusout', (event) => {
+      if (!stage.contains(event.relatedTarget)) {
+        startAutoAdvance();
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoAdvance();
+      } else {
+        startAutoAdvance();
+      }
+    });
+
     render();
+    startAutoAdvance();
   })();
 </script>
 
