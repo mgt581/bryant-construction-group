@@ -130,9 +130,7 @@
   // ===============================
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
-  const contactEmail = "info@bryantconstruct.com";
-  const leadEmail = "ajbryantsleads@gmail.com";
-  const formEndpoint = `https://formsubmit.co/ajax/${leadEmail}`;
+  const formEndpoint = "https://bryantconstruct.com/api/send-lead";
 
   if (form) {
     form.addEventListener("submit", async (e) => {
@@ -153,18 +151,6 @@
       }
 
       const subjectText = `Bryant Construction Group quote request: ${service}`;
-      const emailBody =
-`Name: ${name}
-Phone: ${phone}
-Email: ${email || "Not provided"}
-Service: ${service}
-
-Message:
-${message}
-
----
-Sent from bryantconstructiongroup.co.uk`;
-
       if (statusEl) {
         statusEl.textContent = "Sending your quote request...";
       }
@@ -174,26 +160,24 @@ Sent from bryantconstructiongroup.co.uk`;
         submitButton.disabled = true;
       }
 
-      const payload = new FormData();
-      payload.append("name", name);
-      payload.append("phone", phone);
-      payload.append("email", email);
-      payload.append("service", service);
-      payload.append("message", message);
-      payload.append("_subject", subjectText);
-      payload.append("_replyto", contactEmail);
-      payload.append("_template", "table");
-      payload.append("_captcha", "false");
-
       try {
         const response = await fetch(formEndpoint, {
           method: "POST",
-          headers: { Accept: "application/json" },
-          body: payload
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            email,
+            service,
+            message
+          })
         });
         const result = await response.json().catch(() => null);
 
-        if (!response.ok || !result || result.success === false || result.success === "false") {
+        if (!response.ok || !result || result.ok !== true) {
           throw new Error(result?.message || "quote-submit-failed");
         }
 
@@ -202,15 +186,9 @@ Sent from bryantconstructiongroup.co.uk`;
           statusEl.textContent = "Thanks. Your quote request has been sent.";
         }
       } catch (error) {
-        const recipients = leadEmail;
-        const subject = encodeURIComponent(subjectText);
-        const body = encodeURIComponent(emailBody);
-
         if (statusEl) {
-          statusEl.textContent = "We could not send it automatically. Opening a backup email instead.";
+          statusEl.textContent = "We could not send your request right now. Please call or try again shortly.";
         }
-
-        window.location.href = `mailto:${recipients}?subject=${subject}&body=${body}`;
       } finally {
         if (submitButton) {
           submitButton.disabled = false;

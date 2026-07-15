@@ -108,7 +108,7 @@ Avoid opening files directly with `file://` when testing navigation, forms, or r
 
 ## Lead Form
 
-The quote form is handled client-side in `site-20260624-3.js` and currently posts to FormSubmit.
+The quote form is handled by `site-20260624-3.js`, which posts to the Cloudflare Worker endpoint at `https://bryantconstruct.com/api/send-lead`. The Worker in `cloudflare/worker.js` sends the email through Resend without exposing the API key to website visitors.
 
 If you change the form:
 
@@ -117,12 +117,24 @@ If you change the form:
 - confirm email destinations are correct
 - keep spam protection enabled
 
+### Cloudflare Worker setup
+
+Deploy the Worker from the `cloudflare/` directory and store the Resend key as a secret:
+
+```bash
+cd cloudflare
+wrangler secret put RESEND_API_KEY
+wrangler deploy
+```
+
+The Worker route is `bryantconstruct.com/api/*`. The Resend domain must be verified for `bryantconstruct.com`, and the sender is `info@bryantconstruct.com`.
+
 ## SEO and Domain Notes
 
 This repo uses `CNAME` for the custom domain:
 
 ```text
-bryantconstruct.com
+bryantconstructiongroup.co.uk
 ```
 
 Important: keep all domain references aligned with the live domain.
@@ -167,7 +179,7 @@ Before shipping a change:
 - Test main navigation links
 - Test `tel:`, `mailto:`, and WhatsApp links if touched
 - Test the quote form if form code or fields changed
-- Confirm canonical/meta/schema URLs match `https://bryantconstruct.com`
+- Confirm canonical/meta/schema URLs match `https://bryantconstructiongroup.co.uk`
 - Update `sitemap.xml` if pages are added, removed, or renamed
 
 ## Known Maintenance Risks

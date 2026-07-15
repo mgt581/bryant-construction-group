@@ -1,0 +1,10 @@
+name = "bryant-construction-leads"
+main = "worker.js"
+compatibility_date = "2026-07-15"
+
+[vars]
+LEAD_EMAIL = "ajbryantsleads@gmail.com"
+
+[[routes]]
+pattern = "bryantconstruct.com/api/*"
+zone_name = "bryantconstruct.com"
