@@ -57,58 +57,6 @@
       "Decorating",
       "Plastering and finishing"
     ],
-    "image": [
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-01.webp",
-        "caption": "Project 1"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-02.webp",
-        "caption": "Project 2"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-03.webp",
-        "caption": "Project 3"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-04.webp",
-        "caption": "Project 4"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-05.webp",
-        "caption": "Project 5"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-07.webp",
-        "caption": "Project 6"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-12.webp",
-        "caption": "Project 7"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-17.webp",
-        "caption": "Project 8"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-27.webp",
-        "caption": "Project 9"
-      },
-      {
-        "@type": "ImageObject",
-        "url": "https://bryantconstructiongroup.co.uk/assets/constructiongallery/bryant-project-28.webp",
-        "caption": "Project 10"
-      }
-    ],
     "priceRange": "££"
   }
   </script>
@@ -306,7 +254,7 @@
 
       <div class="projects-slider" data-projects-slider tabindex="0" aria-label="Projects slideshow">
         <div class="projects-stage">
-          <img class="projects-image" data-project-image src="assets/constructiongallery/bryant-project-01.webp" alt="Recent Bryant Construction Group project" loading="eager" decoding="async" width="1200" height="1600" />
+          <img class="projects-image" data-project-image alt="No project images available yet" loading="eager" decoding="async" width="1200" height="1600" />
           <button class="projects-nav projects-nav-prev" type="button" data-project-prev aria-label="Previous project image">‹</button>
           <button class="projects-nav projects-nav-next" type="button" data-project-next aria-label="Next project image">›</button>
         </div>
@@ -511,23 +459,23 @@
     const slider = document.querySelector('[data-projects-slider]');
     if (!slider) return;
 
-    const slides = [
-      { src: 'assets/constructiongallery/bryant-project-01.webp', alt: 'Recent Bryant Construction Group project 1' },
-      { src: 'assets/constructiongallery/bryant-project-02.webp', alt: 'Recent Bryant Construction Group project 2' },
-      { src: 'assets/constructiongallery/bryant-project-03.webp', alt: 'Recent Bryant Construction Group project 3' },
-      { src: 'assets/constructiongallery/bryant-project-04.webp', alt: 'Recent Bryant Construction Group project 4' },
-      { src: 'assets/constructiongallery/bryant-project-05.webp', alt: 'Recent Bryant Construction Group project 5' },
-      { src: 'assets/constructiongallery/bryant-project-07.webp', alt: 'Recent Bryant Construction Group project 6' },
-      { src: 'assets/constructiongallery/bryant-project-12.webp', alt: 'Recent Bryant Construction Group project 7' },
-      { src: 'assets/constructiongallery/bryant-project-17.webp', alt: 'Recent Bryant Construction Group project 8' },
-      { src: 'assets/constructiongallery/bryant-project-27.webp', alt: 'Recent Bryant Construction Group project 9' },
-      { src: 'assets/constructiongallery/bryant-project-28.webp', alt: 'Recent Bryant Construction Group project 10' }
-    ];
+    const slides = [];
 
     const imageEl = slider.querySelector('[data-project-image]');
     const thumbsEl = slider.querySelector('[data-project-thumbs]');
     const prevBtn = slider.querySelector('[data-project-prev]');
     const nextBtn = slider.querySelector('[data-project-next]');
+
+    if (!imageEl || !thumbsEl || !prevBtn || !nextBtn) return;
+
+    if (slides.length === 0) {
+      imageEl.removeAttribute('src');
+      imageEl.alt = 'No project images available yet';
+      thumbsEl.innerHTML = '';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
 
     const AUTO_ADVANCE_MS = 2500;
     let index = 0;
