@@ -103,20 +103,25 @@ export default {
       "Sent from bryantconstructiongroup.co.uk"
     ].join("\n");
 
-    const resendResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: "Bryant Construction Group <info@bryantconstruct.com>",
-        to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
-        reply_to: lead.email || "info@bryantconstruct.com",
-        subject,
-        text
-      })
-    });
+    let resendResponse;
+    try {
+      resendResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: "Bryant Construction Group <info@bryantconstruct.com>",
+          to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
+          reply_to: lead.email || "info@bryantconstruct.com",
+          subject,
+          text
+        })
+      });
+    } catch {
+      return json({ ok: false, message: "Failed to reach email provider" }, 502, origin);
+    }
 
     if (!resendResponse.ok) {
       return json({ ok: false, message: "Email provider rejected the request" }, 502, origin);

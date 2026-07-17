@@ -1,6 +1,7 @@
 name = "bryant-construction-leads"
 main = "worker.js"
 compatibility_date = "2026-07-15"
+workers_dev = false
 
 [vars]
 LEAD_EMAIL = "ajbryantsleads@gmail.com"
