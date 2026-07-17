@@ -20,6 +20,53 @@
   }
 
   // ===============================
+  // Services dropdown (click toggle)
+  // ===============================
+  document.querySelectorAll(".dropbtn").forEach((btn) => {
+    const dropdown = btn.closest(".dropdown");
+    if (!dropdown) return;
+
+    const closeDropdown = () => {
+      dropdown.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    };
+
+    const openDropdown = () => {
+      dropdown.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.contains("open") ? closeDropdown() : openDropdown();
+    });
+
+    // Close on Escape key, return focus to toggle button
+    dropdown.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeDropdown();
+        btn.focus();
+      }
+    });
+
+    // Close when focus moves entirely outside the dropdown
+    dropdown.addEventListener("focusout", (e) => {
+      if (!dropdown.contains(e.relatedTarget)) {
+        closeDropdown();
+      }
+    });
+  });
+
+  // Close any open dropdown when clicking outside it
+  document.addEventListener("click", () => {
+    document.querySelectorAll(".dropdown.open").forEach((d) => {
+      d.classList.remove("open");
+      const b = d.querySelector(".dropbtn");
+      if (b) b.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // ===============================
   // Quote form handler
   // ===============================
   const form = document.getElementById("quoteForm");
