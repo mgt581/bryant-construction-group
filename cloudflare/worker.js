@@ -119,7 +119,8 @@ export default {
           text
         })
       });
-    } catch {
+    } catch (err) {
+      console.error("Resend fetch error:", err);
       return json({ ok: false, message: "Failed to reach email provider" }, 502, origin);
     }
 
