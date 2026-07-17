@@ -254,7 +254,7 @@
 
       <div class="projects-slider" data-projects-slider tabindex="0" aria-label="Projects slideshow">
         <div class="projects-stage">
-          <img class="projects-image" data-project-image alt="No project images available yet" loading="eager" decoding="async" width="1200" height="1600" />
+          <img class="projects-image" data-project-image src="assets/constructiongallerysection/bathroom taped and jointed.JPG" alt="Recent Bryant Construction Group project 1" loading="eager" decoding="async" width="1200" height="1600" />
           <button class="projects-nav projects-nav-prev" type="button" data-project-prev aria-label="Previous project image">‹</button>
           <button class="projects-nav projects-nav-next" type="button" data-project-next aria-label="Next project image">›</button>
         </div>
@@ -459,7 +459,28 @@
     const slider = document.querySelector('[data-projects-slider]');
     if (!slider) return;
 
-    const slides = [];
+    const slides = [
+      { src: 'assets/constructiongallerysection/bathroom taped and jointed.JPG', alt: 'Recent Bryant Construction Group project 1' },
+      { src: 'assets/constructiongallerysection/bigglasswindows.JPG', alt: 'Recent Bryant Construction Group project 2' },
+      { src: 'assets/constructiongallerysection/blockwalls.JPG', alt: 'Recent Bryant Construction Group project 3' },
+      { src: 'assets/constructiongallerysection/brickwallrepair.jpeg', alt: 'Recent Bryant Construction Group project 4' },
+      { src: 'assets/constructiongallerysection/buildingservices.jpg', alt: 'Recent Bryant Construction Group project 5' },
+      { src: 'assets/constructiongallerysection/commericalbuildingproject.JPG', alt: 'Recent Bryant Construction Group project 6' },
+      { src: 'assets/constructiongallerysection/commericalhighspec.HEIC', alt: 'Recent Bryant Construction Group project 7' },
+      { src: 'assets/constructiongallerysection/commericalstudwork.JPG', alt: 'Recent Bryant Construction Group project 8' },
+      { src: 'assets/constructiongallerysection/dotanddab.JPG', alt: 'Recent Bryant Construction Group project 9' },
+      { src: 'assets/constructiongallerysection/exstention.JPG', alt: 'Recent Bryant Construction Group project 10' },
+      { src: 'assets/constructiongallerysection/foundations.jpg', alt: 'Recent Bryant Construction Group project 11' },
+      { src: 'assets/constructiongallerysection/highspecceiling.JPG', alt: 'Recent Bryant Construction Group project 12' },
+      { src: 'assets/constructiongallerysection/metalstud boxing.JPG', alt: 'Recent Bryant Construction Group project 13' },
+      { src: 'assets/constructiongallerysection/plasterboardingceilingslopes.JPG', alt: 'Recent Bryant Construction Group project 14' },
+      { src: 'assets/constructiongallerysection/refurbceiling.JPG', alt: 'Recent Bryant Construction Group project 15' },
+      { src: 'assets/constructiongallerysection/roofinstall.jpg', alt: 'Recent Bryant Construction Group project 16' },
+      { src: 'assets/constructiongallerysection/timberstudwalls.JPG', alt: 'Recent Bryant Construction Group project 17' },
+      { src: 'assets/constructiongallerysection/understairsstorage.JPG', alt: 'Recent Bryant Construction Group project 18' },
+      { src: 'assets/constructiongallerysection/wallrepair.HEIC', alt: 'Recent Bryant Construction Group project 19' },
+      { src: 'assets/constructiongallerysection/windowwalls.JPG', alt: 'Recent Bryant Construction Group project 20' }
+    ];
 
     const imageEl = slider.querySelector('[data-project-image]');
     const thumbsEl = slider.querySelector('[data-project-thumbs]');
@@ -520,7 +541,7 @@
       button.type = 'button';
       button.className = 'projects-thumb';
       button.setAttribute('aria-label', `Show project ${slideIndex + 1}`);
-      const thumbSrc = slide.src.replace(/\.webp$/i, '-320.webp');
+      const thumbSrc = slide.src;
       button.innerHTML = `<img src="${thumbSrc}" alt="${slide.alt}" loading="lazy" decoding="async" width="240" height="320" />`;
       button.addEventListener('click', () => {
         goTo(slideIndex);

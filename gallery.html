@@ -18,6 +18,7 @@
   <link rel="icon" type="image/png" href="assets/logo.png" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="canonical" href="https://bryantconstructiongroup.co.uk/gallery.html" />
+  <link rel="preload" as="image" href="assets/constructiongallery/bathroom taped and jointed.JPG" fetchpriority="high" />
 
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Bryant Construction Group" />
@@ -443,13 +444,13 @@
     <div class="container">
       <div class="gallery-frame">
         <div class="gallery-image-wrap">
-          <img id="galleryImage" class="gallery-image" alt="No gallery images available yet" loading="eager" decoding="async" width="1200" height="1600" />
+          <img id="galleryImage" class="gallery-image" src="assets/constructiongallery/bathroom taped and jointed.JPG" alt="Gallery image 1" loading="eager" decoding="async" width="1200" height="1600" />
         </div>
 
         <div class="gallery-caption-bar">
           <div>
-            <strong id="galleryCaption">New gallery images coming soon</strong>
-            <span id="galleryCounter">Slide 0/0</span>
+            <strong id="galleryCaption">Project image</strong>
+            <span id="galleryCounter">Slide 1/68</span>
           </div>
           <div class="gallery-controls">
             <button class="gallery-btn" id="prevSlide" type="button" aria-label="Previous image">Prev</button>
@@ -488,7 +489,76 @@
 <script src="site-20260624-3.js" defer></script>
 <script>
   (() => {
-    const slideSources = [];
+    const slideSources = [
+      'assets/constructiongallery/bathroom taped and jointed.JPG',
+      'assets/constructiongallery/bathroombuild.JPG',
+      'assets/constructiongallery/bigglasswindows.JPG',
+      'assets/constructiongallery/blockpaving.jpg',
+      'assets/constructiongallery/blockwalls.JPG',
+      'assets/constructiongallery/boardingabovestairs.JPG',
+      'assets/constructiongallery/boardingangles.JPG',
+      'assets/constructiongallery/boardingbedroom.JPG',
+      'assets/constructiongallery/boardingcupboard.JPG',
+      'assets/constructiongallery/boardingtimber.JPG',
+      'assets/constructiongallery/brickwallrepair.jpeg',
+      'assets/constructiongallery/bryantandcocleaning.PNG',
+      'assets/constructiongallery/building houses.JPG',
+      'assets/constructiongallery/buildinghouses.JPG',
+      'assets/constructiongallery/buildingservices.jpg',
+      'assets/constructiongallery/buildsmallbathroom.JPG',
+      'assets/constructiongallery/bulkhead.JPG',
+      'assets/constructiongallery/ceilingservices.JPG',
+      'assets/constructiongallery/commericalbuildingproject.JPG',
+      'assets/constructiongallery/commericalhighspec.HEIC',
+      'assets/constructiongallery/commericalstudwork.JPG',
+      'assets/constructiongallery/companylogo.png',
+      'assets/constructiongallery/concreteposts.jpeg',
+      'assets/constructiongallery/dotanddab.JPG',
+      'assets/constructiongallery/drywalling.JPG',
+      'assets/constructiongallery/exstention.JPG',
+      'assets/constructiongallery/fenceinstall.jpeg',
+      'assets/constructiongallery/fencing.jpeg',
+      'assets/constructiongallery/fireboard.HEIC',
+      'assets/constructiongallery/fixingdoors.png',
+      'assets/constructiongallery/floorboardrepair.jpeg',
+      'assets/constructiongallery/foilbarrier.JPG',
+      'assets/constructiongallery/foundations.jpg',
+      'assets/constructiongallery/generalbuilding.JPG',
+      'assets/constructiongallery/greenplasterboard.JPG',
+      'assets/constructiongallery/highspecceiling.JPG',
+      'assets/constructiongallery/installationceiling.JPG',
+      'assets/constructiongallery/kitchenfloor.JPG',
+      'assets/constructiongallery/landscapingwork.jpeg',
+      'assets/constructiongallery/luxurybuild.JPG',
+      'assets/constructiongallery/metalstud boxing.JPG',
+      'assets/constructiongallery/plasterboardceilings.JPG',
+      'assets/constructiongallery/plasterboardcuts.JPG',
+      'assets/constructiongallery/plasterboarding.JPG',
+      'assets/constructiongallery/plasterboardingceilingslopes.JPG',
+      'assets/constructiongallery/plywoodwalls.JPG',
+      'assets/constructiongallery/quailtycontrol.JPG',
+      'assets/constructiongallery/rebuildingbrickwall.jpeg',
+      'assets/constructiongallery/refurbceiling.JPG',
+      'assets/constructiongallery/roofinstall.jpg',
+      'assets/constructiongallery/servicescupboard.JPG',
+      'assets/constructiongallery/sitework.JPG',
+      'assets/constructiongallery/slidingdoors.JPG',
+      'assets/constructiongallery/slopeceiling.JPG',
+      'assets/constructiongallery/stairsinstall.JPG',
+      'assets/constructiongallery/steelbeam.JPG',
+      'assets/constructiongallery/timber internal walls.JPG',
+      'assets/constructiongallery/timberframedhouse.JPG',
+      'assets/constructiongallery/timberstudwalllanding.JPG',
+      'assets/constructiongallery/timberstudwalls.JPG',
+      'assets/constructiongallery/understairsstorage.JPG',
+      'assets/constructiongallery/wallandcolumrepair.jpeg',
+      'assets/constructiongallery/wallrepair.HEIC',
+      'assets/constructiongallery/wallrepair.JPG',
+      'assets/constructiongallery/wallrepairs.JPG',
+      'assets/constructiongallery/windowsandboards.JPG',
+      'assets/constructiongallery/windowsinstall.JPG',
+      'assets/constructiongallery/windowwalls.JPG'
+    ];
 
     const gallerySlides = slideSources.map((src, index) => ({
       src,
@@ -563,7 +633,7 @@
       button.type = 'button';
       button.className = 'gallery-thumb';
       button.setAttribute('aria-label', `Show image ${slideIndex + 1}`);
-      const thumbSrc = slide.src.replace(/\.webp$/i, '-320.webp');
+      const thumbSrc = slide.src;
       button.innerHTML = `<img src="${thumbSrc}" alt="${slide.alt}" loading="lazy" decoding="async" width="88" height="88" />`;
       button.addEventListener('click', () => {
         goTo(slideIndex);
