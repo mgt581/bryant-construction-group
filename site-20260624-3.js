@@ -126,6 +126,66 @@
   }
 
   // ===============================
+  // Header dropdown toggle
+  // ===============================
+  const dropdowns = document.querySelectorAll(".dropdown");
+
+  dropdowns.forEach((dropdown) => {
+    const button = dropdown.querySelector(".dropbtn");
+    const dropdownLinks = dropdown.querySelectorAll(".dropdown-content a");
+
+    if (!button) {
+      return;
+    }
+
+    const closeDropdown = () => {
+      dropdown.classList.remove("dropdown-open");
+      button.setAttribute("aria-expanded", "false");
+    };
+
+    const toggleDropdown = () => {
+      const isOpen = dropdown.classList.toggle("dropdown-open");
+      button.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleDropdown();
+    });
+
+    dropdownLinks.forEach((link) => {
+      link.addEventListener("click", closeDropdown);
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(event.target)) {
+        const button = dropdown.querySelector(".dropbtn");
+        dropdown.classList.remove("dropdown-open");
+        if (button) {
+          button.setAttribute("aria-expanded", "false");
+        }
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    dropdowns.forEach((dropdown) => {
+      const button = dropdown.querySelector(".dropbtn");
+      dropdown.classList.remove("dropdown-open");
+      if (button) {
+        button.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  // ===============================
   // Quote form handler
   // ===============================
   const form = document.getElementById("quoteForm");

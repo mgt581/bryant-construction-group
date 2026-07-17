@@ -291,7 +291,7 @@ a{ color: inherit; text-decoration:none; }
 .dropdown-content{
   display:none;
   position:absolute;
-  top: calc(100% + var(--space-1));
+  top: 100%;
   left: 0;
   min-width: 240px;
   background: #fff;
