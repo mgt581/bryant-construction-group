@@ -22,6 +22,8 @@
   // ===============================
   // Services dropdown (click toggle)
   // ===============================
+  const dropdownClosers = [];
+
   document.querySelectorAll(".dropbtn").forEach((btn) => {
     const dropdown = btn.closest(".dropdown");
     if (!dropdown) return;
@@ -36,34 +38,38 @@
       btn.setAttribute("aria-expanded", "true");
     };
 
+    // Collect close functions so the document handler can reuse them
+    dropdownClosers.push(closeDropdown);
+
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       dropdown.classList.contains("open") ? closeDropdown() : openDropdown();
     });
 
-    // Close on Escape key, return focus to toggle button
-    dropdown.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closeDropdown();
-        btn.focus();
-      }
-    });
+    // Attach dropdown-level listeners once per dropdown (not per button)
+    if (!dropdown.hasAttribute("data-dropdown-bound")) {
+      dropdown.setAttribute("data-dropdown-bound", "");
 
-    // Close when focus moves entirely outside the dropdown
-    dropdown.addEventListener("focusout", (e) => {
-      if (!dropdown.contains(e.relatedTarget)) {
-        closeDropdown();
-      }
-    });
+      // Close on Escape key, return focus to toggle button
+      dropdown.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeDropdown();
+          btn.focus();
+        }
+      });
+
+      // Close when focus moves entirely outside the dropdown
+      dropdown.addEventListener("focusout", (e) => {
+        if (!e.relatedTarget || !dropdown.contains(e.relatedTarget)) {
+          closeDropdown();
+        }
+      });
+    }
   });
 
   // Close any open dropdown when clicking outside it
   document.addEventListener("click", () => {
-    document.querySelectorAll(".dropdown.open").forEach((d) => {
-      d.classList.remove("open");
-      const b = d.querySelector(".dropbtn");
-      if (b) b.setAttribute("aria-expanded", "false");
-    });
+    dropdownClosers.forEach((close) => close());
   });
 
   // ===============================
