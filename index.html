@@ -455,11 +455,11 @@
 
 <script src="site-20260624-3.js" defer></script>
 <script>
-  (() => {
+  (async () => {
     const slider = document.querySelector('[data-projects-slider]');
     if (!slider) return;
 
-    const slides = [
+    const fallbackSlides = [
       { src: 'assets/constructiongallerysection/bathroom taped and jointed.JPG', alt: 'Recent Bryant Construction Group project 1' },
       { src: 'assets/constructiongallerysection/bigglasswindows.JPG', alt: 'Recent Bryant Construction Group project 2' },
       { src: 'assets/constructiongallerysection/blockwalls.JPG', alt: 'Recent Bryant Construction Group project 3' },
@@ -481,6 +481,40 @@
       { src: 'assets/constructiongallerysection/wallrepair.HEIC', alt: 'Recent Bryant Construction Group project 19' },
       { src: 'assets/constructiongallerysection/windowwalls.JPG', alt: 'Recent Bryant Construction Group project 20' }
     ];
+
+    const IMAGE_EXTENSIONS = /\.(avif|gif|heic|heif|jpe?g|png|webp)$/i;
+
+    const listImagesFromDirectory = async (folderPath) => {
+      try {
+        const response = await fetch(`${folderPath}/`, { cache: 'no-store' });
+        if (!response.ok) return [];
+
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const discovered = Array.from(doc.querySelectorAll('a[href]'))
+          .map((link) => link.getAttribute('href') || '')
+          .map((href) => href.split('#')[0].split('?')[0])
+          .map((href) => href.split('/').pop() || '')
+          .map((fileName) => {
+            try {
+              return decodeURIComponent(fileName);
+            } catch {
+              return fileName;
+            }
+          })
+          .filter((fileName) => IMAGE_EXTENSIONS.test(fileName))
+          .map((fileName) => `${folderPath}/${fileName}`);
+
+        return [...new Set(discovered)].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+      } catch {
+        return [];
+      }
+    };
+
+    const discoveredSlideSources = await listImagesFromDirectory('assets/constructiongallerysection');
+    const slides = discoveredSlideSources.length > 0
+      ? discoveredSlideSources.map((src, index) => ({ src, alt: `Recent Bryant Construction Group project ${index + 1}` }))
+      : fallbackSlides;
 
     const imageEl = slider.querySelector('[data-project-image]');
     const thumbsEl = slider.querySelector('[data-project-thumbs]');

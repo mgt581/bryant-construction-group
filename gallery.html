@@ -488,8 +488,8 @@
 
 <script src="site-20260624-3.js" defer></script>
 <script>
-  (() => {
-    const slideSources = [
+  (async () => {
+    const fallbackSlideSources = [
       'assets/constructiongallery/bathroom taped and jointed.JPG',
       'assets/constructiongallery/bathroombuild.JPG',
       'assets/constructiongallery/bigglasswindows.JPG',
@@ -559,6 +559,38 @@
       'assets/constructiongallery/windowsinstall.JPG',
       'assets/constructiongallery/windowwalls.JPG'
     ];
+
+    const IMAGE_EXTENSIONS = /\.(avif|gif|heic|heif|jpe?g|png|webp)$/i;
+
+    const listImagesFromDirectory = async (folderPath) => {
+      try {
+        const response = await fetch(`${folderPath}/`, { cache: 'no-store' });
+        if (!response.ok) return [];
+
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const discovered = Array.from(doc.querySelectorAll('a[href]'))
+          .map((link) => link.getAttribute('href') || '')
+          .map((href) => href.split('#')[0].split('?')[0])
+          .map((href) => href.split('/').pop() || '')
+          .map((fileName) => {
+            try {
+              return decodeURIComponent(fileName);
+            } catch {
+              return fileName;
+            }
+          })
+          .filter((fileName) => IMAGE_EXTENSIONS.test(fileName))
+          .map((fileName) => `${folderPath}/${fileName}`);
+
+        return [...new Set(discovered)].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+      } catch {
+        return [];
+      }
+    };
+
+    const discoveredSlideSources = await listImagesFromDirectory('assets/constructiongallery');
+    const slideSources = discoveredSlideSources.length > 0 ? discoveredSlideSources : fallbackSlideSources;
 
     const gallerySlides = slideSources.map((src, index) => ({
       src,
