@@ -320,7 +320,7 @@
     widget.innerHTML = `
       <div class="sticky-cta-bar" aria-label="Quick contact actions">
         <a class="sticky-cta sticky-cta-whatsapp" href="${whatsappHref}" target="_blank" rel="noopener">WhatsApp</a>
-        <a class="sticky-cta sticky-cta-email" href="mailto:info@bryantconstruct.com">Email Us</a>
+        <a class="sticky-cta sticky-cta-email" href="mailto:info@bryantconstructiongroup.co.uk">Email Us</a>
         <a class="sticky-cta sticky-cta-call" href="${phoneHref}">Call Now</a>
         <a class="sticky-cta sticky-cta-quote" href="contact.html#quoteForm">Get Quote</a>
       </div>

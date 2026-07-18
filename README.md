@@ -127,7 +127,7 @@ wrangler secret put RESEND_API_KEY
 wrangler deploy
 ```
 
-The Worker routes are `bryantconstructiongroup.co.uk/api/*` (primary) and `bryantconstruct.com/api/*` (compatibility). The Resend domain must be verified for `bryantconstruct.com`, and the sender is `info@bryantconstruct.com`.
+The Worker routes are `bryantconstructiongroup.co.uk/api/*` (primary), `bryantconstruct.co.uk/api/*`, and `bryantconstruct.com/api/*` (compatibility). The Resend domain must be verified for `bryantconstructiongroup.co.uk`, and the sender is `info@bryantconstructiongroup.co.uk`.
 
 ## SEO and Domain Notes
 

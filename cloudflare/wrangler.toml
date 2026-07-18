@@ -10,5 +10,9 @@ pattern = "bryantconstruct.com/api/*"
 zone_name = "bryantconstruct.com"
 
 [[routes]]
+pattern = "bryantconstruct.co.uk/api/*"
+zone_name = "bryantconstruct.co.uk"
+
+[[routes]]
 pattern = "bryantconstructiongroup.co.uk/api/*"
 zone_name = "bryantconstructiongroup.co.uk"

@@ -1,9 +1,13 @@
 const ALLOWED_ORIGINS = new Set([
   "https://bryantconstructiongroup.co.uk",
   "https://www.bryantconstructiongroup.co.uk",
+  "https://bryantconstruct.co.uk",
+  "https://www.bryantconstruct.co.uk",
   "https://bryantconstruct.com",
   "https://www.bryantconstruct.com"
 ]);
+
+const FROM_EMAIL = "info@bryantconstructiongroup.co.uk";
 
 const MAX_LENGTHS = {
   name: 100,
@@ -110,9 +114,9 @@ export default {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "Bryant Construction Group <info@bryantconstruct.com>",
+        from: `Bryant Construction Group <${FROM_EMAIL}>`,
         to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
-        reply_to: lead.email || "info@bryantconstruct.com",
+        reply_to: lead.email || FROM_EMAIL,
         subject,
         text
       })
