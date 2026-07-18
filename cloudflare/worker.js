@@ -8,6 +8,8 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 const FROM_EMAIL = "info@bryantconstructiongroup.co.uk";
+const MAX_ATTACHMENTS = 3;
+const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
 
 const MAX_LENGTHS = {
   name: 100,
@@ -50,6 +52,45 @@ function validEmail(value) {
   return !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function cleanFileName(value) {
+  return clean(value, 120).replace(/[\\/\0\r\n]/g, "").trim() || "attachment";
+}
+
+function base64ByteLength(value) {
+  const content = String(value ?? "").replace(/\s/g, "");
+  if (!content || !/^[A-Za-z0-9+/]*={0,2}$/.test(content)) {
+    return null;
+  }
+
+  const padding = content.endsWith("==") ? 2 : content.endsWith("=") ? 1 : 0;
+  return Math.floor((content.length * 3) / 4) - padding;
+}
+
+function normalizeAttachments(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  if (value.length > MAX_ATTACHMENTS) {
+    throw new Error("too-many-attachments");
+  }
+
+  return value.map((attachment) => {
+    const content = String(attachment?.content ?? "").replace(/\s/g, "");
+    const byteLength = base64ByteLength(content);
+
+    if (!byteLength || byteLength > MAX_ATTACHMENT_BYTES) {
+      throw new Error("invalid-attachment");
+    }
+
+    return {
+      filename: cleanFileName(attachment?.filename),
+      content,
+      content_type: clean(attachment?.content_type || "application/octet-stream", 100)
+    };
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -89,6 +130,13 @@ export default {
       message: clean(input.message, MAX_LENGTHS.message)
     };
 
+    let attachments;
+    try {
+      attachments = normalizeAttachments(input.attachments);
+    } catch {
+      return json({ ok: false, message: "Please attach up to 3 files, 5 MB each" }, 400, origin);
+    }
+
     if (!lead.name || !lead.phone || !lead.service || !lead.message || !validEmail(lead.email)) {
       return json({ ok: false, message: "Please check the form fields" }, 400, origin);
     }
@@ -99,6 +147,7 @@ export default {
       `Phone: ${lead.phone}`,
       `Email: ${lead.email || "Not provided"}`,
       `Service: ${lead.service}`,
+      `Attachments: ${attachments.length || "None"}`,
       "",
       "Message:",
       lead.message,
@@ -107,19 +156,25 @@ export default {
       "Sent from bryantconstructiongroup.co.uk"
     ].join("\n");
 
+    const emailPayload = {
+      from: `Bryant Construction Group <${FROM_EMAIL}>`,
+      to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
+      reply_to: lead.email || FROM_EMAIL,
+      subject,
+      text
+    };
+
+    if (attachments.length > 0) {
+      emailPayload.attachments = attachments;
+    }
+
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${env.RESEND_API_KEY}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        from: `Bryant Construction Group <${FROM_EMAIL}>`,
-        to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
-        reply_to: lead.email || FROM_EMAIL,
-        subject,
-        text
-      })
+      body: JSON.stringify(emailPayload)
     });
 
     if (!resendResponse.ok) {

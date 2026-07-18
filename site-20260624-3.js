@@ -131,8 +131,62 @@
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
   const formEndpoint = "/api/send-lead";
+  const maxAttachments = 3;
+  const maxAttachmentBytes = 5 * 1024 * 1024;
+
+  const fileToAttachment = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      const result = typeof reader.result === "string" ? reader.result : "";
+      const content = result.includes(",") ? result.split(",")[1] : "";
+      if (!content) {
+        reject(new Error("attachment-read-failed"));
+        return;
+      }
+      resolve({
+        filename: file.name,
+        content,
+        content_type: file.type || "application/octet-stream"
+      });
+    });
+    reader.addEventListener("error", () => reject(new Error("attachment-read-failed")));
+    reader.readAsDataURL(file);
+  });
+
+  const getAttachmentError = (files) => {
+    if (files.length > maxAttachments) {
+      return "Please attach no more than 3 files.";
+    }
+
+    if (files.some((file) => file.size > maxAttachmentBytes)) {
+      return "Each attachment must be 5 MB or smaller.";
+    }
+
+    return "";
+  };
 
   if (form) {
+    const fileInput = form.querySelector('input[type="file"][name="attachments"]');
+
+    if (fileInput) {
+      fileInput.addEventListener("change", () => {
+        const files = Array.from(fileInput.files || []);
+        const attachmentError = getAttachmentError(files);
+
+        if (attachmentError) {
+          fileInput.value = "";
+          if (statusEl) {
+            statusEl.textContent = attachmentError;
+          }
+          return;
+        }
+
+        if (files.length > 0 && statusEl) {
+          statusEl.textContent = `${files.length} file${files.length === 1 ? "" : "s"} ready to attach.`;
+        }
+      });
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -142,10 +196,19 @@
       const email = (data.get("email") || "").toString().trim();
       const service = (data.get("service") || "").toString().trim();
       const message = (data.get("message") || "").toString().trim();
+      const files = fileInput ? Array.from(fileInput.files || []) : [];
 
       if (!name || !phone || !service || !message) {
         if (statusEl) {
           statusEl.textContent = "Please fill in all fields.";
+        }
+        return;
+      }
+
+      const attachmentError = getAttachmentError(files);
+      if (attachmentError) {
+        if (statusEl) {
+          statusEl.textContent = attachmentError;
         }
         return;
       }
@@ -161,6 +224,7 @@
       }
 
       try {
+        const attachments = await Promise.all(files.map(fileToAttachment));
         const response = await fetch(formEndpoint, {
           method: "POST",
           headers: {
@@ -172,7 +236,8 @@
             phone,
             email,
             service,
-            message
+            message,
+            attachments
           })
         });
         const result = await response.json().catch(() => null);

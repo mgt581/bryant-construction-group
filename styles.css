@@ -667,6 +667,28 @@ h4,
   box-shadow: 0 0 0 4px rgba(16, 41, 69, 0.08);
 }
 
+.form input[type="file"]{
+  padding: 10px 12px;
+  line-height: 1.4;
+}
+
+.optional-label,
+.form-hint{
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.optional-label{
+  font-size: 13px;
+}
+
+.form-hint{
+  display:block;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .projects-section{
   background:
     radial-gradient(circle at top right, rgba(197, 161, 90, 0.12), transparent 28%),
