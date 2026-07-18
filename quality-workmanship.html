@@ -42,11 +42,22 @@
 
     <div class="brand">
       <a href="index.html" class="brand-link">
-        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" />
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" width="56" height="56" />
       </a>
     </div>
 
-    <nav class="main-nav">
+    <div class="mobile-header-actions">
+      <a class="btn btn-primary mobile-call-btn" href="tel:+447843969254" aria-label="Call Bryant Construction Group">
+        Call now
+      </a>
+      <button class="nav-toggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav class="main-nav" id="mobileNav">
       <a href="index.html">Home</a>
 
       <div class="dropdown">
@@ -65,6 +76,7 @@
       <a href="gallery.html">Gallery</a>
       <a href="contact.html">Contact Us</a>
       <a href="privacy.html">Privacy Policy</a>
+      <a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
     </nav>
 
     <div class="header-cta">
