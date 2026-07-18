@@ -175,6 +175,7 @@ After push:
 
 Before shipping a change:
 
+- Run `node scripts/check-site.js`
 - Check the edited page on desktop and mobile
 - Test main navigation links
 - Test `tel:`, `mailto:`, and WhatsApp links if touched

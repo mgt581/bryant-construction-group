@@ -500,7 +500,7 @@
       'assets/constructiongallery/boardingbedroom.JPG',
       'assets/constructiongallery/boardingcupboard.JPG',
       'assets/constructiongallery/boardingtimber.JPG',
-      'assets/constructiongallery/brickwallrepair.jpeg',
+      'assets/constructiongallery/brickwallrepair.webp',
       'assets/constructiongallery/bryantandcocleaning.PNG',
       'assets/constructiongallery/building houses.JPG',
       'assets/constructiongallery/buildinghouses.JPG',
@@ -509,18 +509,18 @@
       'assets/constructiongallery/bulkhead.JPG',
       'assets/constructiongallery/ceilingservices.JPG',
       'assets/constructiongallery/commericalbuildingproject.JPG',
-      'assets/constructiongallery/commericalhighspec.jpg',
-      'assets/constructiongallery/commericalstudwork.JPG',
+      'assets/constructiongallery/commericalhighspec.webp',
+      'assets/constructiongallery/commericalstudwork.webp',
       'assets/constructiongallery/companylogo.png',
-      'assets/constructiongallery/concreteposts.jpeg',
+      'assets/constructiongallery/concreteposts.webp',
       'assets/constructiongallery/dotanddab.JPG',
       'assets/constructiongallery/drywalling.JPG',
       'assets/constructiongallery/exstention.JPG',
-      'assets/constructiongallery/fenceinstall.jpeg',
-      'assets/constructiongallery/fencing.jpeg',
-      'assets/constructiongallery/fireboard.jpg',
-      'assets/constructiongallery/fixingdoors.png',
-      'assets/constructiongallery/floorboardrepair.jpeg',
+      'assets/constructiongallery/fenceinstall.webp',
+      'assets/constructiongallery/fencing.webp',
+      'assets/constructiongallery/fireboard.webp',
+      'assets/constructiongallery/fixingdoors.webp',
+      'assets/constructiongallery/floorboardrepair.webp',
       'assets/constructiongallery/foilbarrier.JPG',
       'assets/constructiongallery/foundations.jpg',
       'assets/constructiongallery/generalbuilding.JPG',
@@ -528,7 +528,7 @@
       'assets/constructiongallery/highspecceiling.JPG',
       'assets/constructiongallery/installationceiling.JPG',
       'assets/constructiongallery/kitchenfloor.JPG',
-      'assets/constructiongallery/landscapingwork.jpeg',
+      'assets/constructiongallery/landscapingwork.webp',
       'assets/constructiongallery/luxurybuild.JPG',
       'assets/constructiongallery/metalstud boxing.JPG',
       'assets/constructiongallery/plasterboardceilings.JPG',
@@ -537,7 +537,7 @@
       'assets/constructiongallery/plasterboardingceilingslopes.JPG',
       'assets/constructiongallery/plywoodwalls.JPG',
       'assets/constructiongallery/quailtycontrol.JPG',
-      'assets/constructiongallery/rebuildingbrickwall.jpeg',
+      'assets/constructiongallery/rebuildingbrickwall.webp',
       'assets/constructiongallery/refurbceiling.JPG',
       'assets/constructiongallery/roofinstall.jpg',
       'assets/constructiongallery/servicescupboard.JPG',
@@ -551,8 +551,8 @@
       'assets/constructiongallery/timberstudwalllanding.JPG',
       'assets/constructiongallery/timberstudwalls.JPG',
       'assets/constructiongallery/understairsstorage.JPG',
-      'assets/constructiongallery/wallandcolumrepair.jpeg',
-      'assets/constructiongallery/wallrepair.jpg',
+      'assets/constructiongallery/wallandcolumrepair.webp',
+      'assets/constructiongallery/wallrepair.webp',
       'assets/constructiongallery/wallrepair.JPG',
       'assets/constructiongallery/wallrepairs.JPG',
       'assets/constructiongallery/windowsandboards.JPG',
@@ -561,6 +561,19 @@
     ];
 
     const IMAGE_EXTENSIONS = /\.(avif|gif|jpe?g|png|webp)$/i;
+
+    const preferOptimizedImages = (sources) => {
+      const webpBases = new Set(
+        sources
+          .filter((src) => /\.webp$/i.test(src))
+          .map((src) => src.replace(/\.[^.]+$/, '').toLowerCase())
+      );
+
+      return sources.filter((src) => {
+        if (/\.webp$/i.test(src)) return true;
+        return !webpBases.has(src.replace(/\.[^.]+$/, '').toLowerCase());
+      });
+    };
 
     const listImagesFromDirectory = async (folderPath) => {
       try {
@@ -583,7 +596,7 @@
           .filter((fileName) => IMAGE_EXTENSIONS.test(fileName))
           .map((fileName) => `${folderPath}/${fileName}`);
 
-        return [...new Set(discovered)].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+        return preferOptimizedImages([...new Set(discovered)]).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
       } catch {
         return [];
       }

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Building, Repairs & Property Maintenance | Bryant Construction Group</title>
+  <title>Building Repairs & Maintenance | Bryant Construction Group</title>
 
   <meta name="description" content="Bryant Construction Group provides reliable building, repairs and property maintenance across Bournemouth, Poole and Christchurch. Get a fast, clear quote today." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" href="assets/logo.png" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="canonical" href="https://bryantconstructiongroup.co.uk/" />
-  <link rel="preload" as="image" href="assets/bcg.PNG" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/bcg.webp" fetchpriority="high" />
 
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Bryant Construction Group" />
@@ -124,10 +124,12 @@
   <!-- ================= HERO LOGO ================= -->
 <section class="hero-logo-section">
   <div class="container hero-logo-wrap">
-    <img src="assets/bcg.PNG"
+    <img src="assets/bcg.webp"
          alt="Bryant Construction Group main project hero"
          fetchpriority="high"
          decoding="async"
+          width="1536"
+          height="1024"
          class="hero-logo">
   </div>
 </section>
@@ -463,11 +465,11 @@
       { src: 'assets/constructiongallerysection/bathroom taped and jointed.JPG', alt: 'Recent Bryant Construction Group project 1' },
       { src: 'assets/constructiongallerysection/bigglasswindows.JPG', alt: 'Recent Bryant Construction Group project 2' },
       { src: 'assets/constructiongallerysection/blockwalls.JPG', alt: 'Recent Bryant Construction Group project 3' },
-      { src: 'assets/constructiongallerysection/brickwallrepair.jpeg', alt: 'Recent Bryant Construction Group project 4' },
+      { src: 'assets/constructiongallerysection/brickwallrepair.webp', alt: 'Recent Bryant Construction Group project 4' },
       { src: 'assets/constructiongallerysection/buildingservices.jpg', alt: 'Recent Bryant Construction Group project 5' },
       { src: 'assets/constructiongallerysection/commericalbuildingproject.JPG', alt: 'Recent Bryant Construction Group project 6' },
-      { src: 'assets/constructiongallerysection/commericalhighspec.jpg', alt: 'Recent Bryant Construction Group project 7' },
-      { src: 'assets/constructiongallerysection/commericalstudwork.JPG', alt: 'Recent Bryant Construction Group project 8' },
+      { src: 'assets/constructiongallerysection/commericalhighspec.webp', alt: 'Recent Bryant Construction Group project 7' },
+      { src: 'assets/constructiongallerysection/commericalstudwork.webp', alt: 'Recent Bryant Construction Group project 8' },
       { src: 'assets/constructiongallerysection/dotanddab.JPG', alt: 'Recent Bryant Construction Group project 9' },
       { src: 'assets/constructiongallerysection/exstention.JPG', alt: 'Recent Bryant Construction Group project 10' },
       { src: 'assets/constructiongallerysection/foundations.jpg', alt: 'Recent Bryant Construction Group project 11' },
@@ -478,11 +480,24 @@
       { src: 'assets/constructiongallerysection/roofinstall.jpg', alt: 'Recent Bryant Construction Group project 16' },
       { src: 'assets/constructiongallerysection/timberstudwalls.JPG', alt: 'Recent Bryant Construction Group project 17' },
       { src: 'assets/constructiongallerysection/understairsstorage.JPG', alt: 'Recent Bryant Construction Group project 18' },
-      { src: 'assets/constructiongallerysection/wallrepair.jpg', alt: 'Recent Bryant Construction Group project 19' },
+      { src: 'assets/constructiongallerysection/wallrepair.webp', alt: 'Recent Bryant Construction Group project 19' },
       { src: 'assets/constructiongallerysection/windowwalls.JPG', alt: 'Recent Bryant Construction Group project 20' }
     ];
 
     const IMAGE_EXTENSIONS = /\.(avif|gif|jpe?g|png|webp)$/i;
+
+    const preferOptimizedImages = (sources) => {
+      const webpBases = new Set(
+        sources
+          .filter((src) => /\.webp$/i.test(src))
+          .map((src) => src.replace(/\.[^.]+$/, '').toLowerCase())
+      );
+
+      return sources.filter((src) => {
+        if (/\.webp$/i.test(src)) return true;
+        return !webpBases.has(src.replace(/\.[^.]+$/, '').toLowerCase());
+      });
+    };
 
     const listImagesFromDirectory = async (folderPath) => {
       try {
@@ -505,7 +520,7 @@
           .filter((fileName) => IMAGE_EXTENSIONS.test(fileName))
           .map((fileName) => `${folderPath}/${fileName}`);
 
-        return [...new Set(discovered)].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+        return preferOptimizedImages([...new Set(discovered)]).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
       } catch {
         return [];
       }
