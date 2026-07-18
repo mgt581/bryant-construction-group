@@ -110,6 +110,8 @@ Avoid opening files directly with `file://` when testing navigation, forms, or r
 
 The quote form is handled by `site-20260624-3.js`, which posts to the Cloudflare Worker endpoint at `/api/send-lead`. The Worker in `cloudflare/worker.js` sends the email through Resend without exposing the API key to website visitors.
 
+The form allows up to 3 optional attachments at 4 MB each. If Resend rejects an email with attachments, the Worker retries the lead email without attachments so the enquiry still arrives.
+
 If you change the form:
 
 - update field names in both HTML and JavaScript

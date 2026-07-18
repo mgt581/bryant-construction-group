@@ -132,7 +132,8 @@
   const statusEl = document.getElementById("formStatus");
   const formEndpoint = "/api/send-lead";
   const maxAttachments = 3;
-  const maxAttachmentBytes = 5 * 1024 * 1024;
+  const maxAttachmentMb = 4;
+  const maxAttachmentBytes = maxAttachmentMb * 1024 * 1024;
 
   const fileToAttachment = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -159,7 +160,7 @@
     }
 
     if (files.some((file) => file.size > maxAttachmentBytes)) {
-      return "Each attachment must be 5 MB or smaller.";
+      return `Each attachment must be ${maxAttachmentMb} MB or smaller.`;
     }
 
     return "";

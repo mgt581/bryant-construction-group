@@ -9,7 +9,8 @@ const ALLOWED_ORIGINS = new Set([
 
 const FROM_EMAIL = "info@bryantconstructiongroup.co.uk";
 const MAX_ATTACHMENTS = 3;
-const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
+const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
+const MAX_ATTACHMENT_MB = 4;
 
 const MAX_LENGTHS = {
   name: 100,
@@ -134,7 +135,7 @@ export default {
     try {
       attachments = normalizeAttachments(input.attachments);
     } catch {
-      return json({ ok: false, message: "Please attach up to 3 files, 5 MB each" }, 400, origin);
+      return json({ ok: false, message: `Please attach up to 3 files, ${MAX_ATTACHMENT_MB} MB each` }, 400, origin);
     }
 
     if (!lead.name || !lead.phone || !lead.service || !lead.message || !validEmail(lead.email)) {
@@ -142,12 +143,16 @@ export default {
     }
 
     const subject = `Bryant Construction Group quote request: ${lead.service}`;
+    const attachmentSummary = attachments.length > 0
+      ? attachments.map((attachment) => attachment.filename).join(", ")
+      : "None";
+
     const text = [
       `Name: ${lead.name}`,
       `Phone: ${lead.phone}`,
       `Email: ${lead.email || "Not provided"}`,
       `Service: ${lead.service}`,
-      `Attachments: ${attachments.length || "None"}`,
+      `Attachments: ${attachmentSummary}`,
       "",
       "Message:",
       lead.message,
@@ -168,14 +173,31 @@ export default {
       emailPayload.attachments = attachments;
     }
 
-    const resendResponse = await fetch("https://api.resend.com/emails", {
+    const sendEmail = (payload) => fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${env.RESEND_API_KEY}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(emailPayload)
+      body: JSON.stringify(payload)
     });
+
+    let resendResponse = await sendEmail(emailPayload);
+
+    if (!resendResponse.ok && attachments.length > 0) {
+      const fallbackPayload = {
+        ...emailPayload,
+        subject: `${subject} (attachments not delivered)`,
+        text: [
+          text,
+          "",
+          "Attachment delivery note:",
+          "The customer uploaded files, but the email provider rejected the attachment email. Please reply to the customer and ask them to send the files directly."
+        ].join("\n")
+      };
+      delete fallbackPayload.attachments;
+      resendResponse = await sendEmail(fallbackPayload);
+    }
 
     if (!resendResponse.ok) {
       return json({ ok: false, message: "Email provider rejected the request" }, 502, origin);
