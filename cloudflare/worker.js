@@ -244,9 +244,49 @@ export default {
       body: JSON.stringify(payload)
     });
 
-    const resendResponse = await sendEmail(emailPayload);
+    const sendFallbackEmail = () => {
+      const payload = new FormData();
+      payload.append("name", lead.name);
+      payload.append("phone", lead.phone);
+      payload.append("email", lead.email);
+      payload.append("service", lead.service);
+      payload.append("message", text);
+      payload.append("_subject", subject);
+      payload.append("_template", "table");
+      payload.append("_captcha", "false");
+      return fetch(`https://formsubmit.co/ajax/${env.LEAD_EMAIL || "ajbryantsleads@gmail.com"}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Origin: "https://bryantconstructiongroup.co.uk",
+          Referer: "https://bryantconstructiongroup.co.uk/contact.html"
+        },
+        body: payload
+      });
+    };
 
-    if (!resendResponse.ok) {
+    let delivered = false;
+
+    if (env.RESEND_API_KEY) {
+      try {
+        const resendResponse = await sendEmail(emailPayload);
+        delivered = resendResponse.ok;
+      } catch {
+        delivered = false;
+      }
+    }
+
+    if (!delivered) {
+      try {
+        const fallbackResponse = await sendFallbackEmail();
+        const fallbackResult = await fallbackResponse.json().catch(() => null);
+        delivered = fallbackResponse.ok && fallbackResult?.success !== false && fallbackResult?.success !== "false";
+      } catch {
+        delivered = false;
+      }
+    }
+
+    if (!delivered) {
       await Promise.all(storedAttachments.map((attachment) => env.CONTACT_UPLOADS.delete(attachment.key)));
       return json({ ok: false, message: "Email provider rejected the request" }, 502, origin);
     }
