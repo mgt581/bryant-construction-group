@@ -130,7 +130,7 @@
   // ===============================
   const form = document.getElementById("quoteForm");
   const statusEl = document.getElementById("formStatus");
-  const formEndpoint = "https://bryantconstruct.com/api/send-lead";
+  const formEndpoint = "/api/send-lead";
 
   if (form) {
     form.addEventListener("submit", async (e) => {

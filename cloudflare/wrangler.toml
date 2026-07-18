@@ -8,3 +8,7 @@ LEAD_EMAIL = "ajbryantsleads@gmail.com"
 [[routes]]
 pattern = "bryantconstruct.com/api/*"
 zone_name = "bryantconstruct.com"
+
+[[routes]]
+pattern = "bryantconstructiongroup.co.uk/api/*"
+zone_name = "bryantconstructiongroup.co.uk"

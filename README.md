@@ -2,7 +2,7 @@
 
 Static marketing site for Bryant Construction Group, built as a plain HTML/CSS/JavaScript site and deployed via GitHub Pages.
 
-Live domain: [bryantconstruct.com](https://bryantconstruct.com)
+Live domain: [bryantconstructiongroup.co.uk](https://bryantconstructiongroup.co.uk)
 
 ## Stack
 
@@ -108,7 +108,7 @@ Avoid opening files directly with `file://` when testing navigation, forms, or r
 
 ## Lead Form
 
-The quote form is handled by `site-20260624-3.js`, which posts to the Cloudflare Worker endpoint at `https://bryantconstruct.com/api/send-lead`. The Worker in `cloudflare/worker.js` sends the email through Resend without exposing the API key to website visitors.
+The quote form is handled by `site-20260624-3.js`, which posts to the Cloudflare Worker endpoint at `/api/send-lead`. The Worker in `cloudflare/worker.js` sends the email through Resend without exposing the API key to website visitors.
 
 If you change the form:
 
@@ -127,7 +127,7 @@ wrangler secret put RESEND_API_KEY
 wrangler deploy
 ```
 
-The Worker route is `bryantconstruct.com/api/*`. The Resend domain must be verified for `bryantconstruct.com`, and the sender is `info@bryantconstruct.com`.
+The Worker routes are `bryantconstructiongroup.co.uk/api/*` (primary) and `bryantconstruct.com/api/*` (compatibility). The Resend domain must be verified for `bryantconstruct.com`, and the sender is `info@bryantconstruct.com`.
 
 ## SEO and Domain Notes
 
