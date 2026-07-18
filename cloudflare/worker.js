@@ -92,10 +92,52 @@ function normalizeAttachments(value) {
   });
 }
 
+function decodeBase64(value) {
+  const binary = atob(value);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes;
+}
+
+function attachmentUrl(requestUrl, key) {
+  const url = new URL(requestUrl);
+  url.pathname = `/api/contact-upload/${key.split("/").map(encodeURIComponent).join("/")}`;
+  url.search = "";
+  return url.toString();
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
+
+    if (request.method === "GET" && url.pathname.startsWith("/api/contact-upload/")) {
+      if (!env.CONTACT_UPLOADS) {
+        return json({ ok: false, message: "Upload storage is not configured" }, 503, origin);
+      }
+
+      const encodedKey = url.pathname.slice("/api/contact-upload/".length);
+      let key;
+      try {
+        key = encodedKey.split("/").map(decodeURIComponent).join("/");
+      } catch {
+        return json({ ok: false, message: "Invalid attachment link" }, 400, origin);
+      }
+
+      const object = await env.CONTACT_UPLOADS.get(key);
+      if (!object) {
+        return json({ ok: false, message: "Attachment not found" }, 404, origin);
+      }
+
+      const headers = new Headers();
+      object.writeHttpMetadata(headers);
+      headers.set("Content-Disposition", `inline; filename="${cleanFileName(object.customMetadata?.filename)}"`);
+      headers.set("Cache-Control", "private, no-store");
+      headers.set("X-Content-Type-Options", "nosniff");
+      return new Response(object.body, { headers });
+    }
 
     if (url.pathname !== "/api/send-lead") {
       return json({ ok: false, message: "Not found" }, 404, origin);
@@ -143,8 +185,32 @@ export default {
     }
 
     const subject = `Bryant Construction Group quote request: ${lead.service}`;
-    const attachmentSummary = attachments.length > 0
-      ? attachments.map((attachment) => attachment.filename).join(", ")
+    const storedAttachments = [];
+
+    if (attachments.length > 0 && !env.CONTACT_UPLOADS) {
+      return json({ ok: false, message: "File uploads are temporarily unavailable" }, 503, origin);
+    }
+
+    try {
+      for (const attachment of attachments) {
+        const key = `${crypto.randomUUID()}/${attachment.filename}`;
+        await env.CONTACT_UPLOADS.put(key, decodeBase64(attachment.content), {
+          httpMetadata: { contentType: attachment.content_type },
+          customMetadata: { filename: attachment.filename }
+        });
+        storedAttachments.push({
+          key,
+          filename: attachment.filename,
+          url: attachmentUrl(request.url, key)
+        });
+      }
+    } catch {
+      await Promise.all(storedAttachments.map((attachment) => env.CONTACT_UPLOADS.delete(attachment.key)));
+      return json({ ok: false, message: "We could not store the attached files" }, 502, origin);
+    }
+
+    const attachmentSummary = storedAttachments.length > 0
+      ? storedAttachments.map((attachment) => `${attachment.filename}: ${attachment.url}`).join("\n")
       : "None";
 
     const text = [
@@ -169,10 +235,6 @@ export default {
       text
     };
 
-    if (attachments.length > 0) {
-      emailPayload.attachments = attachments;
-    }
-
     const sendEmail = (payload) => fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -182,24 +244,10 @@ export default {
       body: JSON.stringify(payload)
     });
 
-    let resendResponse = await sendEmail(emailPayload);
-
-    if (!resendResponse.ok && attachments.length > 0) {
-      const fallbackPayload = {
-        ...emailPayload,
-        subject: `${subject} (attachments not delivered)`,
-        text: [
-          text,
-          "",
-          "Attachment delivery note:",
-          "The customer uploaded files, but the email provider rejected the attachment email. Please reply to the customer and ask them to send the files directly."
-        ].join("\n")
-      };
-      delete fallbackPayload.attachments;
-      resendResponse = await sendEmail(fallbackPayload);
-    }
+    const resendResponse = await sendEmail(emailPayload);
 
     if (!resendResponse.ok) {
+      await Promise.all(storedAttachments.map((attachment) => env.CONTACT_UPLOADS.delete(attachment.key)));
       return json({ ok: false, message: "Email provider rejected the request" }, 502, origin);
     }
 

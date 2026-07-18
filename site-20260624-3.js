@@ -253,7 +253,9 @@
         }
       } catch (error) {
         if (statusEl) {
-          statusEl.textContent = "We could not send your request right now. Please call or try again shortly.";
+          statusEl.textContent = error?.message && error.message !== "quote-submit-failed"
+            ? error.message
+            : "We could not send your request right now. Please call or try again shortly.";
         }
       } finally {
         if (submitButton) {
