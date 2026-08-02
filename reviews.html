@@ -62,10 +62,16 @@
             <div><div class="review-stars" aria-label="Google reviews">★★★★★</div><p class="review-quote">Read the latest verified feedback from customers on our Google Business Profile.</p></div>
             <a class="btn btn-primary" href="https://share.google/Ju8WJFR8UCxrhv4rq" target="_blank" rel="noopener noreferrer">Read Google Reviews</a>
           </article>
-          <article class="review-card">
-            <div><div class="review-stars" aria-hidden="true">★★★★★</div><p class="review-quote">Worked with us recently? We’d really appreciate you taking a moment to share your experience.</p></div>
-            <a class="btn btn-primary" href="https://share.google/Ju8WJFR8UCxrhv4rq" target="_blank" rel="noopener noreferrer">Leave a Google Review</a>
-          </article>
+          <form id="websiteReviewForm" class="review-card form" novalidate>
+            <div>
+              <div class="review-stars" aria-hidden="true">★★★★★</div>
+              <p class="review-quote">No Google account? Leave a quick review directly with us.</p>
+              <label>Your name<input type="text" name="name" autocomplete="name" maxlength="100" required /></label>
+              <label>Your review<textarea name="message" rows="4" maxlength="1000" required placeholder="Tell us about your experience"></textarea></label>
+              <label aria-hidden="true" style="position:absolute;left:-9999px">Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <div><button class="btn btn-primary" type="submit">Leave a Review</button><p id="websiteReviewStatus" class="form-status" aria-live="polite"></p></div>
+          </form>
         </div>
       </div>
     </section>
@@ -75,5 +81,43 @@
 
   <footer class="site-footer"><div class="container footer-inner"><div><strong>Bryant Construction Group</strong><br />Bournemouth • Poole • Christchurch</div><div class="footer-contact"><a href="tel:+447843969254">07843 969254</a><br /><a href="mailto:info@bryantconstructiongroup.co.uk">info@bryantconstructiongroup.co.uk</a></div></div><div class="container footer-bottom"><small>© <span id="year"></span> Bryant Construction Group</small></div></footer>
   <script src="site-20260624-3.js" defer></script>
+  <script>
+    (() => {
+      const form = document.getElementById("websiteReviewForm");
+      const status = document.getElementById("websiteReviewStatus");
+      if (!form) return;
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const name = String(data.get("name") || "").trim();
+        const message = String(data.get("message") || "").trim();
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        if (!name || !message) {
+          status.textContent = "Please add your name and review.";
+          return;
+        }
+
+        status.textContent = "Sending your review...";
+        submitButton.disabled = true;
+        try {
+          const response = await fetch("/api/submit-review", {
+            method: "POST",
+            headers: { Accept: "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ name, message, website: String(data.get("website") || "") })
+          });
+          const result = await response.json().catch(() => null);
+          if (!response.ok || !result?.ok) throw new Error();
+          form.reset();
+          status.textContent = "Thanks for your review. We really appreciate it.";
+        } catch {
+          status.textContent = "We could not send your review. Please try again.";
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -139,7 +139,10 @@ export default {
       return new Response(object.body, { headers });
     }
 
-    if (url.pathname !== "/api/send-lead") {
+    const isLeadRequest = url.pathname === "/api/send-lead";
+    const isReviewRequest = url.pathname === "/api/submit-review";
+
+    if (!isLeadRequest && !isReviewRequest) {
       return json({ ok: false, message: "Not found" }, 404, origin);
     }
 
@@ -163,6 +166,56 @@ export default {
       input = await request.json();
     } catch {
       return json({ ok: false, message: "Invalid request" }, 400, origin);
+    }
+
+    if (isReviewRequest) {
+      const reviewName = clean(input.name, MAX_LENGTHS.name);
+      const reviewMessage = clean(input.message, 1000);
+      const honeypot = clean(input.website, 200);
+
+      if (honeypot) {
+        return json({ ok: true }, 200, origin);
+      }
+
+      if (!reviewName || !reviewMessage) {
+        return json({ ok: false, message: "Please add your name and review" }, 400, origin);
+      }
+
+      if (!env.RESEND_API_KEY) {
+        return json({ ok: false, message: "Reviews are temporarily unavailable" }, 503, origin);
+      }
+
+      try {
+        const response = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${env.RESEND_API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            from: `Bryant Construction Group <${FROM_EMAIL}>`,
+            to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
+            subject: "New website review for Bryant Construction Group",
+            text: [
+              `Name: ${reviewName}`,
+              "",
+              "Review:",
+              reviewMessage,
+              "",
+              "---",
+              "Submitted from bryantconstructiongroup.co.uk/reviews.html"
+            ].join("\n")
+          })
+        });
+
+        if (!response.ok) {
+          return json({ ok: false, message: "We could not send your review. Please try again." }, 502, origin);
+        }
+      } catch {
+        return json({ ok: false, message: "We could not send your review. Please try again." }, 502, origin);
+      }
+
+      return json({ ok: true }, 200, origin);
     }
 
     const lead = {
