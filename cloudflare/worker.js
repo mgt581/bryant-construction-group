@@ -19,7 +19,7 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.bryantconstruct.com"
 ]);
 
-const DEFAULT_FROM_EMAIL = "Bryant Construction Group <leads@bryantandcocleaning.co.uk>";
+const DEFAULT_FROM_EMAIL = "Bryant Construction Group <leads@bryantconstructiongroup.co.uk>";
 const REPLY_EMAIL = "info@bryantconstructiongroup.co.uk";
 const MAX_ATTACHMENTS = 3;
 const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
