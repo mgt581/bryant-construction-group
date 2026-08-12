@@ -36,15 +36,15 @@ wrangler deploy --env preview
 Do not deploy the Worker changes until all of the following are complete:
 
 1. Confirm the prepared `bryant-construction-leads` D1 binding and applied migration are present in the intended Cloudflare account.
-2. Create a Cloudflare Access self-hosted application covering:
+2. Confirm the two owner-only Cloudflare Access applications cover the following paths on the root and `www` hostnames:
    - `/dashboard*`
    - `/api/dashboard`
    - `/api/leads/*`
    - `/api/lead-events/export`
-3. Configure these Worker values for the Access application:
+3. Confirm these Worker values match the Access applications:
    - `CLOUDFLARE_ACCESS_ENABLED=true`
    - `CLOUDFLARE_ACCESS_TEAM_DOMAIN=https://YOUR-TEAM.cloudflareaccess.com`
-   - `CLOUDFLARE_ACCESS_AUD=YOUR-APPLICATION-AUDIENCE`
+   - `CLOUDFLARE_ACCESS_AUDS=ROOT-APPLICATION-AUDIENCE,WWW-APPLICATION-AUDIENCE`
 4. Store `LEADS_EXPORT_TOKEN` as an encrypted Worker secret for controlled API fallback use. Never place it in the dashboard, URLs, source, logs or GitHub settings visible to the browser.
 5. Review the privacy notice and retention procedure for attribution data, interaction events, first-party browser storage and hashed IP addresses.
 

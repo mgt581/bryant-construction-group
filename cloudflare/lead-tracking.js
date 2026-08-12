@@ -150,8 +150,9 @@ function decodeJwtPart(value) {
 
 async function verifyAccessJwt(token, env) {
   const teamDomain = cleanTrackingValue(env.CLOUDFLARE_ACCESS_TEAM_DOMAIN).replace(/\/$/, "");
-  const policyAud = cleanTrackingValue(env.CLOUDFLARE_ACCESS_AUD);
-  if (!token || !teamDomain || !policyAud || !teamDomain.startsWith("https://")) return false;
+  const policyAuds = cleanTrackingValue(env.CLOUDFLARE_ACCESS_AUDS || env.CLOUDFLARE_ACCESS_AUD)
+    .split(",").map((value) => value.trim()).filter(Boolean);
+  if (!token || !teamDomain || !policyAuds.length || !teamDomain.startsWith("https://")) return false;
 
   try {
     const parts = token.split(".");
@@ -162,7 +163,7 @@ async function verifyAccessJwt(token, env) {
 
     const now = Math.floor(Date.now() / 1000);
     const audiences = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
-    if (payload.iss !== teamDomain || !audiences.includes(policyAud)) return false;
+    if (payload.iss !== teamDomain || !policyAuds.some((audience) => audiences.includes(audience))) return false;
     if (!Number.isFinite(payload.exp) || payload.exp < now - 60) return false;
     if (Number.isFinite(payload.nbf) && payload.nbf > now + 60) return false;
 
