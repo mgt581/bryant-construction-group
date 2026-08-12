@@ -2,6 +2,7 @@ name = "bryant-construction-leads"
 main = "worker.js"
 compatibility_date = "2026-08-12"
 compatibility_flags = ["nodejs_compat"]
+keep_vars = true
 
 [vars]
 LEAD_EMAIL = "ajbryantsleads@gmail.com"
