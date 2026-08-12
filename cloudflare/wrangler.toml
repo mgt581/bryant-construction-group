@@ -1,9 +1,13 @@
 name = "bryant-construction-leads"
 main = "worker.js"
-compatibility_date = "2026-07-15"
+compatibility_date = "2026-08-12"
+compatibility_flags = ["nodejs_compat"]
 
 [vars]
 LEAD_EMAIL = "ajbryantsleads@gmail.com"
+CLOUDFLARE_ACCESS_ENABLED = "true"
+CLOUDFLARE_ACCESS_TEAM_DOMAIN = "https://mrwhite.cloudflareaccess.com"
+CLOUDFLARE_ACCESS_AUDS = "fdd1dece55bc10065a63cbcd959f88e539dd41a5d75ae1e8b38e27ff17803856,866ed593108cd30b9e4d8dfe564c9278c7ac07eed0dd571f105912a5d93153fc"
 
 [[routes]]
 pattern = "bryantconstruct.com/api/*"
@@ -16,3 +20,28 @@ zone_name = "bryantconstructiongroup.co.uk"
 [[r2_buckets]]
 binding = "CONTACT_UPLOADS"
 bucket_name = "contact-us-form-image-upload-construction"
+
+[[d1_databases]]
+binding = "LEADS_DB"
+database_name = "bryant-construction-leads"
+database_id = "f969696f-5c93-43ff-929b-74c16e0c459d"
+
+[env.preview]
+name = "bryant-construction-leads-preview"
+routes = []
+workers_dev = true
+
+[env.preview.vars]
+LEAD_EMAIL = "ajbryantsleads@gmail.com"
+CLOUDFLARE_ACCESS_ENABLED = "true"
+CLOUDFLARE_ACCESS_TEAM_DOMAIN = "https://mrwhite.cloudflareaccess.com"
+CLOUDFLARE_ACCESS_AUDS = "fdd1dece55bc10065a63cbcd959f88e539dd41a5d75ae1e8b38e27ff17803856,866ed593108cd30b9e4d8dfe564c9278c7ac07eed0dd571f105912a5d93153fc"
+
+[[env.preview.d1_databases]]
+binding = "LEADS_DB"
+database_name = "bryant-construction-leads-preview"
+database_id = "7915ba25-7626-4291-8330-d0b0f8c82752"
+
+[[env.preview.r2_buckets]]
+binding = "CONTACT_UPLOADS"
+bucket_name = "contact-us-form-image-upload-construction-preview"

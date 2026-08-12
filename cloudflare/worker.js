@@ -1,3 +1,15 @@
+import {
+  adminAllowed,
+  ALLOWED_EVENTS,
+  exportCsv,
+  getDashboardData,
+  insertTrackedEvent,
+  insertTrackedLead,
+  normalizeTrackedLead,
+  setLeadDelivery,
+  updateLead
+} from "./lead-tracking.js";
+
 const ALLOWED_ORIGINS = new Set([
   "https://bryantconstructiongroup.co.uk",
   "https://www.bryantconstructiongroup.co.uk",
@@ -139,6 +151,74 @@ export default {
       return new Response(object.body, { headers });
     }
 
+    if (url.pathname === "/api/lead-event") {
+      if (request.method === "OPTIONS") {
+        if (origin && !ALLOWED_ORIGINS.has(origin)) {
+          return json({ ok: false, message: "Origin not allowed" }, 403, origin);
+        }
+        return new Response(null, { status: 204, headers: corsHeaders(origin) });
+      }
+      if (request.method !== "POST") {
+        return json({ ok: false, message: "Method not allowed" }, 405, origin);
+      }
+      if (origin && !ALLOWED_ORIGINS.has(origin)) {
+        return json({ ok: false, message: "Origin not allowed" }, 403, origin);
+      }
+      if (!env.LEADS_DB) {
+        return json({ ok: false, message: "Lead event storage is not configured" }, 503, origin);
+      }
+      let event;
+      try {
+        event = await request.json();
+      } catch {
+        return json({ ok: false, message: "Invalid request" }, 400, origin);
+      }
+      const eventName = clean(event.event_name || event.event, 80);
+      if (!ALLOWED_EVENTS.includes(eventName)) {
+        return json({ ok: false, message: "Unsupported event" }, 400, origin);
+      }
+      await insertTrackedEvent(env.LEADS_DB, request, { ...event, event_name: eventName });
+      return json({ ok: true }, 200, origin);
+    }
+
+    const leadUpdateMatch = url.pathname.match(/^\/api\/leads\/(\d+)$/);
+    const isDashboardRequest = url.pathname === "/api/dashboard";
+    const isLeadExportRequest = url.pathname === "/api/leads/export";
+    const isEventExportRequest = url.pathname === "/api/lead-events/export";
+    if (isDashboardRequest || isLeadExportRequest || isEventExportRequest || leadUpdateMatch) {
+      if (!await adminAllowed(request, env)) {
+        return json({ ok: false, message: "Unauthorized" }, 401, origin);
+      }
+      if (!env.LEADS_DB) {
+        return json({ ok: false, message: "Lead storage is not configured" }, 503, origin);
+      }
+
+      if (isDashboardRequest) {
+        if (request.method !== "GET") return json({ ok: false, message: "Method not allowed" }, 405, origin);
+        return json(await getDashboardData(env.LEADS_DB), 200, origin);
+      }
+      if (isLeadExportRequest || isEventExportRequest) {
+        if (request.method !== "GET") return json({ ok: false, message: "Method not allowed" }, 405, origin);
+        const exported = await exportCsv(env.LEADS_DB, isLeadExportRequest ? "leads" : "lead_events");
+        return new Response(exported.body, {
+          headers: {
+            "Content-Type": "text/csv; charset=utf-8",
+            "Content-Disposition": `attachment; filename="${exported.filename}"`,
+            "Cache-Control": "no-store"
+          }
+        });
+      }
+      if (request.method !== "PATCH") return json({ ok: false, message: "Method not allowed" }, 405, origin);
+      let update;
+      try {
+        update = await request.json();
+      } catch {
+        return json({ ok: false, message: "Invalid request" }, 400, origin);
+      }
+      const result = await updateLead(env.LEADS_DB, Number(leadUpdateMatch[1]), update);
+      return json(result.error ? { ok: false, message: result.error } : result, result.status || 200, origin);
+    }
+
     const isLeadRequest = url.pathname === "/api/send-lead";
     const isReviewRequest = url.pathname === "/api/submit-review";
 
@@ -237,6 +317,10 @@ export default {
       return json({ ok: false, message: "Please check the form fields" }, 400, origin);
     }
 
+    if (!env.LEADS_DB) {
+      return json({ ok: false, message: "Lead storage is temporarily unavailable" }, 503, origin);
+    }
+
     const subject = `Bryant Construction Group quote request: ${lead.service}`;
     const storedAttachments = [];
 
@@ -260,6 +344,15 @@ export default {
     } catch {
       await Promise.all(storedAttachments.map((attachment) => env.CONTACT_UPLOADS.delete(attachment.key)));
       return json({ ok: false, message: "We could not store the attached files" }, 502, origin);
+    }
+
+    const trackedLead = normalizeTrackedLead(input);
+    let leadId;
+    try {
+      leadId = await insertTrackedLead(env.LEADS_DB, request, trackedLead);
+    } catch {
+      await Promise.all(storedAttachments.map((attachment) => env.CONTACT_UPLOADS.delete(attachment.key)));
+      return json({ ok: false, message: "We could not store your enquiry safely" }, 503, origin);
     }
 
     const attachmentSummary = storedAttachments.length > 0
@@ -341,8 +434,19 @@ export default {
 
     if (!delivered) {
       await Promise.all(storedAttachments.map((attachment) => env.CONTACT_UPLOADS.delete(attachment.key)));
+      await setLeadDelivery(env.LEADS_DB, leadId, false, "Email providers rejected the request");
+      await insertTrackedEvent(env.LEADS_DB, request, {
+        ...trackedLead,
+        event_name: "lead_delivery_failed"
+      });
       return json({ ok: false, message: "Email provider rejected the request" }, 502, origin);
     }
+
+    await setLeadDelivery(env.LEADS_DB, leadId, true);
+    await insertTrackedEvent(env.LEADS_DB, request, {
+      ...trackedLead,
+      event_name: "generate_lead"
+    });
 
     return json({ ok: true }, 200, origin);
   }
