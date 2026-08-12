@@ -112,6 +112,8 @@ The quote form is handled by `site-20260624-3.js`, which posts to the Cloudflare
 
 The form allows up to 3 optional attachments at 4 MB each. If Resend rejects an email with attachments, the Worker retries the lead email without attachments so the enquiry still arrives.
 
+Lead attribution, D1 storage, interaction events and the private dashboard are documented in [LEAD_TRACKING.md](LEAD_TRACKING.md). The existing `/api/send-lead` route remains the single owner of email delivery.
+
 If you change the form:
 
 - update field names in both HTML and JavaScript

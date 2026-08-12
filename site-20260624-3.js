@@ -191,6 +191,10 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
+      if (window.LeadGen) {
+        window.LeadGen.trackEvent("lead_form_submit_attempt", { form_name: "Website quote form" });
+      }
+
       const data = new FormData(form);
       const name = (data.get("name") || "").toString().trim();
       const phone = (data.get("phone") || "").toString().trim();
@@ -200,6 +204,9 @@
       const files = fileInput ? Array.from(fileInput.files || []) : [];
 
       if (!name || !phone || !service || !message) {
+        if (window.LeadGen) {
+          window.LeadGen.trackEvent("lead_form_error", { form_name: "Website quote form", error_type: "validation" });
+        }
         if (statusEl) {
           statusEl.textContent = "Please fill in all fields.";
         }
@@ -208,6 +215,9 @@
 
       const attachmentError = getAttachmentError(files);
       if (attachmentError) {
+        if (window.LeadGen) {
+          window.LeadGen.trackEvent("lead_form_error", { form_name: "Website quote form", error_type: "attachment" });
+        }
         if (statusEl) {
           statusEl.textContent = attachmentError;
         }
@@ -226,6 +236,7 @@
 
       try {
         const attachments = await Promise.all(files.map(fileToAttachment));
+        const attribution = window.LeadGen ? window.LeadGen.getAttribution() : {};
         const response = await fetch(formEndpoint, {
           method: "POST",
           headers: {
@@ -233,12 +244,14 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
+            ...attribution,
             name,
             phone,
             email,
             service,
             message,
-            attachments
+            attachments,
+            form_name: "Website quote form"
           })
         });
         const result = await response.json().catch(() => null);
@@ -251,7 +264,13 @@
         if (statusEl) {
           statusEl.textContent = "Thanks. Your quote request has been sent.";
         }
+        if (window.LeadGen) {
+          window.LeadGen.trackLead("Website quote form");
+        }
       } catch (error) {
+        if (window.LeadGen) {
+          window.LeadGen.trackEvent("lead_form_error", { form_name: "Website quote form", error_type: "delivery" });
+        }
         if (statusEl) {
           statusEl.textContent = error?.message && error.message !== "quote-submit-failed"
             ? error.message
