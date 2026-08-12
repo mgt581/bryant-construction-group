@@ -19,7 +19,8 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.bryantconstruct.com"
 ]);
 
-const FROM_EMAIL = "info@bryantconstructiongroup.co.uk";
+const DEFAULT_FROM_EMAIL = "Bryant Construction Group <leads@bryantandcocleaning.co.uk>";
+const REPLY_EMAIL = "info@bryantconstructiongroup.co.uk";
 const MAX_ATTACHMENTS = 3;
 const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
 const MAX_ATTACHMENT_MB = 4;
@@ -59,6 +60,10 @@ function json(body, status, origin) {
 
 function clean(value, maxLength) {
   return String(value ?? "").trim().slice(0, maxLength);
+}
+
+function fromEmail(env) {
+  return clean(env.LEAD_FROM_EMAIL || DEFAULT_FROM_EMAIL, 320);
 }
 
 function validEmail(value) {
@@ -273,7 +278,7 @@ export default {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            from: `Bryant Construction Group <${FROM_EMAIL}>`,
+            from: fromEmail(env),
             to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
             subject: "New website review for Bryant Construction Group",
             text: [
@@ -374,9 +379,9 @@ export default {
     ].join("\n");
 
     const emailPayload = {
-      from: `Bryant Construction Group <${FROM_EMAIL}>`,
+      from: fromEmail(env),
       to: [env.LEAD_EMAIL || "ajbryantsleads@gmail.com"],
-      reply_to: lead.email || FROM_EMAIL,
+      reply_to: lead.email || REPLY_EMAIL,
       subject,
       text
     };
