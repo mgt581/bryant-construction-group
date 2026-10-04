@@ -164,8 +164,8 @@
         </div>
 
         <div class="hero-proof" aria-label="Quick trust signals">
-          <span>Fast quote replies</span>
-          <span>Clean, tidy finish</span>
+          <span>Written quotes</span>
+          <span>Workmanship guarantee</span>
           <span>Trusted local service</span>
         </div>
       </div>
@@ -348,30 +348,30 @@
       </div>
 
       <div class="grid service-grid home-service-grid">
-        <a class="tile home-service-card" href="repairs-maintenance.html">
+        <a class="tile home-service-card" href="general-building.html">
           <span class="home-service-index">01</span>
+          <strong>General Building</strong>
+          <span>Alterations, refurbishments and practical building work managed from quote to completion.</span>
+        </a>
+        <a class="tile home-service-card" href="repairs-maintenance.html">
+          <span class="home-service-index">02</span>
           <strong>Repairs & Maintenance</strong>
           <span>Property repairs, snagging and dependable ongoing maintenance work.</span>
         </a>
         <a class="tile home-service-card" href="carpentry-joinery.html">
-          <span class="home-service-index">02</span>
+          <span class="home-service-index">03</span>
           <strong>Carpentry & Joinery</strong>
           <span>Clean fitting work, bespoke carpentry and accurate finishing detail.</span>
         </a>
         <a class="tile home-service-card" href="decorating.html">
-          <span class="home-service-index">03</span>
+          <span class="home-service-index">04</span>
           <strong>Decorating</strong>
           <span>Interior and exterior decorating with proper preparation throughout.</span>
         </a>
         <a class="tile home-service-card" href="plastering-finishing.html">
-          <span class="home-service-index">04</span>
+          <span class="home-service-index">05</span>
           <strong>Plastering & Finishing</strong>
           <span>Smooth plastering and finishing ready for paint and final detailing.</span>
-        </a>
-        <a class="tile home-service-card" href="quality-workmanship.html">
-          <span class="home-service-index">05</span>
-          <strong>Quality Workmanship</strong>
-          <span>Attention to detail, clean working and reliable standards on every job.</span>
         </a>
         <a class="tile home-service-card" href="areas-we-cover.html">
           <span class="home-service-index">06</span>
@@ -536,9 +536,9 @@
     };
 
     const discoveredSlideSources = await listImagesFromDirectory('assets/constructiongallerysection');
-    const slides = discoveredSlideSources.length > 0
+    const slides = (discoveredSlideSources.length > 0
       ? discoveredSlideSources.map((src, index) => ({ src, alt: `Recent Bryant Construction Group project ${index + 1}` }))
-      : fallbackSlides;
+      : fallbackSlides).slice(0, 8);
 
     const imageEl = slider.querySelector('[data-project-image]');
     const thumbsEl = slider.querySelector('[data-project-thumbs]');
@@ -556,7 +556,7 @@
       return;
     }
 
-    const AUTO_ADVANCE_MS = 2500;
+    const AUTO_ADVANCE_MS = 5000;
     let index = 0;
     let autoAdvanceTimer = null;
 
