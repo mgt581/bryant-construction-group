@@ -2351,3 +2351,15 @@ textarea:focus-visible{
 @media(max-width:760px){.home-page .home-project-caption{right:18px}.home-page .home-company{padding-block:48px}}
 
 @media(min-width:761px){.home-page .home-project-thumbs{height:min(65vw,650px);min-height:480px}.home-page .home-project-thumbs .projects-thumb{aspect-ratio:auto;height:100%;min-width:0}}
+
+/* Keep text on dark surfaces readable when shared heading/paragraph rules change. */
+.service-hero .service-hero-content :is(h1, h2, h3, h4, p){
+  color: #fff;
+  font-weight: 700;
+}
+
+.reviews-section .reviews-head h2,
+.reviews-section .form-status{
+  color: #fff;
+  font-weight: 700;
+}
