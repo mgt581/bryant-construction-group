@@ -14,7 +14,8 @@
   const nav = document.getElementById("mobileNav");
 
   if (toggle && nav) {
-    const isMobileViewport = () => window.matchMedia("(max-width: 768px)").matches;
+    const navBreakpoint = document.body.classList.contains("home-page") ? 1080 : 768;
+    const isMobileViewport = () => window.matchMedia(`(max-width: ${navBreakpoint}px)`).matches;
 
     const syncNavState = (isOpen) => {
       nav.classList.toggle("open", isOpen);
@@ -199,17 +200,26 @@
       const name = (data.get("name") || "").toString().trim();
       const phone = (data.get("phone") || "").toString().trim();
       const email = (data.get("email") || "").toString().trim();
+      const postcode = (data.get("postcode") || "").toString().trim();
       const service = (data.get("service") || "").toString().trim();
       const message = (data.get("message") || "").toString().trim();
       const files = fileInput ? Array.from(fileInput.files || []) : [];
 
-      if (!name || !phone || !service || !message) {
+      if (!name || !phone || !service || !message || (form.elements.postcode?.required && !postcode)) {
         if (window.LeadGen) {
           window.LeadGen.trackEvent("lead_form_error", { form_name: "Website quote form", error_type: "validation" });
         }
         if (statusEl) {
-          statusEl.textContent = "Please fill in all fields.";
+          statusEl.textContent = form.classList.contains("home-quote-form")
+            ? "Please add your name, phone, postcode, service and project details."
+            : "Please fill in all fields.";
         }
+        return;
+      }
+
+      if (form.classList.contains("home-quote-form") && email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (statusEl) statusEl.textContent = "Please enter a valid email address or leave it blank.";
+        if (window.LeadGen) window.LeadGen.trackEvent("lead_form_error", { form_name: "Website quote form", error_type: "validation" });
         return;
       }
 
@@ -248,6 +258,7 @@
             name,
             phone,
             email,
+            postcode,
             service,
             message,
             attachments,
