@@ -20,6 +20,59 @@
   }
 
   // ===============================
+  // Services dropdown (click toggle)
+  // ===============================
+  const dropdownClosers = [];
+
+  document.querySelectorAll(".dropbtn").forEach((btn) => {
+    const dropdown = btn.closest(".dropdown");
+    if (!dropdown) return;
+
+    const closeDropdown = () => {
+      dropdown.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    };
+
+    const openDropdown = () => {
+      dropdown.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    };
+
+    // Collect close functions so the document handler can reuse them
+    dropdownClosers.push(closeDropdown);
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.contains("open") ? closeDropdown() : openDropdown();
+    });
+
+    // Attach dropdown-level listeners once per dropdown (not per button)
+    if (!dropdown.hasAttribute("data-dropdown-bound")) {
+      dropdown.setAttribute("data-dropdown-bound", "");
+
+      // Close on Escape key, return focus to toggle button
+      dropdown.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeDropdown();
+          btn.focus();
+        }
+      });
+
+      // Close when focus moves entirely outside the dropdown
+      dropdown.addEventListener("focusout", (e) => {
+        if (!e.relatedTarget || !dropdown.contains(e.relatedTarget)) {
+          closeDropdown();
+        }
+      });
+    }
+  });
+
+  // Close any open dropdown when clicking outside it
+  document.addEventListener("click", () => {
+    dropdownClosers.forEach((close) => close());
+  });
+
+  // ===============================
   // Quote form handler
   // ===============================
   const form = document.getElementById("quoteForm");
