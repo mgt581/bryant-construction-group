@@ -307,6 +307,7 @@ export default {
       name: clean(input.name, MAX_LENGTHS.name),
       phone: clean(input.phone, MAX_LENGTHS.phone),
       email: clean(input.email, MAX_LENGTHS.email),
+      postcode: clean(input.postcode, 80),
       service: clean(input.service, MAX_LENGTHS.service),
       message: clean(input.message, MAX_LENGTHS.message)
     };
@@ -368,6 +369,7 @@ export default {
       `Name: ${lead.name}`,
       `Phone: ${lead.phone}`,
       `Email: ${lead.email || "Not provided"}`,
+      `Postcode: ${lead.postcode || "Not provided"}`,
       `Service: ${lead.service}`,
       `Attachments: ${attachmentSummary}`,
       "",
