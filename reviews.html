@@ -20,32 +20,69 @@
   <meta property="og:image" content="https://bryantconstructiongroup.co.uk/assets/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://bryantconstructiongroup.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Customer Reviews", "item": "https://bryantconstructiongroup.co.uk/reviews.html"}]}</script>
 </head>
-<body>
+<body class="site-page">
+<a class="skip-link" href="#mainContent">Skip to content</a>
   <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Bryant Construction Group" class="logo" width="56" height="56" /></a></div>
-      <div class="mobile-header-actions">
-        <a class="btn btn-primary mobile-call-btn" href="tel:+447843969254" aria-label="Call Bryant Construction Group">Call now</a>
-        <button class="nav-toggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
-      </div>
-      <nav class="main-nav" id="mobileNav">
-        <a href="index.html">Home</a>
-        <div class="dropdown">
-          <a href="services.html" class="dropbtn-link">Our Services</a>
-          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">▼</button>
-          <div class="dropdown-content">
-            <a href="general-building.html">General Building</a><a href="repairs-maintenance.html">Repairs &amp; Maintenance</a><a href="carpentry-joinery.html">Carpentry &amp; Joinery</a><a href="decorating.html">Decorating</a><a href="plastering-finishing.html">Plastering &amp; Finishing</a><a href="quality-workmanship.html">Quality Workmanship</a>
-          </div>
-        </div>
-        <a href="about.html">About Us</a><a href="areas-we-cover.html">Areas We Cover</a><a href="gallery.html">Gallery</a><a href="reviews.html" class="active">Reviews</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy Policy</a><a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
-      </nav>
-      <div class="header-cta"><a class="btn btn-ghost" href="contact.html">Get a Quote</a><a class="btn btn-primary" href="tel:+447843969254">Call 07843 969254</a></div>
-    </div>
-  </header>
+  <div class="container header-inner">
 
-  <main>
-    <section class="section service-hero" style="--service-hero-image: url('assets/constructiongallery/windowwalls.JPG');">
+    <!-- LOGO -->
+    <div class="brand">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Bryant Construction Group" class="logo" width="56" height="56" />
+      </a>
+    </div>
+
+    <div class="mobile-header-actions">
+      <a class="btn btn-primary mobile-call-btn" href="tel:+447843969254" aria-label="Call Bryant Construction Group">
+        Call now
+      </a>
+      <button class="nav-toggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+
+    <!-- NAV -->
+    <nav class="main-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+
+      <div class="dropdown">
+        <a href="services.html" class="dropbtn-link">Our Services</a>
+        <button class="dropbtn" aria-haspopup="true" aria-expanded="false">▼</button>
+        <div class="dropdown-content">
+          <a href="general-building.html">General Building</a>
+          <a href="repairs-maintenance.html">Repairs & Maintenance</a>
+          <a href="carpentry-joinery.html">Carpentry & Joinery</a>
+          <a href="decorating.html">Decorating</a>
+          <a href="plastering-finishing.html">Plastering & Finishing</a>
+          <a href="quality-workmanship.html">Quality Workmanship</a>
+        </div>
+      </div>
+
+      <a href="gallery.html">Gallery</a>
+      <a href="reviews.html" aria-current="page">Reviews</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html#quoteForm" class="mobile-menu-quote">Get a Quote</a>
+    </nav>
+
+    <!-- CTA -->
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="contact.html#quoteForm">Get a Quote</a>
+      <a class="btn btn-primary" href="tel:+447843969254">
+        Call 07843 969254
+      </a>
+    </div>
+
+  </div>
+</header>
+
+  <main id="mainContent">
+    <section class="section service-hero" style="--service-hero-image: url('assets/optimized/constructiongallery-windowwalls-jpg.webp');">
       <div class="container"><div class="section-head service-hero-content"><h1>Customer Reviews</h1><p>See what customers say about working with Bryant Construction Group.</p></div></div>
     </section>
 
@@ -79,7 +116,16 @@
     <section class="section section-alt"><div class="container section-head"><h2>Ready to discuss your project?</h2><p>Get in touch for a clear, straightforward quote.</p><a class="btn btn-primary" href="contact.html">Request a Quote</a></div></section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-inner"><div><strong>Bryant Construction Group</strong><br />Bournemouth • Poole • Christchurch</div><div class="footer-contact"><a href="tel:+447843969254">07843 969254</a><br /><a href="mailto:info@bryantconstructiongroup.co.uk">info@bryantconstructiongroup.co.uk</a></div></div><div class="container footer-bottom"><small>© <span id="year"></span> Bryant Construction Group</small></div></footer>
+  <footer class="site-footer home-footer">
+  <div class="container home-footer-grid">
+    <div class="home-footer-brand"><img src="assets/logo.png" alt="Bryant Construction Group" width="64" height="64"><p>Building, repairs and property maintenance across Bournemouth, Poole, Christchurch and nearby areas.</p></div>
+    <nav aria-label="Footer services"><strong>Services</strong><a href="general-building.html">General Building</a><a href="repairs-maintenance.html">Repairs &amp; Maintenance</a><a href="carpentry-joinery.html">Carpentry &amp; Joinery</a><a href="decorating.html">Decorating</a><a href="plastering-finishing.html">Plastering &amp; Finishing</a></nav>
+    <nav aria-label="Footer navigation"><strong>Explore</strong><a href="about.html">About Us</a><a href="areas-we-cover.html">Areas We Cover</a><a href="gallery.html">Gallery</a><a href="reviews.html">Reviews</a><a href="faqs.html">FAQs</a><a href="ourgurantee.html">Our Guarantee</a><a href="privacy.html">Privacy Policy</a></nav>
+    <div class="home-footer-contact"><strong>Contact</strong><a href="tel:+447843969254">07843 969254</a><a href="mailto:info@bryantconstructiongroup.co.uk">info@bryantconstructiongroup.co.uk</a><a href="https://wa.me/447843969254" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+  <div class="container home-footer-bottom"><small>© <span id="year"></span> Bryant Construction Group</small><span>Bournemouth · Poole · Christchurch</span></div>
+</footer>
+<div class="home-mobile-bar" aria-label="Quick contact"><a href="https://wa.me/447843969254" target="_blank" rel="noopener">WhatsApp</a><a href="contact.html#quoteForm">Get a quote</a></div>
   <script src="site-config.js"></script>
   <script src="lead-tracking.js" defer></script>
   <script src="site-20260624-3.js" defer></script>

@@ -33,9 +33,11 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://bryantconstructiongroup.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://bryantconstructiongroup.co.uk/privacy.html"}]}</script>
 </head>
 
-<body>
+<body class="site-page">
+<a class="skip-link" href="#mainContent">Skip to content</a>
 
 <!-- ================= HEADER ================= -->
 <header class="site-header">
@@ -48,7 +50,6 @@
       </a>
     </div>
 
-    <!-- NAV -->
     <div class="mobile-header-actions">
       <a class="btn btn-primary mobile-call-btn" href="tel:+447843969254" aria-label="Call Bryant Construction Group">
         Call now
@@ -60,20 +61,14 @@
       </button>
     </div>
 
-    <nav class="main-nav" id="mobileNav">
 
+    <!-- NAV -->
+    <nav class="main-nav" id="mobileNav">
       <a href="index.html">Home</a>
 
       <div class="dropdown">
-        <a href="services.html" class="dropbtn-link">
-          Our Services
-        </a>
-        <button class="dropbtn"
-                aria-haspopup="true"
-                aria-expanded="false">
-          ▼
-        </button>
-
+        <a href="services.html" class="dropbtn-link">Our Services</a>
+        <button class="dropbtn" aria-haspopup="true" aria-expanded="false">▼</button>
         <div class="dropdown-content">
           <a href="general-building.html">General Building</a>
           <a href="repairs-maintenance.html">Repairs & Maintenance</a>
@@ -87,14 +82,13 @@
       <a href="gallery.html">Gallery</a>
       <a href="reviews.html">Reviews</a>
       <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="contact.html" class="mobile-menu-quote">Get a Quote</a>
-
+      <a href="about.html">About Us</a>
+      <a href="contact.html#quoteForm" class="mobile-menu-quote">Get a Quote</a>
     </nav>
 
-    <!-- HEADER CTA -->
+    <!-- CTA -->
     <div class="header-cta">
-      <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
+      <a class="btn btn-ghost" href="contact.html#quoteForm">Get a Quote</a>
       <a class="btn btn-primary" href="tel:+447843969254">
         Call 07843 969254
       </a>
@@ -103,7 +97,7 @@
   </div>
 </header>
 
-<main>
+<main id="mainContent">
 
   <!-- ================= PAGE HERO ================= -->
   <section class="section privacy-hero">
@@ -114,7 +108,7 @@
           This Privacy Policy explains how Bryant Construction Group collects, uses,
           and protects your personal information when you use our website or contact us.
         </p>
-        <p><strong>Last updated:</strong> <span id="lastUpdated"></span></p>
+        <p><strong>Last updated:</strong> <time datetime="2026-10-06">6 October 2026</time></p>
       </div>
 
       <img src="assets/logo.png" alt="Bryant Construction Group" class="privacy-hero-logo" width="1024" height="1024" />
@@ -238,36 +232,20 @@
 
 </main>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-
-    <div>
-      <strong>Bryant Construction Group</strong><br />
-      Bournemouth • Poole • Christchurch
-    </div>
-
-    <div class="footer-contact">
-      <a href="tel:+447843969254">07843 969254</a><br />
-      <a href="mailto:info@bryantconstructiongroup.co.uk">
-        info@bryantconstructiongroup.co.uk
-      </a>
-    </div>
-
+<footer class="site-footer home-footer">
+  <div class="container home-footer-grid">
+    <div class="home-footer-brand"><img src="assets/logo.png" alt="Bryant Construction Group" width="64" height="64"><p>Building, repairs and property maintenance across Bournemouth, Poole, Christchurch and nearby areas.</p></div>
+    <nav aria-label="Footer services"><strong>Services</strong><a href="general-building.html">General Building</a><a href="repairs-maintenance.html">Repairs &amp; Maintenance</a><a href="carpentry-joinery.html">Carpentry &amp; Joinery</a><a href="decorating.html">Decorating</a><a href="plastering-finishing.html">Plastering &amp; Finishing</a></nav>
+    <nav aria-label="Footer navigation"><strong>Explore</strong><a href="about.html">About Us</a><a href="areas-we-cover.html">Areas We Cover</a><a href="gallery.html">Gallery</a><a href="reviews.html">Reviews</a><a href="faqs.html">FAQs</a><a href="ourgurantee.html">Our Guarantee</a><a href="privacy.html">Privacy Policy</a></nav>
+    <div class="home-footer-contact"><strong>Contact</strong><a href="tel:+447843969254">07843 969254</a><a href="mailto:info@bryantconstructiongroup.co.uk">info@bryantconstructiongroup.co.uk</a><a href="https://wa.me/447843969254" target="_blank" rel="noopener">WhatsApp</a></div>
   </div>
-
-  <div class="container footer-bottom">
-    <small>© <span id="year"></span> Bryant Construction Group</small>
-  </div>
+  <div class="container home-footer-bottom"><small>© <span id="year"></span> Bryant Construction Group</small><span>Bournemouth · Poole · Christchurch</span></div>
 </footer>
+<div class="home-mobile-bar" aria-label="Quick contact"><a href="https://wa.me/447843969254" target="_blank" rel="noopener">WhatsApp</a><a href="contact.html#quoteForm">Get a quote</a></div>
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Sets "Last updated" to today's date automatically.
-  // If you prefer a fixed date, replace this with a hard-coded date string.
-  const d = new Date();
-  const formatted = d.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
-  document.getElementById("lastUpdated").textContent = formatted;
 </script>
 <script src="site-config.js"></script>
 <script src="lead-tracking.js" defer></script>
