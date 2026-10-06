@@ -14,7 +14,7 @@
   const nav = document.getElementById("mobileNav");
 
   if (toggle && nav) {
-    const navBreakpoint = document.body.classList.contains("home-page") ? 1080 : 768;
+    const navBreakpoint = document.body.matches(".home-page, .site-page") ? 1080 : 768;
     const isMobileViewport = () => window.matchMedia(`(max-width: ${navBreakpoint}px)`).matches;
 
     const syncNavState = (isOpen) => {
@@ -203,6 +203,7 @@
       const postcode = (data.get("postcode") || "").toString().trim();
       const service = (data.get("service") || "").toString().trim();
       const message = (data.get("message") || "").toString().trim();
+      const website = (data.get("website") || "").toString().trim();
       const files = fileInput ? Array.from(fileInput.files || []) : [];
 
       if (!name || !phone || !service || !message || (form.elements.postcode?.required && !postcode)) {
@@ -262,6 +263,7 @@
             service,
             message,
             attachments,
+            website,
             form_name: "Website quote form"
           })
         });

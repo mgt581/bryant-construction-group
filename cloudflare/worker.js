@@ -1,3 +1,4 @@
+import { readJson, rateAllowed } from "./request-safety.js";
 import {
   adminAllowed,
   ALLOWED_EVENTS,
@@ -150,9 +151,10 @@ export default {
 
       const headers = new Headers();
       object.writeHttpMetadata(headers);
-      headers.set("Content-Disposition", `inline; filename="${cleanFileName(object.customMetadata?.filename)}"`);
+      headers.set("Content-Disposition", `attachment; filename="${cleanFileName(object.customMetadata?.filename)}"`);
       headers.set("Cache-Control", "private, no-store");
       headers.set("X-Content-Type-Options", "nosniff");
+      headers.set("Content-Security-Policy", "sandbox; default-src 'none'");
       return new Response(object.body, { headers });
     }
 
@@ -174,13 +176,17 @@ export default {
       }
       let event;
       try {
-        event = await request.json();
+        event = await readJson(request, 32 * 1024);
       } catch {
-        return json({ ok: false, message: "Invalid request" }, 400, origin);
+        return json({ ok: false, message: "Invalid or oversized request" }, 400, origin);
       }
+      if (!event || typeof event !== "object" || Array.isArray(event)) return json({ ok: false, message: "Invalid event" }, 400, origin);
       const eventName = clean(event.event_name || event.event, 80);
       if (!ALLOWED_EVENTS.includes(eventName)) {
         return json({ ok: false, message: "Unsupported event" }, 400, origin);
+      }
+      if (!await rateAllowed(request, env.LEADS_DB, "event", 120, 60)) {
+        return json({ ok: false, message: "Please try again shortly" }, 429, origin);
       }
       await insertTrackedEvent(env.LEADS_DB, request, { ...event, event_name: eventName });
       return json({ ok: true }, 200, origin);
@@ -248,9 +254,15 @@ export default {
 
     let input;
     try {
-      input = await request.json();
-    } catch {
-      return json({ ok: false, message: "Invalid request" }, 400, origin);
+      input = await readJson(request, isLeadRequest ? 18 * 1024 * 1024 : 32 * 1024);
+    } catch (error) {
+      return json({ ok: false, message: error instanceof RangeError ? "Request is too large" : "Invalid request" }, error instanceof RangeError ? 413 : 400, origin);
+    }
+
+    if (!input || typeof input !== "object" || Array.isArray(input)) return json({ ok: false, message: "Invalid request" }, 400, origin);
+    if (input.website) return json({ ok: true }, 200, origin);
+    if (!await rateAllowed(request, env.LEADS_DB, isLeadRequest ? "lead" : "review", 10, 600)) {
+      return json({ ok: false, message: "Too many requests. Please try again shortly or call us." }, 429, origin);
     }
 
     if (isReviewRequest) {
