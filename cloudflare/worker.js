@@ -77,7 +77,7 @@ function cleanFileName(value) {
 
 function base64ByteLength(value) {
   const content = String(value ?? "").replace(/\s/g, "");
-  if (!content || !/^[A-Za-z0-9+/]*={0,2}$/.test(content)) {
+  if (!content || content.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(content)) {
     return null;
   }
 
@@ -128,6 +128,14 @@ function attachmentUrl(requestUrl, key) {
 
 export default {
   async fetch(request, env) {
+    try {
+      return await this.handle(request, env);
+    } catch {
+      console.error("lead-service-request-failed");
+      return json({ ok: false, message: "We could not process your request. Please call or try again shortly." }, 503, request.headers.get("Origin") || "");
+    }
+  },
+  async handle(request, env) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
 
@@ -151,7 +159,7 @@ export default {
 
       const headers = new Headers();
       object.writeHttpMetadata(headers);
-      headers.set("Content-Disposition", `attachment; filename="${cleanFileName(object.customMetadata?.filename)}"`);
+      headers.set("Content-Disposition", `attachment; filename="${cleanFileName(object.customMetadata?.filename).replace(/["\x00-\x1f\x7f-\uffff]/g, "_")}"`);
       headers.set("Cache-Control", "private, no-store");
       headers.set("X-Content-Type-Options", "nosniff");
       headers.set("Content-Security-Policy", "sandbox; default-src 'none'");
@@ -364,7 +372,7 @@ export default {
       return json({ ok: false, message: "We could not store the attached files" }, 502, origin);
     }
 
-    const trackedLead = normalizeTrackedLead(input);
+    const trackedLead = normalizeTrackedLead({ ...input, ...lead });
     let leadId;
     try {
       leadId = await insertTrackedLead(env.LEADS_DB, request, trackedLead);
@@ -445,7 +453,7 @@ export default {
       try {
         const fallbackResponse = await sendFallbackEmail();
         const fallbackResult = await fallbackResponse.json().catch(() => null);
-        delivered = fallbackResponse.ok && fallbackResult?.success !== false && fallbackResult?.success !== "false";
+        delivered = fallbackResponse.ok && (fallbackResult?.success === true || fallbackResult?.success === "true");
       } catch {
         delivered = false;
       }
@@ -461,11 +469,11 @@ export default {
       return json({ ok: false, message: "Email provider rejected the request" }, 502, origin);
     }
 
-    await setLeadDelivery(env.LEADS_DB, leadId, true);
+    await setLeadDelivery(env.LEADS_DB, leadId, true).catch(() => console.error("lead-delivery-status-write-failed"));
     await insertTrackedEvent(env.LEADS_DB, request, {
       ...trackedLead,
       event_name: "generate_lead"
-    });
+    }).catch(() => console.error("lead-conversion-write-failed"));
 
     return json({ ok: true }, 200, origin);
   }
