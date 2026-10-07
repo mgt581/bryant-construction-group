@@ -4,6 +4,14 @@
   var config = window.LEADGEN_CONFIG || {};
   var prefix = String(config.storagePrefix || "leadgen").replace(/[^a-z0-9_-]/gi, "_");
 
+  function memoryStorage() {
+    var values = {};
+    return { getItem: function (key) { return values[key] || ""; }, setItem: function (key, value) { values[key] = value; } };
+  }
+  var sessionStore, localStore;
+  try { sessionStore = window.sessionStorage; } catch (_) { sessionStore = memoryStorage(); }
+  try { localStore = window.localStorage; } catch (_) { localStore = memoryStorage(); }
+
   function clean(value) {
     return String(value || "").trim();
   }
@@ -35,7 +43,7 @@
   }
 
   function firstTouch() {
-    var stored = get(sessionStorage, "first_touch");
+    var stored = get(sessionStore, "first_touch");
     if (stored) {
       try { return JSON.parse(stored); } catch (_) {}
     }
@@ -51,16 +59,16 @@
       fbclid: params.get("fbclid") || "",
       msclkid: params.get("msclkid") || ""
     };
-    set(sessionStorage, "first_touch", JSON.stringify(value));
+    set(sessionStore, "first_touch", JSON.stringify(value));
     return value;
   }
 
   function attribution() {
     var touch = firstTouch();
-    var landingPage = get(sessionStorage, "landing_page");
+    var landingPage = get(sessionStore, "landing_page");
     if (!landingPage) {
       landingPage = location.href;
-      set(sessionStorage, "landing_page", landingPage);
+      set(sessionStore, "landing_page", landingPage);
     }
     return Object.assign({}, touch, {
       page: location.href,
@@ -70,8 +78,8 @@
       campaign: touch.utm_campaign,
       term: touch.utm_term,
       content: touch.utm_content,
-      session_id: stable(sessionStorage, "session_id", "session"),
-      client_id: stable(localStorage, "client_id", "client")
+      session_id: stable(sessionStore, "session_id", "session"),
+      client_id: stable(localStore, "client_id", "client")
     });
   }
 

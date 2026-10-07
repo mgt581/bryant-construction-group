@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" href="assets/logo.png" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="canonical" href="https://bryantconstructiongroup.co.uk/" />
-  <link rel="preload" as="image" href="assets/bcg.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/optimized/constructiongallerysection-bigglasswindows-jpg.webp" fetchpriority="high" />
 
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Bryant Construction Group" />
@@ -26,12 +26,12 @@
   <meta property="og:description" content="Reliable building, repairs and property maintenance across Bournemouth, Poole and Christchurch. Fast, clear quotes." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bryantconstructiongroup.co.uk/" />
-  <meta property="og:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.PNG" />
+  <meta property="og:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.webp" />
   <meta property="og:image:alt" content="Bryant Construction Group project showcase image" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Building, Repairs & Property Maintenance | Bryant Construction Group" />
   <meta name="twitter:description" content="Reliable building, repairs and property maintenance across Bournemouth, Poole and Christchurch." />
-  <meta name="twitter:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.PNG" />
+  <meta name="twitter:image" content="https://bryantconstructiongroup.co.uk/assets/bcg.webp" />
   <meta name="twitter:image:alt" content="Bryant Construction Group project showcase image" />
 
   <link rel="stylesheet" href="styles.css" />
@@ -42,7 +42,7 @@
     "name": "Bryant Construction Group",
     "url": "https://bryantconstructiongroup.co.uk/",
     "logo": "https://bryantconstructiongroup.co.uk/assets/logo.png",
-    "image": "https://bryantconstructiongroup.co.uk/assets/bcg.PNG",
+    "image": "https://bryantconstructiongroup.co.uk/assets/bcg.webp",
     "telephone": "+447843969254",
     "email": "info@bryantconstructiongroup.co.uk",
     "areaServed": [
@@ -63,6 +63,7 @@
 </head>
 
 <body class="home-page">
+<a class="skip-link" href="#home">Skip to content</a>
 
 <!-- ================= HEADER ================= -->
 <header class="site-header">
@@ -122,7 +123,7 @@
   </div>
 </header>
 
-<main id="home">
+<main id="home" tabindex="-1">
   <section class="home-hero" aria-labelledby="homeHeroTitle">
     <div class="container home-hero-grid">
       <div class="home-hero-copy">
@@ -141,7 +142,7 @@
         </ul>
       </div>
       <figure class="home-hero-visual">
-        <img src="assets/constructiongallerysection/bigglasswindows.JPG" alt="Recent Bryant Construction Group building project with large glazed openings" width="900" height="1100" fetchpriority="high" decoding="async">
+        <img src="assets/optimized/constructiongallerysection-bigglasswindows-jpg.webp" alt="Recent Bryant Construction Group building project with large glazed openings" width="900" height="1100" fetchpriority="high" decoding="async">
         <figcaption><span>Recent work</span> Building, repair and finishing projects across the local area.</figcaption>
       </figure>
       <aside class="home-quote-card" aria-labelledby="quoteCardTitle">
@@ -170,6 +171,7 @@
           </label>
           <label>Project details<textarea name="message" rows="4" placeholder="Tell us what needs doing and where the property is located." required></textarea></label>
           <label class="home-file-field">Add photos <span>(optional)</span><input type="file" name="attachments" accept="image/*" multiple><small>Up to 3 images, 4 MB each.</small></label>
+          <label class="form-honeypot" aria-hidden="true">Leave this field blank<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
           <button class="btn btn-primary home-submit" type="submit">Send quote request</button>
           <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
           <p class="home-form-note">Prefer to talk? <a href="tel:+447843969254">Call 07843 969254</a> or <a href="https://wa.me/447843969254" target="_blank" rel="noopener">WhatsApp us</a>.</p>
@@ -218,7 +220,7 @@
       </div>
       <div class="home-project-showcase" data-projects-slider>
         <div class="home-project-stage">
-          <img data-project-image src="assets/constructiongallerysection/bigglasswindows.JPG" alt="Recent Bryant Construction Group project" width="1400" height="900" loading="lazy" decoding="async">
+          <img data-project-image src="assets/optimized/constructiongallerysection-bigglasswindows-jpg.webp" alt="Recent Bryant Construction Group project" width="1400" height="900" loading="lazy" decoding="async">
           <div class="home-project-caption"><span>Selected project</span><strong>Building &amp; finishing work</strong></div>
           <div class="home-project-controls">
             <button type="button" data-project-prev aria-label="Previous project">←</button>
@@ -284,7 +286,7 @@
   <div class="container home-footer-grid">
     <div class="home-footer-brand"><img src="assets/logo.png" alt="Bryant Construction Group" width="64" height="64"><p>Building, repairs and property maintenance across Bournemouth, Poole, Christchurch and nearby areas.</p></div>
     <nav aria-label="Footer services"><strong>Services</strong><a href="general-building.html">General Building</a><a href="repairs-maintenance.html">Repairs &amp; Maintenance</a><a href="carpentry-joinery.html">Carpentry &amp; Joinery</a><a href="decorating.html">Decorating</a><a href="plastering-finishing.html">Plastering &amp; Finishing</a></nav>
-    <nav aria-label="Footer navigation"><strong>Explore</strong><a href="gallery.html">Gallery</a><a href="reviews.html">Reviews</a><a href="faqs.html">FAQs</a><a href="ourgurantee.html">Our Guarantee</a><a href="privacy.html">Privacy Policy</a></nav>
+    <nav aria-label="Footer navigation"><strong>Explore</strong><a href="about.html">About Us</a><a href="areas-we-cover.html">Areas We Cover</a><a href="gallery.html">Gallery</a><a href="reviews.html">Reviews</a><a href="faqs.html">FAQs</a><a href="ourgurantee.html">Our Guarantee</a><a href="privacy.html">Privacy Policy</a></nav>
     <div class="home-footer-contact"><strong>Contact</strong><a href="tel:+447843969254">07843 969254</a><a href="mailto:info@bryantconstructiongroup.co.uk">info@bryantconstructiongroup.co.uk</a><a href="https://wa.me/447843969254" target="_blank" rel="noopener">WhatsApp</a></div>
   </div>
   <div class="container home-footer-bottom"><small>© <span id="year"></span> Bryant Construction Group</small><span>Bournemouth · Poole · Christchurch</span></div>
@@ -321,6 +323,10 @@
       { src: 'assets/constructiongallerysection/wallrepair.webp', alt: 'Recent Bryant Construction Group project 19' },
       { src: 'assets/constructiongallerysection/windowwalls.JPG', alt: 'Recent Bryant Construction Group project 20' }
     ];
+
+    const imageMap = await fetch('assets/image-map.json').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    const displaySource = (src) => imageMap[src] || src;
+    const thumbnailSource = (src) => imageMap[src] ? imageMap[src].replace('.webp', '-thumb.webp') : src;
 
     const IMAGE_EXTENSIONS = /\.(avif|gif|jpe?g|png|webp)$/i;
 
@@ -410,7 +416,7 @@
 
     const update = () => {
       const slide = slides[index];
-      imageEl.src = slide.src;
+      imageEl.src = displaySource(slide.src);
       imageEl.alt = slide.alt;
       slider.querySelector('.home-project-caption strong').textContent = slide.category;
 
@@ -448,7 +454,7 @@
       button.type = 'button';
       button.className = 'projects-thumb';
       button.setAttribute('aria-label', `Show project ${slideIndex + 1}: ${slide.category}`);
-      const thumbSrc = slide.src;
+      const thumbSrc = thumbnailSource(slide.src);
       button.innerHTML = `<img src="${thumbSrc}" alt="${slide.alt}" loading="lazy" decoding="async" width="240" height="320" />`;
       button.addEventListener('click', () => {
         goTo(slideIndex);
