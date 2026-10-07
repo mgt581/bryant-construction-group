@@ -110,7 +110,7 @@ Avoid opening files directly with `file://` when testing navigation, forms, or r
 
 The quote form is handled by `site-20260624-3.js`, which posts to the Cloudflare Worker endpoint at `/api/send-lead`. The Worker in `cloudflare/worker.js` sends the email through Resend without exposing the API key to website visitors.
 
-The form allows up to 3 optional attachments at 4 MB each. If Resend rejects an email with attachments, the Worker retries the lead email without attachments so the enquiry still arrives.
+The form allows up to 3 optional attachments at 4 MB each. Attachments are stored in R2 and sent as download links. If Resend fails, the Worker uses the existing FormSubmit fallback and requires an explicit success response.
 
 Lead attribution, D1 storage, interaction events and the private dashboard are documented in [LEAD_TRACKING.md](LEAD_TRACKING.md). The existing `/api/send-lead` route remains the single owner of email delivery.
 
@@ -131,7 +131,7 @@ wrangler secret put RESEND_API_KEY
 wrangler deploy
 ```
 
-The Worker routes are `bryantconstructiongroup.co.uk/api/*` (primary), `bryantconstruct.co.uk/api/*`, and `bryantconstruct.com/api/*` (compatibility). The Resend domain must be verified for `bryantconstructiongroup.co.uk`, and the sender is `info@bryantconstructiongroup.co.uk`.
+The configured Worker routes are `bryantconstructiongroup.co.uk/api/*` (primary) and `bryantconstruct.com/api/*` (compatibility). The Resend domain must be verified for `bryantconstructiongroup.co.uk`; the configured sender is `leads@bryantconstructiongroup.co.uk`.
 
 ## SEO and Domain Notes
 
@@ -179,7 +179,7 @@ After push:
 
 Before shipping a change:
 
-- Run `node scripts/check-site.js`
+- Run `node scripts/check-site.js`, `node scripts/check-seo.cjs` and `node --test tests/*.mjs`
 - Check the edited page on desktop and mobile
 - Test main navigation links
 - Test `tel:`, `mailto:`, and WhatsApp links if touched
@@ -200,4 +200,4 @@ Before shipping a change:
 - Replace oversized image assets with optimized WebP or AVIF versions
 - Standardize project titles and captions in the gallery for stronger SEO
 - Keep structured data and sitemap aligned with the live domain
-- Consider moving form handling to a branded backend instead of a client-side third-party form flow
+- Verify deployed Worker bindings, delivery and owner dashboard access before promotion

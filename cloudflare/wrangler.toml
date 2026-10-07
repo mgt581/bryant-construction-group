@@ -36,6 +36,9 @@ name = "bryant-construction-leads-preview"
 routes = []
 workers_dev = true
 
+[env.preview.secrets]
+required = ["RESEND_API_KEY", "LEADS_EXPORT_TOKEN"]
+
 [env.preview.vars]
 LEAD_EMAIL = "ajbryantsleads@gmail.com"
 LEAD_FROM_EMAIL = "Bryant Construction Group <leads@bryantconstructiongroup.co.uk>"
