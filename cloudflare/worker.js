@@ -125,10 +125,102 @@ function attachmentUrl(requestUrl, key) {
   return url.toString();
 }
 
+
+const GOOGLE_REVIEWS_CACHE_SECONDS = 12 * 60 * 60;
+const GOOGLE_PLACE_QUERY = "Bryant Construction Group Bournemouth";
+
+async function googlePlacesFetch(env, url, init = {}) {
+  const response = await fetch(url, {
+    ...init,
+    headers: {
+      "X-Goog-Api-Key": env.GOOGLE_PLACES_API_KEY,
+      "Content-Type": "application/json",
+      ...(init.headers || {})
+    }
+  });
+  if (!response.ok) {
+    throw new Error(`places-${response.status}`);
+  }
+  return response.json();
+}
+
+async function findPlaceId(env) {
+  if (env.GOOGLE_PLACE_ID) return env.GOOGLE_PLACE_ID;
+  // Text Search with only the place ID field is Google's free "IDs only" request.
+  const result = await googlePlacesFetch(env, "https://places.googleapis.com/v1/places:searchText", {
+    method: "POST",
+    headers: { "X-Goog-FieldMask": "places.id,places.displayName" },
+    body: JSON.stringify({ textQuery: GOOGLE_PLACE_QUERY, regionCode: "GB" })
+  });
+  const place = (result.places || []).find((item) => /bryant construction/i.test(item.displayName?.text || ""));
+  if (!place) throw new Error("place-not-found");
+  return place.id;
+}
+
+async function loadGoogleReviews(env) {
+  const placeId = await findPlaceId(env);
+  const place = await googlePlacesFetch(
+    env,
+    `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?languageCode=en-GB&regionCode=GB`,
+    { headers: { "X-Goog-FieldMask": "displayName,rating,userRatingCount,googleMapsUri,reviews" } }
+  );
+  return {
+    ok: true,
+    name: place.displayName?.text || "Bryant Construction Group",
+    rating: typeof place.rating === "number" ? place.rating : null,
+    total: typeof place.userRatingCount === "number" ? place.userRatingCount : 0,
+    url: place.googleMapsUri || "",
+    reviews: (place.reviews || []).map((review) => ({
+      author: clean(review.authorAttribution?.displayName || "Google user", 100),
+      authorUrl: clean(review.authorAttribution?.uri || "", 500),
+      photo: clean(review.authorAttribution?.photoUri || "", 500),
+      rating: Number(review.rating) || 0,
+      when: clean(review.relativePublishTimeDescription || "", 60),
+      published: clean(review.publishTime || "", 40),
+      text: clean(review.originalText?.text || review.text?.text || "", 2000),
+      url: clean(review.googleMapsUri || "", 500)
+    })),
+    updated: new Date().toISOString()
+  };
+}
+
+async function handleGoogleReviews(request, env, ctx) {
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "public, max-age=3600"
+  };
+  if (request.method !== "GET") {
+    return new Response(JSON.stringify({ ok: false, message: "Method not allowed" }), { status: 405, headers });
+  }
+  if (!env.GOOGLE_PLACES_API_KEY) {
+    return new Response(JSON.stringify({ ok: false, message: "Reviews not configured" }), { status: 503, headers: { ...headers, "Cache-Control": "no-store" } });
+  }
+
+  const cache = caches.default;
+  const cacheKey = new Request("https://bryantconstructiongroup.co.uk/__cache/google-reviews-v1");
+  const cached = await cache.match(cacheKey);
+  if (cached) return new Response(cached.body, { headers });
+
+  try {
+    const body = JSON.stringify(await loadGoogleReviews(env));
+    const toCache = new Response(body, { headers: { ...headers, "Cache-Control": `public, max-age=${GOOGLE_REVIEWS_CACHE_SECONDS}` } });
+    if (ctx?.waitUntil) ctx.waitUntil(cache.put(cacheKey, toCache));
+    else await cache.put(cacheKey, toCache);
+    return new Response(body, { headers });
+  } catch (error) {
+    console.error("google-reviews", error?.message || error);
+    return new Response(JSON.stringify({ ok: false, message: "Reviews temporarily unavailable" }), { status: 502, headers: { ...headers, "Cache-Control": "no-store" } });
+  }
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
+
+    if (url.pathname === "/api/google-reviews") {
+      return handleGoogleReviews(request, env, ctx);
+    }
 
     if (request.method === "GET" && url.pathname.startsWith("/api/contact-upload/")) {
       if (!env.CONTACT_UPLOADS) {

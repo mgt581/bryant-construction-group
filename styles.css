@@ -2400,3 +2400,17 @@ textarea:focus-visible{
 /* Desktop 3-column hero: keep the headline readable in its narrower column (Nov 2026) */
 @media(min-width:1081px){:is(.home-page, .site-page) .home-hero-grid{grid-template-columns:1.3fr .68fr .9fr}:is(.home-page, .site-page) .home-hero h1{font-size:clamp(2.9rem,4.1vw,4.6rem);line-height:1.02;letter-spacing:-.035em}:is(.home-page, .site-page) .home-hero-copy{align-self:start;padding:clamp(40px,7vh,80px) 8px 12px 0}}
 @media(min-width:1081px) and (max-width:1260px){.site-header .header-cta .btn-ghost{display:none}}
+
+/* Live Google reviews (google-reviews.js) */
+.google-rating-summary{margin:0 0 22px}
+.google-rating-link{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;color:inherit;text-decoration:none;font-weight:700}
+.google-rating-link strong{font-size:1.6rem;font-family:Georgia,'Times New Roman',serif}
+.google-rating-stars{color:#c9a75c;letter-spacing:.08em}
+.google-rating-link:hover span:last-child{text-decoration:underline}
+.google-review-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.google-review-badge{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5f6b76;border:1px solid #ddd2c1;border-radius:999px;padding:3px 9px}
+.google-review .google-review-author,.google-review footer strong{color:#0B2A4A!important;font-weight:800}
+.google-reviews-page{margin:26px 0 12px}
+.google-reviews-note{margin:0 0 30px;font-size:.92rem;color:#5f6b76}
+.reviews-head .google-rating-summary{margin-top:20px}
+.reviews-section .google-reviews-note{color:#dbe2e8}.reviews-section .google-reviews-note a{color:#e3c66f}.reviews-section .google-rating-link{color:#fff}
