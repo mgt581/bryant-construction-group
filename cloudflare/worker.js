@@ -139,7 +139,8 @@ async function googlePlacesFetch(env, url, init = {}) {
     }
   });
   if (!response.ok) {
-    throw new Error(`places-${response.status}`);
+    const detail = await response.json().catch(() => null);
+    throw new Error(`places-${response.status}${detail?.error?.status ? "-" + detail.error.status : ""}`);
   }
   return response.json();
 }
@@ -209,7 +210,7 @@ async function handleGoogleReviews(request, env, ctx) {
     return new Response(body, { headers });
   } catch (error) {
     console.error("google-reviews", error?.message || error);
-    return new Response(JSON.stringify({ ok: false, message: "Reviews temporarily unavailable" }), { status: 502, headers: { ...headers, "Cache-Control": "no-store" } });
+    return new Response(JSON.stringify({ ok: false, message: "Reviews temporarily unavailable", code: clean(error?.message || "unknown", 80) }), { status: 502, headers: { ...headers, "Cache-Control": "no-store" } });
   }
 }
 
