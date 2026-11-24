@@ -2396,3 +2396,7 @@ textarea:focus-visible{
 .site-page .service-hero-shell{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr)}
 .site-page .service-hero-shell>*{min-width:0;max-width:100%;box-sizing:border-box}
 @media(max-width:1100px){.site-page .service-hero-shell{grid-template-columns:minmax(0,1fr)}}
+
+/* Desktop 3-column hero: keep the headline readable in its narrower column (Nov 2026) */
+@media(min-width:1081px){:is(.home-page, .site-page) .home-hero-grid{grid-template-columns:1.3fr .68fr .9fr}:is(.home-page, .site-page) .home-hero h1{font-size:clamp(2.9rem,4.1vw,4.6rem);line-height:1.02;letter-spacing:-.035em}:is(.home-page, .site-page) .home-hero-copy{align-self:start;padding:clamp(40px,7vh,80px) 8px 12px 0}}
+@media(min-width:1081px) and (max-width:1260px){.site-header .header-cta .btn-ghost{display:none}}
