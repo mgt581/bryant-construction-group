@@ -127,7 +127,7 @@ function attachmentUrl(requestUrl, key) {
 
 
 const GOOGLE_REVIEWS_CACHE_SECONDS = 12 * 60 * 60;
-const GOOGLE_PLACE_QUERY = "Bryant Construction Group Bournemouth";
+const GOOGLE_PLACE_QUERY = "Bryant Construction Group";
 
 async function googlePlacesFetch(env, url, init = {}) {
   const response = await fetch(url, {
@@ -151,7 +151,8 @@ async function findPlaceId(env) {
   const result = await googlePlacesFetch(env, "https://places.googleapis.com/v1/places:searchText", {
     method: "POST",
     headers: { "X-Goog-FieldMask": "places.id,places.displayName" },
-    body: JSON.stringify({ textQuery: GOOGLE_PLACE_QUERY, regionCode: "GB" })
+    // The listing is a service-area business (no public address), which Text Search skips by default.
+    body: JSON.stringify({ textQuery: GOOGLE_PLACE_QUERY, regionCode: "GB", includePureServiceAreaBusinesses: true })
   });
   const place = (result.places || []).find((item) => /bryant construction/i.test(item.displayName?.text || ""));
   if (!place) throw new Error("place-not-found");
